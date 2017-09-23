@@ -15,4 +15,15 @@ class TasksController
         require APP . 'view/tasks/index.php';
         require APP . 'view/_templates/footer.php';
     }
+
+    public function task($tid)
+    {
+      $Task = new Task();
+
+      $task = $Task->getTask($tid);
+
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/tasks/task.php';
+      require APP . 'view/_templates/footer.php';
+    }
 }
