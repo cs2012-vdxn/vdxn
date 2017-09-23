@@ -30,4 +30,16 @@ class Task extends Model
       $query->execute();
       return $query->fetch();
     }
+
+    public function getAllUserTasks($tkerid)
+    {
+      $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
+      task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
+      assignee_rating
+      FROM task WHERE tasker_id=$tkerid";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
 }
