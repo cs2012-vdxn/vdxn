@@ -1,7 +1,7 @@
 <?php
 namespace Mini\Controller;
 
-class MyTasksController
+class MytasksController
 {
     public function index()
     {
