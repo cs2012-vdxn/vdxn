@@ -23,6 +23,10 @@ class TasksController
       $task = $Task->getTask($tid);
       $bids = $Task->getBids($tid);
 
+      $user = 2;
+      $hasUserBid = $this->has_user_bid_on_task($tid, $user);
+      $isTaskOwner = $this->is_task_owner($task, $user);
+
       require APP . 'view/_templates/header.php';
       require APP . 'view/tasks/task.php';
       require APP . 'view/_templates/footer.php';
@@ -77,6 +81,26 @@ class TasksController
       require APP . 'view/_templates/footer.php';
     }
 
+    public function newbid($tid)
+    {
+      require APP . 'view/_templates/header.php';
+
+      $clean_bid_params = $_POST;
+
+      $bid = 10;
+      $Task = new Task();
+      if ($Task->createTaskBid($tid, $bid, $clean_bid_params))
+      {
+        require APP . 'view/tasks/bidcreated.php';
+      }
+      else
+      {
+        die("Bid creation error");
+      }
+
+      require APP . 'view/_templates/footer.php';
+    }
+
     private function validate_new_tasks($params)
     {
       return isset($params['title']) && isset($params['details']);
@@ -85,5 +109,24 @@ class TasksController
     private function can_delete_task($tid, $user)
     {
       return true;
+    }
+
+    private function has_user_bid_on_task($tid, $user)
+    {
+      $Task = new Task();
+      if ($Task->getUserBidForTask($tid, $user))
+      {
+        return true;
+      } else
+      {
+        return false;
+      }
+    }
+
+    private function is_task_owner($task, $user)
+    {
+      if (!$task || !$user) return false;
+      // TODO as $user is current assumed to be an integer
+      return ($task->{'tasker_id'}) == $user;
     }
 }

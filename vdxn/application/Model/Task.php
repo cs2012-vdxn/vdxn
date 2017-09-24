@@ -87,7 +87,11 @@ class Task extends Model
       return $query->execute();
     }
 
-    public function getBids($task_id)
+    /*
+      Bidding related functions
+    */
+
+    public function getBids($tid)
     {
       $sql = "SELECT
       `task_id`,
@@ -95,10 +99,43 @@ class Task extends Model
       `amount`,
       `created_at`,
       `updated_at`
-      FROM Bid WHERE `task_id`='$task_id'";
+      FROM Bid WHERE `task_id`='$tid'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
+    public function getUserBidForTask($tid, $uid)
+    {
+      $sql = "SELECT
+      `task_id`,
+      `bidder_id`,
+      `amount`,
+      `created_at`,
+      `updated_at`
+      FROM Bid WHERE `task_id`='$tid' AND `bidder_id`='$uid'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    public function createTaskBid($tid, $bid, $bid_params)
+    {
+      $sql = "INSERT INTO Bid (
+        `id`,
+        `task_id`,
+        `bidder_id`,
+        `amount`,
+        `created_at`,
+        `updated_at`)
+      VALUES (
+        '',
+        '$tid',
+        '".$bid."',
+        '".$bid_params['amount']."',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP)";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
 }

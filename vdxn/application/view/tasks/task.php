@@ -33,4 +33,23 @@
       }
       echo '</table>';
     ?>
+
+    <hr>
+
+    <?php
+      if($isTaskOwner)
+      {
+        echo '<h3>You have already bidded.</h3>';
+      } else if($hasUserBid)
+      {
+        echo '<h3>Bidding summary</h3>';
+      }else
+      {
+        echo '<form method="post" action="/tasks/newbid/'.$tid.'">';
+        echo '<label>Offer amount</label><br><input type="text" name="amount"><br>';
+        echo '<label>Details</label><br><textarea name="details"></textarea><br>';
+        echo '<input type="submit" value="Submit Bid">';
+        echo '</form>';
+      }
+    ?>
 </div>
