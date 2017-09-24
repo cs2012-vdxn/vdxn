@@ -12,4 +12,25 @@
 
     <h2>Others</h2>
     <p>Creator: <?php echo $task->{'tasker_id'}?></p>
+
+    <hr>
+
+    <?php
+      echo '<table>';
+      echo '<tr><th>Amount</th><th>Created at</th><th>Updated at</th></tr>';
+      foreach($bids as $bid) {
+        echo '<tr>';
+        echo '<td>';
+        echo $bid->{'amount'};
+        echo '</td>';
+        echo '<td>';
+        echo $bid->{'created_at'};
+        echo '</td>';
+        echo '<td>';
+        echo $bid->{'updated_at'};
+        echo '</td>';
+        echo '</tr>';
+      }
+      echo '</table>';
+    ?>
 </div>

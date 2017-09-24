@@ -79,4 +79,18 @@ class Task extends Model
       return $query->execute();
     }
 
+    public function getBids($task_id)
+    {
+      $sql = "SELECT
+      `task_id`,
+      `bidder_id`,
+      `amount`,
+      `created_at`,
+      `updated_at`
+      FROM Bid WHERE `task_id`='$task_id'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
 }

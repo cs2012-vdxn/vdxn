@@ -21,6 +21,7 @@ class TasksController
       $Task = new Task();
 
       $task = $Task->getTask($tid);
+      $bids = $Task->getBids($tid);
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/tasks/task.php';
