@@ -16,6 +16,7 @@
         }
         echo "<td><a href='/tasks/task/".$task->{'id'}."'>Link</a></td>";
         echo "<td><a href='/tasks/edittask/".$task->{'id'}."'>Edit</a></td>";
+        echo "<td><a href='/tasks/bids/".$task->{'id'}."'>Bidding Details</a></td>";
         echo '</tr>';
       }
       echo '</table>';
