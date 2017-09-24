@@ -35,7 +35,7 @@ class TasksController
     public function newtask()
     {
       require APP . 'view/_templates/header.php';
-      if($this->validate_new_tasks($_POST))
+      if($this->validate_task($_POST))
       {
         //TODO
         $clean_task_params = $_POST;
@@ -53,7 +53,22 @@ class TasksController
     public function edittask($tid)
     {
       require APP . 'view/_templates/header.php';
-      require APP . 'view/tasks/edit.php';
+      $Task = new Task();
+
+      if($this->validate_task($_POST))
+      {
+        //TODO
+        $clean_task_params = $_POST;
+        if($Task->editTask($tid, $clean_task_params)) {
+          require APP . 'view/tasks/taskedited.php';
+        } else {
+          die("ERROR TO CATCH");
+        }
+      } else
+      {
+        $task = $Task->getTask($tid);
+        require APP . 'view/tasks/edit.php';
+      }
       require APP . 'view/_templates/footer.php';
     }
 
@@ -113,7 +128,7 @@ class TasksController
       require APP . 'view/_templates/footer.php';
     }
 
-    private function validate_new_tasks($params)
+    private function validate_task($params)
     {
       return isset($params['title']) && isset($params['details']);
     }

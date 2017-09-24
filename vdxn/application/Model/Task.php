@@ -87,6 +87,19 @@ class Task extends Model
       return $query->execute();
     }
 
+    public function editTask($tid, $params)
+    {
+      // TODO: check if user is authenticated and allowed to edit task
+      $sql = "UPDATE `task` SET `title` = '".$params['title']."',
+        `details` = '".$params['details']."',
+        `task_timestamp` = '2017-09-25 00:00:00',
+        `min_bid` = '".$params['min_bid']."',
+        `max_bid` = '".$params['max_bid']."'
+        WHERE `task`.`id`=$tid";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
     /*
       Bidding related functions
     */
