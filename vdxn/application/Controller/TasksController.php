@@ -32,8 +32,11 @@ class TasksController
       require APP . 'view/_templates/header.php';
       if($this->validate_new_tasks($_POST))
       {
-        // TODO: Write new task here
-
+        //TODO
+        $clean_task_params = $_POST;
+        var_dump($_POST);
+        $Task = new Task();
+        $task = $Task->createTask($clean_task_params);
         require APP . 'view/tasks/taskcreated.php';
       } else
       {
@@ -51,7 +54,6 @@ class TasksController
 
     private function validate_new_tasks($params)
     {
-      var_dump($params);
-      return false;
+      return isset($params['title']) && isset($params['details']);
     }
 }

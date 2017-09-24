@@ -11,13 +11,13 @@ class Task extends Model
      */
     public function getAllTasks()
     {
-        $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
-        task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
-        assignee_rating
-        FROM task";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
+      $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
+      task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
+      assignee_rating
+      FROM task";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
     }
 
     public function getTask($tid)
@@ -40,6 +40,43 @@ class Task extends Model
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
+    }
+
+    public function createTask($task_params)
+    {
+      $sql = "INSERT INTO `mini`.`task`
+      (`id`,
+      `title`,
+      `details`,
+      `created_at`,
+      `updated_at`,
+      `expiry_timestamp`,
+      `task_timestamp`,
+      `min_bid`,
+      `max_bid`,
+      `tasker_id`,
+      `assignee_id`,
+      `deleted_at`,
+      `completed_at`,
+      `tasker_rating`,
+      `assignee_rating`)
+      VALUES (NULL,
+      '".$task_params['title']."',
+      '".$task_params['details']."',
+      '2017-09-24 03:09:10',
+      '2017-09-24 03:09:10',
+      '',
+      '2017-09-27 04:10:14',
+      '5',
+      '100',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '')";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
     }
 
 }
