@@ -53,8 +53,37 @@ class TasksController
       require APP . 'view/_templates/footer.php';
     }
 
+    public function deletetask($tid)
+    {
+      require APP . 'view/_templates/header.php';
+      $successful_delete = false;
+      if($this->can_delete_task($tid, null))
+      {
+        $Task = new Task();
+        if ($Task->deleteTask($tid))
+        {
+          $successful_delete = true;
+        }
+      }
+
+      if ($successful_delete)
+      {
+        require APP . 'view/tasks/taskdeleted.php';
+      }
+      else
+      {
+        require APP . 'view/tasks/tasknotdeleted.php';
+      }
+      require APP . 'view/_templates/footer.php';
+    }
+
     private function validate_new_tasks($params)
     {
       return isset($params['title']) && isset($params['details']);
+    }
+
+    private function can_delete_task($tid, $user)
+    {
+      return true;
     }
 }

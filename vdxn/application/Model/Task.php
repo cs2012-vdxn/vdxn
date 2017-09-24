@@ -79,6 +79,14 @@ class Task extends Model
       return $query->execute();
     }
 
+    public function deleteTask($tid)
+    {
+      // TODO: check if user is authenticated and allowed to delete task
+      $sql = "DELETE FROM task WHERE id='$tid'";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
     public function getBids($task_id)
     {
       $sql = "SELECT
