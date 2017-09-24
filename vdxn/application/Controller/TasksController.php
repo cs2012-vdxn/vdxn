@@ -30,7 +30,15 @@ class TasksController
     public function newtask()
     {
       require APP . 'view/_templates/header.php';
-      require APP . 'view/tasks/new.php';
+      if($this->validate_new_tasks($_POST))
+      {
+        // TODO: Write new task here
+
+        require APP . 'view/tasks/taskcreated.php';
+      } else
+      {
+        require APP . 'view/tasks/new.php';
+      }
       require APP . 'view/_templates/footer.php';
     }
 
@@ -39,5 +47,11 @@ class TasksController
       require APP . 'view/_templates/header.php';
       require APP . 'view/tasks/edit.php';
       require APP . 'view/_templates/footer.php';
+    }
+
+    private function validate_new_tasks($params)
+    {
+      var_dump($params);
+      return false;
     }
 }
