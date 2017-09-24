@@ -10,7 +10,6 @@ class MytasksController
         $Task = new Task();
         // TO REMOVE
         $_SESSION['user_id'] = 1;
-        // getting all songs and amount of songs
         $user_tasks = $Task->getAllUserTasks($_SESSION['user_id']);
         // load views
         require APP . 'view/_templates/header.php';
