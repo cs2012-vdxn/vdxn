@@ -36,7 +36,7 @@ class Task extends Model
       $sql = "SELECT id, title, description, created_at, updated_at,
       start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
       assignee_rating
-      FROM Task WHERE tasker_id=$tkerid";
+      FROM Task WHERE creator_id=$tkerid";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
