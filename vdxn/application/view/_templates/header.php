@@ -11,17 +11,19 @@
     <!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
 
     <!-- CSS -->
-    <link href="/public/css/style.css" rel="stylesheet">
-    <link href="/public/flat-ui-bootstrap-template/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/public/flat-ui-bootstrap-template/dist/css/flat-ui.min.css" rel="stylesheet">
+    <link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
+    <link href="<?php echo URL; ?>flat-ui-bootstrap-template/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo URL; ?>flat-ui-bootstrap-template/dist/css/flat-ui.css" rel="stylesheet">
 </head>
 <body>
+
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
         <span class="sr-only">Toggle navigation</span>
       </button>
       <a class="navbar-brand" href="#">VDXN</a>
+
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
       <ul class="nav navbar-nav">
@@ -41,7 +43,7 @@
           <a href="/settings">Settings</a>
         </li>
         <li>
-          <a href="/auth">Login</a>
+          <a href="/login">Login</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
