@@ -21,5 +21,5 @@
         <a href="<?php echo URL; ?>tasks">Tasks</a>
         <a href="<?php echo URL; ?>mytasks">MyTasks</a>
         <a href="<?php echo URL; ?>settings">Settings</a>
-        <a href="<?php echo URL; ?>auth">Login</a>
+        <a href="<?php echo URL; ?>login">Login</a>
     </div>
