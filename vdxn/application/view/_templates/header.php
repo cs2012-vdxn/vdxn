@@ -12,6 +12,7 @@
 
     <!-- CSS -->
     <link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
+    <link href="<?php echo URL; ?>flat-ui-bootstrap-template/css/flat-ui.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- navigation -->

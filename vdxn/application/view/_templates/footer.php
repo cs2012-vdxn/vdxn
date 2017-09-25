@@ -14,5 +14,7 @@
 
     <!-- our JavaScript -->
     <script src="<?php echo URL; ?>js/application.js"></script>
+    <script src="<?php echo URL; ?>flat-ui-bootstrap-template/js/vendor/jquery.min.js"></script>
+    <script src="<?php echo URL; ?>flat-ui-bootstrap-template/js/flat-ui.min.js"></script>
 </body>
 </html>
