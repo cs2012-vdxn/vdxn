@@ -89,8 +89,8 @@ CREATE TABLE Tag_task (
 	FOREIGN KEY (task_id) REFERENCES Task(id) ON DELETE CASCADE
 );
 
-INSERT INTO User VALUES (1, 'abc', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
-INSERT INTO User VALUES (2, 'ab', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
+INSERT INTO User(username, password_hash, created_at, updated_at, deleted_at, user_type) VALUES ('abc', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
+INSERT INTO User(username, password_hash, created_at, updated_at, deleted_at, user_type) VALUES ('ab', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
 
 INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_id, assignee_id, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
 ('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
