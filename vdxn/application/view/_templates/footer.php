@@ -14,7 +14,7 @@
 
     <!-- our JavaScript -->
     <script src="<?php echo URL; ?>js/application.js"></script>
-    <script src="/public/flat-ui-bootstrap-template/js/vendor/jquery.min.js"></script>
-    <script src="/public/flat-ui-bootstrap-template/js/flat-ui.min.js"></script>
+    <script src="/public/flat-ui-bootstrap-template/dist/js/vendor/jquery.min.js"></script>
+    <script src="/public/flat-ui-bootstrap-template/dist/js/flat-ui.min.js"></script>
 </body>
 </html>
