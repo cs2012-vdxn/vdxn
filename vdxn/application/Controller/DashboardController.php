@@ -10,6 +10,7 @@
  */
 
 namespace Mini\Controller;
+use Mini\Model\Login;
 
 class DashboardController
 {
@@ -31,7 +32,15 @@ class DashboardController
 
         // load views
         require APP . 'view/_templates/header.php';
-        require APP . 'view/dashboard/index.php';
+        if ($this->userIsAdmin()) {
+          require APP . 'view/dashboard/admindashboard.php';
+        } else {
+          require APP . 'view/dashboard/userdashboard.php';
+        }
         require APP . 'view/_templates/footer.php';
+    }
+
+    function userIsAdmin() {
+      return true;
     }
 }
