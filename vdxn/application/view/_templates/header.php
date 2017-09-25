@@ -11,8 +11,9 @@
     <!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
 
     <!-- CSS -->
-    <link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
-    <link href="<?php echo URL; ?>flat-ui-bootstrap-template/css/flat-ui.min.css" rel="stylesheet">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/flat-ui-bootstrap-template/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/flat-ui-bootstrap-template/css/flat-ui.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- navigation -->
