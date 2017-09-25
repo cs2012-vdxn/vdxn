@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- JS -->
-    <!-- please note: The JavaScript files are loaded in the footer to speed up page construction -->
-    <!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
-
     <!-- CSS -->
     <link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
     <link href="<?php echo URL; ?>flat-ui-bootstrap-template/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo URL; ?>flat-ui-bootstrap-template/dist/css/flat-ui.css" rel="stylesheet">
+
+    <!-- JS -->
+    <!-- We depend on jQuery for interactions with our app, so declare up top here -->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 
