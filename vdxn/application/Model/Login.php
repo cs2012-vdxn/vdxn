@@ -12,7 +12,7 @@ class Login extends Model
     foreach($userRecord as $row) {
       if(password_verify ($password, $row->password_hash)) {
         // TODO: save the details in session
-        echo("Login successfully!");
+        //  echo("Login successfully!");
         return true;
       }
     }
