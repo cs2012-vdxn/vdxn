@@ -1,10 +1,3 @@
-DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Task;
-DROP TABLE IF EXISTS Category;
-DROP TABLE IF EXISTS Tag;
-DROP TABLE IF EXISTS Tag_task;
-DROP TABLE IF EXISTS Category_task;
-DROP TABLE IF EXISTS Bid;
 CREATE TABLE User (
 	id INT AUTO_INCREMENT,
 	username varchar(100) NOT NULL UNIQUE,
@@ -88,10 +81,3 @@ CREATE TABLE Tag_task (
 	FOREIGN KEY (tag_name) REFERENCES Tag(name) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (task_id) REFERENCES Task(id) ON DELETE CASCADE
 );
-
-INSERT INTO User VALUES (1, 'abc', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
-INSERT INTO User VALUES (2, 'ab', 'abc', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
-
-INSERT INTO Task (id, title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_id, assignee_id, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
-(1, 'Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
-(2, 'Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0);
