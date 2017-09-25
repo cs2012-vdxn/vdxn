@@ -8,9 +8,8 @@
  * This is really weird behaviour, but documented here: http://php.net/manual/en/language.oop5.decon.php
  *
  */
-
 namespace Mini\Controller;
-
+use Mini\Model\Login;
 class LoginController
 {
     public function index()
@@ -19,5 +18,8 @@ class LoginController
         require APP . 'view/_templates/header.php';
         require APP . 'view/login/index.php';
         require APP . 'view/_templates/footer.php';
+        $Login = new Login();
+        $Login->authenticate('abc', 'abc');
     }
+
 }
