@@ -1,3 +1,8 @@
+
+/**
+ * CSS CLASSES FOR DASHBOARD COMPONENT
+ */
+
 /* For User Profile */
 .user-contact-information-table {
   margin-top: 10px;
@@ -9,8 +14,23 @@
   padding-right: 0px !important;
 }
 
+/* For Admin Tasks tab */
+.admin-search-bar {
+  margin: 20px 0px 20px 0px;
+}
 
-/* Unused CSS classes
+.admin-search-button {
+  cursor: pointer;
+  background-color: #1abc9c !important;
+  border: none !important;
+}
+
+
+
+/**
+ * UNUSED CSS CLASSES
+ */
+/*
 body {
     font-family: Arial, sans-serif;
     font-size: 14px;
