@@ -21,7 +21,7 @@ class LoginController
     }
     public function submitForm()
     {
-      if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["username"]) ) {
+      if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         $Login = new Login();
         if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
           header('location: ' . URL . 'tasks');
