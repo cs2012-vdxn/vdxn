@@ -24,9 +24,9 @@ class LoginController
       if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["username"]) ) {
         $Login = new Login();
         if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
-          // TODO: redirect to home
+          header('location: ' . URL . 'tasks');
         } else {
-          // TODO: return to login page again
+          header('location: ' . URL . 'login');
         }
       } else {
         echo "Please fill in both username and password";
