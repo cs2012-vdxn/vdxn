@@ -24,7 +24,7 @@ class LoginController
       if (!empty($_POST["username"]) && !empty($_POST["password"])) {
         $Login = new Login();
         if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
-          header('location: ' . URL . 'tasks');
+          //header('location: ' . URL . 'tasks');
         } else {
           header('location: ' . URL . 'login');
         }

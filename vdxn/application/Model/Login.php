@@ -6,12 +6,25 @@ use Mini\Core\Model;
 
 class Login extends Model
 {
+  private function saveUserData($data) {
+    foreach ($mapping as $key => $value) {
+      setcookie($key, $value, time() + (86400 * 30), "/");
+    }
+    if(count($_COOKIE) === 0) {
+      // Cookies are disabled.
+      // TODO: save to session
+    }
+  }
   public function authenticate($username, $password) {
     $userRecord = $this->getUser($username);
     if(empty($userRecord)) return;
     foreach($userRecord as $row) {
       if(password_verify ($password, $row->password_hash)) {
-        // TODO: save the details in session
+        // save the details in cookie
+        echo($row->id);
+        //unset($_COOKIE["userid"]);
+        // setcookie("userid", '',  time() - 1);
+        saveUserData({"userid" => ($row->id) });
         //  echo("Login successfully!");
         return true;
       }
