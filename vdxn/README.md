@@ -15,6 +15,12 @@ As we are currently creating new components and assembling them together, the
 schema is incomplete. A *TODO* will be to add the foreign key requirements and
 updates to the schema so that it concisely represents our requirements.
 
+## UI CSS Styling
+You can use some of these in-built HTML elements / CSS classes to style your
+components. Documentation located in the HTML files at  `/public/flat-ui-bootstrap-template/docs`.
+
+> Credits to [Flat-UI](https://designmodo.github.io/Flat-UI) - made by Designmodo.
+
 ## Workflow
 
 Work off your own branch, and merge to master as you see fit.
