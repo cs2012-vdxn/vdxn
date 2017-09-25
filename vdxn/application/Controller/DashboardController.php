@@ -15,6 +15,20 @@ class DashboardController
 {
     public function index()
     {
+        // For the profile tab
+        $name = 'Natasha';
+        $last_name = 'Koh';
+        $phone = "91390523";
+        $email = 'natasha_kss@hotmail.com';
+        $rating = 4.5;
+        $earnings_this_month = 202.90;
+
+        // For the task tab
+        $num_ongoing_tasks = 4;
+        $num_pending_tasks = 2;
+        $num_completed_tasks = 7;
+        $num_total_tasks = $num_ongoing_tasks + $num_pending_tasks + $num_completed_tasks;
+
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/dashboard/index.php';
