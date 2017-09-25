@@ -33,13 +33,14 @@ class DashboardController
         // load views
         require APP . 'view/_templates/header.php';
         if ($this->userIsAdmin()) {
-          require APP . 'view/dashboard/admindashboard.php';
+          require APP . 'view/dashboard/admin/dashboard.php';
         } else {
-          require APP . 'view/dashboard/userdashboard.php';
+          require APP . 'view/dashboard/user/dashboard.php';
         }
         require APP . 'view/_templates/footer.php';
     }
 
+    // [Natasha] TODO: Check whether this current user is an admin or not
     function userIsAdmin() {
       return true;
     }
