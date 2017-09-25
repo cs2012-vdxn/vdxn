@@ -18,7 +18,25 @@ class LoginController
         require APP . 'view/_templates/header.php';
         require APP . 'view/login/index.php';
         require APP . 'view/_templates/footer.php';
+    }
+    public function submitForm()
+    {
+      if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["username"]) ) {
         $Login = new Login();
+        if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
+          // TODO: redirect to home
+        } else {
+          // TODO: return to login page again
+        }
+      } else {
+        echo "Please fill in both username and password";
+      }
+    }
+    function sanitize($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
     }
 
 }
