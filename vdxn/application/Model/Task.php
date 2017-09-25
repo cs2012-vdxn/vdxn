@@ -11,21 +11,21 @@ class Task extends Model
      */
     public function getAllTasks()
     {
-      $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
-      task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
-      assignee_rating
-      FROM task";
-      $query = $this->db->prepare($sql);
-      $query->execute();
-      return $query->fetchAll();
+        $sql = "SELECT id, title, description, created_at, updated_at,
+        start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+        assignee_rating
+        FROM Task";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
     }
 
     public function getTask($tid)
     {
-      $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
-      task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
       assignee_rating
-      FROM task WHERE id=$tid";
+      FROM Task WHERE id=$tid";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();
@@ -33,10 +33,10 @@ class Task extends Model
 
     public function getAllUserTasks($tkerid)
     {
-      $sql = "SELECT id, title, details, created_at, updated_at, expiry_timestamp,
-      task_timestamp, min_bid, max_bid, tasker_id, assignee_id, tasker_rating,
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
       assignee_rating
-      FROM task WHERE tasker_id=$tkerid";
+      FROM Task WHERE tasker_id=$tkerid";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -44,25 +44,24 @@ class Task extends Model
 
     public function createTask($task_params)
     {
-      $sql = "INSERT INTO `mini`.`task`
+      $sql = "INSERT INTO `mini`.`Task`
       (`id`,
       `title`,
-      `details`,
+      `description`,
       `created_at`,
       `updated_at`,
-      `expiry_timestamp`,
-      `task_timestamp`,
+      `start_at`,
       `min_bid`,
       `max_bid`,
-      `tasker_id`,
+      `creator_id`,
       `assignee_id`,
       `deleted_at`,
       `completed_at`,
-      `tasker_rating`,
+      `creator_rating`,
       `assignee_rating`)
       VALUES (NULL,
       '".$task_params['title']."',
-      '".$task_params['details']."',
+      '".$task_params['description']."',
       '2017-09-24 03:09:10',
       '2017-09-24 03:09:10',
       '',
@@ -82,7 +81,7 @@ class Task extends Model
     public function deleteTask($tid)
     {
       // TODO: check if user is authenticated and allowed to delete task
-      $sql = "DELETE FROM task WHERE id='$tid'";
+      $sql = "DELETE FROM Task WHERE id='$tid'";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
@@ -90,12 +89,12 @@ class Task extends Model
     public function editTask($tid, $params)
     {
       // TODO: check if user is authenticated and allowed to edit task
-      $sql = "UPDATE `task` SET `title` = '".$params['title']."',
-        `details` = '".$params['details']."',
-        `task_timestamp` = '2017-09-25 00:00:00',
+      $sql = "UPDATE `Task` SET `title` = '".$params['title']."',
+        `description` = '".$params['description']."',
+        `start_at` = '2017-09-25 00:00:00',
         `min_bid` = '".$params['min_bid']."',
         `max_bid` = '".$params['max_bid']."'
-        WHERE `task`.`id`=$tid";
+        WHERE `Task`.`id`=$tid";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
