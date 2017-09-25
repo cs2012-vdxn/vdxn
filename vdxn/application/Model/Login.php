@@ -20,7 +20,7 @@ class Login extends Model
     return false;
   }
   function getUser($username) {
-    $sql = "SELECT id, username, password_hash FROM User WHERE username = 'abc'";
+    $sql = "SELECT id, username, password_hash FROM User WHERE username = '".$username . "'";
     $query = $this->db->prepare($sql);
     $query->execute();
     return $query->fetchAll();

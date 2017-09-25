@@ -30,6 +30,7 @@ class LoginController
         }
       } else {
         // TODO: echo "Please fill in both username and password";
+        header('location: ' . URL . 'login');
       }
     }
     function sanitize($data) {
