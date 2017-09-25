@@ -7,19 +7,20 @@ use Mini\Core\Model;
 class Login extends Model
 {
   public function authenticate($username, $password) {
-    $userRecord = getUser($username);
-    if ($userRecord->num_rows === 0) return;
-    echo ($userRecord['password_hash']);
-    if(hash_password(password) === $userRecord['password_hash']) {
-      // TODO: save the details in session
-      return true;
+    $userRecord = $this->getUser($username);
+    if(empty($userRecord)) return;
+    foreach($userRecord as $row) {
+      if(password_verify ($password, $row->password_hash)) {
+        // TODO: save the details in session
+        echo("Login successfully!");
+        return true;
+      }
     }
+    echo ("Login failed.");
     return false;
   }
   function getUser($username) {
-    $sql = "SELECT id, username, password_hash" +
-    "FROM User" +
-    "WHERE username=" + $username;
+    $sql = "SELECT id, username, password_hash FROM User WHERE username = 'abc'";
     $query = $this->db->prepare($sql);
     $query->execute();
     return $query->fetchAll();

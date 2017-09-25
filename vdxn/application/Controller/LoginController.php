@@ -19,7 +19,6 @@ class LoginController
         require APP . 'view/login/index.php';
         require APP . 'view/_templates/footer.php';
         $Login = new Login();
-        $Login->authenticate('abc', 'abc');
     }
 
 }
