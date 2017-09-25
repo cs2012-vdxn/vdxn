@@ -1,11 +1,14 @@
 
-    <div class="footer">
+    <!-- <div class="footer">
       <p>CS2102 VDXN</p>
-    </div>
+    </div> -->
 
     <!-- jQuery, loaded in the recommended protocol-less way -->
     <!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+
+    <!--Flat-UI's JavaScript-->
+    <script src="<?php echo URL; ?>flat-ui-bootstrap-template/dist/js/flat-ui.min.js"></script>
 
     <!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
     <script>
