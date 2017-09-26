@@ -44,7 +44,7 @@ class DashboardController
      * Handles an admin's search for specific tasks in the database.
      * Able to filter out tasks by creator name, doer name and title for now (TODO - advanced feature).
      *
-     * @return [type] [description]
+     * @return View Table of all tasks retrieved in search results
      */
     public function adminSubmitSearch() {
       $taskcreator = isset($_POST['taskCreator']) ? $_POST['taskCreator'] : null;
@@ -52,6 +52,23 @@ class DashboardController
       $tasktitle = isset($_POST['taskTitle']) ? $_POST['taskTitle'] : null;
 
       require APP . 'view/dashboard/admin/managedtasks.php';
+    }
+
+    /**
+     * Handles an admin's search for specific users in the database.
+     * Able to filter out users by name, email and phone number
+     *
+     * @return View Table of all users retrieved in search results
+     */
+    public function adminSubmitSearchUser() {
+      $username = isset($_POST['userName']) ? $_POST['userName'] : null;
+      $useremail = isset($_POST['userEmail']) ? $_POST['userEmail'] : null;
+      $userphone = isset($_POST['userPhone']) ? $_POST['userPhone'] : null;
+
+      // TODO: Some function to retrieve list of users here
+      $userrating = 4.3;
+
+      require APP . 'view/dashboard/admin/managedusers.php';
     }
 
     // [Natasha] TODO: Check whether this current user is an admin or not
