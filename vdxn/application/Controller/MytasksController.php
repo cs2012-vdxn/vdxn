@@ -7,6 +7,10 @@ class MytasksController
 {
     public function index()
     {
+        if(!isset($_SESSION['user'])) {
+            header('location: ' . URL . 'login');
+        }
+
         $Task = new Task();
         // TO REMOVE
         $_SESSION['user_id'] = 1;
