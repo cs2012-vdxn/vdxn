@@ -10,7 +10,7 @@
  */
 
 namespace Mini\Controller;
-
+session_start();
 class SettingsController
 {
     public function index()

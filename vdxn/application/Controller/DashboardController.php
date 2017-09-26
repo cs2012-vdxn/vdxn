@@ -10,6 +10,7 @@
  */
 
 namespace Mini\Controller;
+session_start();
 use Mini\Model\Login;
 
 class DashboardController

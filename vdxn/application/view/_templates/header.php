@@ -43,7 +43,20 @@
           <a href="/settings">Settings</a>
         </li>
         <li>
-          <a href="/login">Login</a>
+          <?php
+            if (isset($_SESSION['user'])) {
+              echo "<a href='/logout'>Logout</a>";
+            } else {
+              echo "<a href='/login'>Login</a>";
+            }
+          ?>
+        </li>
+        <li>
+          <?php
+            if (isset($_SESSION['user'])) {
+              echo "<a href='/profile'>Welcome, ".$_SESSION['user']->{'username'}."</a>";
+            }
+          ?>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
