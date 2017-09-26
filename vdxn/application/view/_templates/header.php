@@ -30,18 +30,20 @@
         <li class="active">
           <a href="/">Home</a>
         </li>
-        <li>
-          <a href="/dashboard">Dashboard</a>
-        </li>
+        <?php
+          if (isset($_SESSION['user'])) {
+            echo "<li><a href='/dashboard'>Dashboard</a></li>";
+          }
+        ?>
         <li>
           <a href="/tasks">Tasks</a>
         </li>
-        <li>
-          <a href="/mytasks">MyTasks</a>
-        </li>
-        <li>
-          <a href="/settings">Settings</a>
-        </li>
+        <?php
+            if (isset($_SESSION['user'])) {
+                echo "<li><a href='/mytasks'>MyTasks</a></li>";
+                echo "<li><a href='/settings'>Settings</a></li>";
+            }
+        ?>
         <li>
           <?php
             if (isset($_SESSION['user'])) {
