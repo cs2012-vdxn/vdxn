@@ -130,7 +130,7 @@ class TasksController
 
     private function validate_task($params)
     {
-      return isset($params['title']) && isset($params['details']);
+      return isset($params['title']) && isset($params['description']);
     }
 
     private function can_delete_task($tid, $user)
@@ -154,6 +154,6 @@ class TasksController
     {
       if (!$task || !$user) return false;
       // TODO as $user is current assumed to be an integer
-      return ($task->{'tasker_id'}) == $user;
+      return ($task->{'creator_id'}) == $user;
     }
 }

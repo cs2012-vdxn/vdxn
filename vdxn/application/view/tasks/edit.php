@@ -3,8 +3,6 @@
     <p>
       Here is where a task is editted
     </p>
-    <a href="/tasks/deletetask/<?php echo $tid;?>">Delete</a>
-    <?php var_dump($task); ?>
     <form method="post" action="">
       <label>Title</label>
       <br>
@@ -12,11 +10,11 @@
       <br>
       <label>Description</label>
       <br>
-      <textarea name="details"><?php echo $task->{'details'}?></textarea>
+      <textarea name="description"><?php echo $task->{'description'}?></textarea>
       <br>
       <label>Task Date</label>
       <br>
-      <input type="text" name="taskdate" value="<?php echo $task->{'task_timestamp'}?>">
+      <input type="text" name="start_at" value="<?php echo $task->{'start_at'}?>">
       <br>
       <label>Min bid</label>
       <br>
@@ -27,5 +25,6 @@
       <input type="text" name="max_bid" value="<?php echo $task->{'max_bid'}?>">
       <br>
       <input type="submit" value="Update Task">
+      <button href="/tasks/deletetask/<?php echo $tid;?>">Delete</button>
     </form>
 </div>
