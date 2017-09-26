@@ -15,6 +15,9 @@ class SettingsController
 {
     public function index()
     {
+        if(!isset($_SESSION['user'])) {
+            header('location: ' . URL . 'login');
+        }
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/settings/index.php';
