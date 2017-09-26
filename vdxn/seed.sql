@@ -9,6 +9,8 @@ CREATE TABLE User (
 	id INT AUTO_INCREMENT,
 	username varchar(100) NOT NULL UNIQUE,
 	password_hash varchar(1000) NOT NULL,
+	contact varchar(100),
+	email varchar(100),
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	deleted_at DATETIME,
@@ -94,9 +96,7 @@ INSERT INTO User(username, password_hash, created_at, updated_at, deleted_at, us
 
 INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_id, assignee_id, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
 ('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
-('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0);
-
-INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_id, assignee_id, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
+('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my hamster', 'I need my hamster fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my cow', 'I need my cow primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my cat', 'I need my cat fat', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
