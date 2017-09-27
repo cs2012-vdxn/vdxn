@@ -32,7 +32,7 @@
         </li>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/dashboard'>Dashboard</a></li>";
+            echo "<li><a href='/myprofile'>My Profile</a></li>";
           }
         ?>
         <li>
