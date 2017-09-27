@@ -20,7 +20,6 @@
         <td><?php echo $rating ?> / 5.0</td>
       </tr>
     </table>
-    <br/>
 
     <p><b>EARNINGS THIS MONTH: $<?php echo $earnings_this_month ?></b><br/><br/></p>
 
