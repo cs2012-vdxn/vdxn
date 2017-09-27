@@ -10,19 +10,24 @@
  */
 
 namespace Mini\Controller;
+session_start();
 use Mini\Model\Login;
 
 class DashboardController
 {
     public function index()
     {
+        if(!isset($_SESSION['user'])) {
+            header('location: ' . URL . 'login');
+        }
+
         // For the profile tab
-        $name = 'Natasha';
-        $last_name = 'Koh';
-        $phone = "91390523";
-        $email = 'natasha_kss@hotmail.com';
-        $rating = 4.5;
-        $earnings_this_month = 202.90;
+        $name = $_SESSION['user']->{'username'};
+        $last_name = '[last name]';
+        $phone = "[phone number]";
+        $email = '[email]';
+        $rating = "[rating]";
+        $earnings_this_month = "[amount]";
 
         // For the task tab
         $num_ongoing_tasks = 4;

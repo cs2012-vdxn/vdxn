@@ -2,6 +2,8 @@ CREATE TABLE User (
 	id INT AUTO_INCREMENT,
 	username varchar(100) NOT NULL UNIQUE,
 	password_hash varchar(1000) NOT NULL,
+	contact varchar(100),
+	email varchar(100),
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	deleted_at DATETIME,

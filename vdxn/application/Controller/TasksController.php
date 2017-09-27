@@ -1,6 +1,6 @@
 <?php
 namespace Mini\Controller;
-
+session_start();
 use Mini\Model\Task;
 
 class TasksController
