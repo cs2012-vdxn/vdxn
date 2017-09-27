@@ -39,10 +39,21 @@
           <a href="/tasks">Tasks</a>
         </li>
         <?php
-            if (isset($_SESSION['user'])) {
-                echo "<li><a href='/mytasks'>MyTasks</a></li>";
-                echo "<li><a href='/settings'>Settings</a></li>";
+          if (isset($_SESSION['user'])) {
+            echo "<li><a href='/mytasks'>MyTasks</a></li>";
+          }
+        ?>
+        <?php
+          if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->{'user_type'} == "Admin") {
+              echo "<li><a href='/adminstats'>System Stats</a></li>";
             }
+          }
+        ?>
+        <?php
+          if (isset($_SESSION['user'])) {
+            echo "<li><a href='/settings'>Settings</a></li>";
+          }
         ?>
         <li>
           <?php
