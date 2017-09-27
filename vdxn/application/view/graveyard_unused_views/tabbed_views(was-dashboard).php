@@ -3,7 +3,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
       </button>
-      <a class="navbar-brand" href="#">My Dashboard</a>
+      <a class="navbar-brand" href="#">Admin Dashboard</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
 
@@ -22,11 +22,14 @@
         >
             <a href="/dashboard?tab=Profile">Profile</a>
         </li>
+        <li <?php if (isset($_GET['tab']) && $_GET['tab'] == 'Stats') echo 'class="active"' ?>>
+            <a href="/dashboard?tab=Stats">System Stats</a>
+        </li>
+        <li <?php if (isset($_GET['tab']) && $_GET['tab'] == 'Users') echo 'class="active"' ?>>
+            <a href="/dashboard?tab=Users">Users</a>
+        </li>
         <li <?php if (isset($_GET['tab']) && $_GET['tab'] == 'Tasks') echo 'class="active"' ?>>
             <a href="/dashboard?tab=Tasks">Tasks</a>
-        </li>
-        <li <?php if (isset($_GET['tab']) && $_GET['tab'] == 'Stats') echo 'class="active"' ?>>
-            <a href="/dashboard?tab=Stats">Stats</a>
         </li>
       </ul><!-- / .nav .navbar-nav containing list of tabs -->
 
@@ -42,10 +45,12 @@
     if ($selected_tab !== null) {
       if ($selected_tab == 'Profile') {
         include 'profiletab.php';
-      } else if ($selected_tab == 'Tasks') {
-        include 'taskstab.php';
       } else if ($selected_tab == 'Stats') {
         include 'statstab.php';
+      } else if ($selected_tab == 'Users') {
+        include 'userstab.php';
+      } else if ($selected_tab == 'Tasks') {
+        include 'taskstab.php';
       } else {
         // By default
         include 'profiletab.php';

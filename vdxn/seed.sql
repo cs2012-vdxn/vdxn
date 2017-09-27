@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS Bid;
 DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS User;
+
 CREATE TABLE User (
 	id INT AUTO_INCREMENT,
 	username varchar(100) NOT NULL UNIQUE,
@@ -91,8 +92,8 @@ CREATE TABLE Tag_task (
 	FOREIGN KEY (task_id) REFERENCES Task(id) ON DELETE CASCADE
 );
 
-INSERT INTO User(username, password_hash, created_at, updated_at, deleted_at, user_type) VALUES ('abc', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
-INSERT INTO User(username, password_hash, created_at, updated_at, deleted_at, user_type) VALUES ('ab', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
+INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('abc', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '91230123', 'abc@hotmail.com', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
+INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('ab', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '81234567', 'ab@gmail.com', '2017-09-22 00:00:00', NULL, NULL, 'User');
 
 INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_id, assignee_id, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
 ('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 1, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),

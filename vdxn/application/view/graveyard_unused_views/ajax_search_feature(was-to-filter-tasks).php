@@ -1,19 +1,19 @@
 <section style="margin: 0 1.5em 0 1.5em;">
   <h5 class="page-header">
-    Manage All Tasks
+    Manage All Users
   </h5>
 
   <!-- SEARCH BAR -->
   <div class="input-group">
     <form class="form-group">
       <div class="col-xs-4 col-md-3 admin-search-bar">
-        <input id="search-task-creator" class="form-control admin-input" type="text" name="creatorname" placeholder="Creator name"/>
+        <input id="search-user-name" class="form-control admin-input" type="text" name="username" placeholder="Name"/>
       </div>
       <div class="col-xs-4 col-md-3 admin-search-bar">
-        <input id="search-task-doer" class="form-control admin-input" type="text" name="doername" placeholder="Doer name"/>
+        <input id="search-user-email" class="form-control admin-input" type="text" name="useremail" placeholder="Email"/>
       </div>
       <div class="col-xs-4 col-md-3 admin-search-bar">
-        <input id="search-task-title" class="form-control admin-input" type="text" name="tasktitle" placeholder="Title"/>
+        <input id="search-user-phone" class="form-control admin-input" type="text" name="userphone" placeholder="Phone no."/>
       </div>
       <div class="col-xs-4 col-md-3 admin-search-bar">
         <button id="admin-search-submit" class="btn btn-embossed btn-primary">
@@ -40,11 +40,11 @@
       $.ajax({
         type: "POST",
         data : {
-          taskCreator: $('#search-task-creator').val(),
-          taskDoer: $('#search-task-doer').val(),
-          taskTitle: $('#search-task-title').val()
+          userName: $('#search-user-name').val(),
+          userEmail: $('#search-user-email').val(),
+          userPhone: $('#search-user-phone').val()
         },
-        url: "dashboard/adminSubmitSearch",
+        url: "dashboard/adminSubmitSearchUser",
         success: function(data) {
           $('#admin-search-results').html(data);
         }

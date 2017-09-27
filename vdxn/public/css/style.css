@@ -1,29 +1,10 @@
-
 /**
- * CSS CLASSES FOR DASHBOARD COMPONENT
+ * OUR CUSTOM CSS CLASSES
+ *
+ * Sometimes, if you need to do some minor edits to an existing Flat-UI CSS or
+ * your own CSS classes, you could include them all here.
  */
 
-/* For User Profile */
-.user-contact-information-table {
-  margin-top: 10px;
-}
-
-.user-contact-information-table td {
-  border-top: 1px solid white !important; /* overwrites default table border */
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
-
-/* For Admin Tasks tab */
-.admin-search-bar {
-  margin: 20px 0px 20px 0px;
-}
-
-.admin-search-button {
-  cursor: pointer;
-  background-color: #1abc9c !important;
-  border: none !important;
-}
 
 
 
