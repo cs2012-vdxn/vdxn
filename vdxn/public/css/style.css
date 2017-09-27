@@ -4,7 +4,16 @@
  * Sometimes, if you need to do some minor edits to an existing Flat-UI CSS or
  * your own CSS classes, you could include them all here.
  */
+.user-contact-information-table {
+  margin-top: 10px;
+  margin-bottom: 1.5em !important;
+}
 
+.user-contact-information-table td {
+  border: 1px solid white !important; /* Overwrites default table border */
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
 
 
 
