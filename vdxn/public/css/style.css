@@ -15,7 +15,9 @@
   padding-right: 0px !important;
 }
 
-
+.tasks__tab {
+  padding: 20px;
+}
 
 /**
  * UNUSED CSS CLASSES
