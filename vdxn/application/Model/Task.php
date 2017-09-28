@@ -42,6 +42,42 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    public function getAllHistoryUserTasks($user_id)
+    {
+      // tasks created by this user and has been completed
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      assignee_rating
+      FROM Task WHERE creator_id=$user_id AND completed_at IS NOT NULL";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllCurrentBiddedTasks($user_id)
+    {
+      // tasks created by this user and has been completed
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      assignee_rating
+      FROM Task WHERE creator_id=$user_id AND assignee_id IS NULL";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllHistoryBiddedTasks($user_id)
+    {
+      // tasks created by this user and has been completed
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      assignee_rating
+      FROM Task WHERE creator_id=$user_id AND assignee_id IS NOT NULL";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
