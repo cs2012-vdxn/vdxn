@@ -14,7 +14,8 @@
         foreach($task as $item) {
           echo "<td>$item</td>";
         }
-        echo "<td><a href='/tasks/task/".$task->{'id'}."'>Link</a></td>";
+        // TODO: to re-implement the link to Task page
+        //echo "<td><a href='/tasks/task/".$task->{'id'}."'>Link</a></td>";
         echo '</tr>';
       }
       echo '</table>';
