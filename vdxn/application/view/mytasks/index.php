@@ -5,5 +5,13 @@
       <span class="tasks__tab tasks__tab--selected">Created by Me</span>
       <span class="tasks__tab">Bidded</span>
     </div>
-    <?php include ("created_tasks.php") ?>
+    <div id="tasks__tab-results"><?php include ("created_tasks.php") ?></div>
+    <?php
+      echo "<script type=\"text/javascript\">
+        $('.tasks__tab').click(function(e) {
+          $('.tasks__tab').removeClass('tasks__tab--selected');
+          $(this).addClass('tasks__tab--selected');
+        });
+      </script>";
+    ?>
 </div>
