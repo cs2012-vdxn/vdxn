@@ -31,24 +31,24 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function getAllUserTasks($tkerid)
+    public function getAllUserTasks($tkername)
     {
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      $sql = "SELECT title, description, created_at,
+      start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_id=$tkerid";
+      FROM Task WHERE creator_name=$tkername";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllHistoryUserTasks($user_id)
+    public function getAllHistoryUserTasks($tkername)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      $sql = "SELECT title, description, created_at,
+      start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_id=$user_id AND completed_at IS NOT NULL";
+      FROM Task WHERE creator_name=$tkername AND completed_at IS NOT NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
