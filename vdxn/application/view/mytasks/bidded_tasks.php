@@ -2,13 +2,11 @@
   echo '<table border="1">';
   echo '<th>Title</th>
         <th>Description</th>
-        <th>Created At</th>
-        <th>Last Updated At</th>
-        <th>Event Date</th>
-        <th>Min Bid</th>
-        <th>Max Bid</th>
+        <th>Start At</th>
+        <th>Min bid</th>
+        <th>Max bid</th>
+        <th>My Bid</th>
         <th>Created by</th>
-        <th>Assigned To</th>
         <th>Creator Rating</th>
         <th>Assignee Rating</th></tr>';
   foreach($user_tasks as $task) {
