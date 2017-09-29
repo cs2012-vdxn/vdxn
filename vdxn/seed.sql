@@ -50,31 +50,25 @@ CREATE TABLE Category (
 );
 
 CREATE TABLE Category_task (
-	category_name varchar(100) NOT NULL,
-	task_title varchar(100) NOT NULL,
-	task_creator_username varchar(100) NOT NULL,
+	category_name varchar(100) NOT NULL REFERENCES Category(name) ON DELETE CASCADE ON UPDATE CASCADE,
+	task_title varchar(100) NOT NULL REFERENCES Task(title) ON DELETE CASCADE,
+	task_creator_username varchar(100) NOT NULL REFERENCES Task(creator_username) ON DELETE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	deleted_at DATETIME,
-	PRIMARY KEY (category_name, task_title, task_creator_username),
-	FOREIGN KEY (category_name) REFERENCES Category(name) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (task_creator_username) REFERENCES Task(creator_username) ON DELETE CASCADE,
-	FOREIGN KEY (task_title) REFERENCES Task(title) ON DELETE CASCADE
+	PRIMARY KEY (category_name, task_title, task_creator_username)
 );
 
 CREATE TABLE Bid (
-	task_title varchar(100) NOT NULL,
-	task_creator_username varchar(100) NOT NULL,
-	bidder_username varchar(100) NOT NULL,
+	task_title varchar(100) NOT NULL REFERENCES Task(title) ON DELETE CASCADE,
+	task_creator_username varchar(100) NOT NULL REFERENCES Task(creator_username) ON DELETE CASCADE,
+	bidder_username varchar(100) NOT NULL REFERENCES User(username) ON DELETE CASCADE,
 	details varchar(200),
 	amount numeric NOT NULL,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	deleted_at DATETIME,
-	PRIMARY KEY (task_title, task_creator_username, bidder_username),
-	FOREIGN KEY (task_title) REFERENCES Task(title) ON DELETE CASCADE,
-	FOREIGN KEY (task_creator_username) REFERENCES Task(creator_username) ON DELETE CASCADE,
-	FOREIGN KEY (bidder_username) REFERENCES User(username) ON DELETE CASCADE
+	PRIMARY KEY (task_title, task_creator_username, bidder_username)
 );
 
 CREATE TABLE Tag (
@@ -86,23 +80,20 @@ CREATE TABLE Tag (
 );
 
 CREATE TABLE Tag_task (
-	tag_name varchar(100) NOT NULL,
-	task_creator_username varchar(100) NOT NULL,
-	task_title varchar(100) NOT NULL,
+	tag_name varchar(100) NOT NULL REFERENCES Tag(name) ON DELETE CASCADE ON UPDATE CASCADE,
+	task_creator_username varchar(100) NOT NULL REFERENCES Task(creator_username) ON DELETE CASCADE,
+	task_title varchar(100) NOT NULL REFERENCES Task(title) ON DELETE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	deleted_at DATETIME,
-	PRIMARY KEY (tag_name, task_title, task_creator_username),
-	FOREIGN KEY (tag_name) REFERENCES Tag(name) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (task_creator_username) REFERENCES Task(creator_username) ON DELETE CASCADE,
-	FOREIGN KEY (task_title) REFERENCES Task(title) ON DELETE CASCADE
+	PRIMARY KEY (tag_name, task_title, task_creator_username)
 );
 
 
 INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('abc', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '91230123', 'abc@hotmail.com', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
 INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('ab', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '81234567', 'ab@gmail.com', '2017-09-22 00:00:00', NULL, NULL, 'User');
 
-INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_name, assignee_name, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
+INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_username, assignee_username, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
 ('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my hamster', 'I need my hamster fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
