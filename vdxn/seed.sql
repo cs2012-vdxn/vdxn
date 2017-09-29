@@ -93,9 +93,12 @@ CREATE TABLE Tag_task (
 INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('abc', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '91230123', 'abc@hotmail.com', '2017-09-22 00:00:00', NULL, NULL, 'Admin');
 INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('ab', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '81234567', 'ab@gmail.com', '2017-09-22 00:00:00', NULL, NULL, 'User');
 
+INSERT INTO `mini`.`Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('Buy my air ticket', 'ab', 'abc', NULL, '10', '2017-09-04 00:00:00', NULL, NULL);
+INSERT INTO `mini`.`Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('Feed my donkey', 'ab', 'abc', NULL, '10', '2017-09-04 00:00:00', NULL, NULL);
+
 INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_username, assignee_username, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
 ('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
-('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
+('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my hamster', 'I need my hamster fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my cow', 'I need my cow primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my cat', 'I need my cat fat', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),

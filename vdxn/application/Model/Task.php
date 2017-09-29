@@ -9,16 +9,28 @@ class Task extends Model
     /**
      * Get all tasks from database
      */
-    public function getAllTasks()
+     public function getAllTasks()
+     {
+         $sql = "SELECT title, description, created_at, updated_at,
+         start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
+         assignee_rating
+         FROM Task";
+         $query = $this->db->prepare($sql);
+         $query->execute();
+         return $query->fetchAll();
+     }
+
+    public function getTask($tid)
     {
-        $sql = "SELECT title, description, created_at, updated_at,
-        start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
-        assignee_rating
-        FROM Task";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
+      $sql = "SELECT id, title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      assignee_rating
+      FROM Task WHERE id=$tid";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
     }
+
 
     public function getAllUserTasks($tkername)
     {
@@ -83,7 +95,7 @@ class Task extends Model
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
-      (
+      (`id`,
       `title`,
       `description`,
       `created_at`,
@@ -91,8 +103,8 @@ class Task extends Model
       `start_at`,
       `min_bid`,
       `max_bid`,
-      `creator_username`,
-      `assignee_username`,
+      `creator_id`,
+      `assignee_id`,
       `deleted_at`,
       `completed_at`,
       `creator_rating`,
@@ -172,6 +184,7 @@ class Task extends Model
     public function createTaskBid($tid, $bid, $bid_params)
     {
       $sql = "INSERT INTO Bid (
+        `id`,
         `task_id`,
         `bidder_id`,
         `amount`,
