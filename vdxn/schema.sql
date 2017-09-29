@@ -22,7 +22,7 @@ CREATE TABLE Task (
 	min_bid numeric,
 	max_bid numeric,
 	creator_username varchar(100) NOT NULL,
-	assignee_username varchar(100) NOT NULL,
+	assignee_username varchar(100),
 	deleted_at DATETIME,
 	creator_rating numeric,
 	assignee_rating numeric,
