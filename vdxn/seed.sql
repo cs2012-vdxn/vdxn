@@ -30,7 +30,7 @@ CREATE TABLE Task (
 	min_bid numeric,
 	max_bid numeric,
 	creator_username varchar(100) NOT NULL,
-	assignee_username varchar(100) NOT NULL,
+	assignee_username varchar(100),
 	deleted_at DATETIME,
 	creator_rating numeric,
 	assignee_rating numeric,
@@ -94,7 +94,7 @@ INSERT INTO User(username, password_hash, contact, email, created_at, updated_at
 INSERT INTO User(username, password_hash, contact, email, created_at, updated_at, deleted_at, user_type) VALUES ('ab', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '81234567', 'ab@gmail.com', '2017-09-22 00:00:00', NULL, NULL, 'User');
 
 INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid, max_bid, creator_username, assignee_username, deleted_at, completed_at, creator_rating, assignee_rating) VALUES
-('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
+('Feed my dog', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my hamster', 'I need my hamster fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my cow', 'I need my cow primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
