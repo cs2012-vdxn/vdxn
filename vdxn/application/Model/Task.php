@@ -9,16 +9,16 @@ class Task extends Model
     /**
      * Get all tasks from database
      */
-    public function getAllTasks()
-    {
-        $sql = "SELECT id, title, description, created_at, updated_at,
-        start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
-        assignee_rating
-        FROM Task";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
-    }
+     public function getAllTasks()
+     {
+         $sql = "SELECT title, description, created_at, updated_at,
+         start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
+         assignee_rating
+         FROM Task";
+         $query = $this->db->prepare($sql);
+         $query->execute();
+         return $query->fetchAll();
+     }
 
     public function getTask($tid)
     {
@@ -31,12 +31,62 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function getAllUserTasks($tkerid)
+
+    public function getAllUserTasks($tkername)
     {
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      $sql = "SELECT title, description, created_at,
+      start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_id=$tkerid";
+      FROM Task WHERE creator_username='$tkername' AND completed_at IS NULL";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllHistoryUserTasks($tkername)
+    {
+      // tasks created by this user and has been completed
+      $sql = "SELECT title, description, created_at,
+      start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
+      assignee_rating
+      FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllCurrentBiddedTasks($bdername)
+    {
+      // tasks this user has bidded for
+      $sql = "SELECT title, description,
+      start_at, min_bid, max_bid, Bid.amount /* my current bid */,
+      creator_username, creator_rating,
+      assignee_rating
+      FROM Task
+      INNER JOIN Bid ON creator_username=task_creator_username AND Task.title = task_title
+      INNER JOIN User ON username=bidder_username
+      WHERE bidder_username='$bdername' AND assignee_username IS NULL";
+      // TODO: find the current smallest bid
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllHistoryBiddedTasks($bdername)
+    {
+      // tasks this user has bidded for and has had an assignee chosen
+      $sql = "SELECT title, description,
+      start_at, myBid, winningBid.amount, creator_username,
+      assignee_username
+      FROM
+      (SELECT title, description,
+      start_at, myBid.amount as myBid, creator_username,
+      assignee_username FROM Task
+      INNER JOIN Bid myBid ON Task.creator_username=task_creator_username AND Task.title = myBid.task_title
+      INNER JOIN User ON username=bidder_username
+      WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL) t
+      INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND t.title = winningBid.task_title
+      INNER JOIN User winner ON winner.username = t.assignee_username";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();

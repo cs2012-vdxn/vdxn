@@ -17,7 +17,7 @@ class Login extends Model
     }
   }
   function getUser($username, $password) {
-    $sql = "SELECT id, username, password_hash, contact, email, user_type FROM User WHERE
+    $sql = "SELECT username, password_hash, contact, email, user_type FROM User WHERE
       `username`='$username'";
     $query = $this->db->prepare($sql);
     $query->execute();
