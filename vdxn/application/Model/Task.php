@@ -11,8 +11,8 @@ class Task extends Model
      */
     public function getAllTasks()
     {
-        $sql = "SELECT id, title, description, created_at, updated_at,
-        start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+        $sql = "SELECT title, description, created_at, updated_at,
+        start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
         assignee_rating
         FROM Task";
         $query = $this->db->prepare($sql);
@@ -20,23 +20,13 @@ class Task extends Model
         return $query->fetchAll();
     }
 
-    public function getTask($tid)
-    {
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
-      assignee_rating
-      FROM Task WHERE id=$tid";
-      $query = $this->db->prepare($sql);
-      $query->execute();
-      return $query->fetch();
-    }
 
     public function getAllUserTasks($tkername)
     {
       $sql = "SELECT title, description, created_at,
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_name=$tkername";
+      FROM Task WHERE creator_username='$tkername'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -57,10 +47,10 @@ class Task extends Model
     public function getAllCurrentBiddedTasks($user_id)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      $sql = "SELECT title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_id=$user_id AND assignee_id IS NULL";
+      FROM Task WHERE creator_username=$user_id AND assignee_username IS NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -69,10 +59,10 @@ class Task extends Model
     public function getAllHistoryBiddedTasks($user_id)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
+      $sql = "SELECT title, description, created_at, updated_at,
+      start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_id=$user_id AND assignee_id IS NOT NULL";
+      FROM Task WHERE creator_username=$user_id AND assignee_username IS NOT NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -81,7 +71,7 @@ class Task extends Model
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
-      (`id`,
+      (
       `title`,
       `description`,
       `created_at`,
@@ -89,8 +79,8 @@ class Task extends Model
       `start_at`,
       `min_bid`,
       `max_bid`,
-      `creator_id`,
-      `assignee_id`,
+      `creator_username`,
+      `assignee_username`,
       `deleted_at`,
       `completed_at`,
       `creator_rating`,
@@ -170,7 +160,6 @@ class Task extends Model
     public function createTaskBid($tid, $bid, $bid_params)
     {
       $sql = "INSERT INTO Bid (
-        `id`,
         `task_id`,
         `bidder_id`,
         `amount`,
