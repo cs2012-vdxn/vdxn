@@ -46,13 +46,15 @@ class Task extends Model
     public function getAllCurrentBiddedTasks($bdername)
     {
       // tasks this user has bidded for
-      $sql = "SELECT title, description, Task.created_at, Task.updated_at,
-      start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
+      $sql = "SELECT title, description,
+      start_at, min_bid, max_bid, Bid.amount /* my current bid */,
+      creator_username, creator_rating,
       assignee_rating
       FROM Task
       INNER JOIN Bid ON creator_username=task_creator_username AND Task.title = task_title
       INNER JOIN User ON username=bidder_username
       WHERE bidder_username='$bdername' AND assignee_username IS NULL";
+      // TODO: find the current smallest bid
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -60,14 +62,19 @@ class Task extends Model
 
     public function getAllHistoryBiddedTasks($bdername)
     {
-      // tasks created by this user and has been completed
-      $sql = "SELECT title, description, Task.created_at, Task.updated_at,
-      start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
-      assignee_rating
-      FROM Task
-      INNER JOIN Bid ON creator_username=task_creator_username AND title = task_title
+      // tasks this user has bidded for and has had an assignee chosen
+      $sql = "SELECT title, description,
+      start_at, myBid, winningBid.amount, creator_username,
+      assignee_username
+      FROM
+      (SELECT title, description,
+      start_at, myBid.amount as myBid, creator_username,
+      assignee_username FROM Task
+      INNER JOIN Bid myBid ON Task.creator_username=task_creator_username AND Task.title = myBid.task_title
       INNER JOIN User ON username=bidder_username
-      WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL";
+      WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL) t
+      INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND t.title = winningBid.task_title
+      INNER JOIN User winner ON winner.username = t.assignee_username";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
