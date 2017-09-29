@@ -9,7 +9,7 @@
         <th>Assigned To</th>
         <th>Creator Rating</th>
         <th>Assignee Rating</th></tr>';
-  foreach($completed_tasks as $task) {
+  foreach($history_tasks as $task) {
     echo '<tr>';
     foreach($task as $item) {
       echo "<td>$item</td>";

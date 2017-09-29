@@ -20,7 +20,6 @@ class Task extends Model
         return $query->fetchAll();
     }
 
-
     public function getAllUserTasks($tkername)
     {
       $sql = "SELECT title, description, created_at,
@@ -46,7 +45,7 @@ class Task extends Model
 
     public function getAllCurrentBiddedTasks($bdername)
     {
-      // tasks created by this user and has been completed
+      // tasks this user has bidded for
       $sql = "SELECT title, description, Task.created_at, Task.updated_at,
       start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
       assignee_rating
