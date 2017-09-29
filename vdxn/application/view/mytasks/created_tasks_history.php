@@ -1,8 +1,7 @@
 <!-- Tasks which have been completed -->
 <?php
   echo '<table border="1">';
-  echo '<tr><th>#</th>
-        <th>Title</th>
+  echo '<th>Title</th>
         <th>Description</th>
         <th>Created At</th>
         <th>Event Date</th>
@@ -15,10 +14,10 @@
     foreach($task as $item) {
       echo "<td>$item</td>";
     }
-    echo "<td><a href='/tasks/task/".$task->{'id'}."'>Link</a></td>";
-    echo "<td><a href='/tasks/edittask/".$task->{'id'}."'>Edit</a></td>";
-    echo "<td><a href='/tasks/bids/".$task->{'id'}."'>Bidding Details</a></td>";
-    echo '</tr>';
+    //echo "<td><a href='/tasks/task/".$task->{'id'}."'>Link</a></td>";
+    //echo "<td><a href='/tasks/edittask/".$task->{'id'}."'>Edit</a></td>";
+    //echo "<td><a href='/tasks/bids/".$task->{'id'}."'>Bidding Details</a></td>";
+    //echo '</tr>';
   }
   echo '</table>';
 ?>

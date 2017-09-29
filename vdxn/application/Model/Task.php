@@ -26,7 +26,7 @@ class Task extends Model
       $sql = "SELECT title, description, created_at,
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_username='$tkername'";
+      FROM Task WHERE creator_username='$tkername' AND completed_at IS NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -38,7 +38,7 @@ class Task extends Model
       $sql = "SELECT title, description, created_at,
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_name=$tkername AND completed_at IS NOT NULL";
+      FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();

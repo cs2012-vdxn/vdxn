@@ -9,6 +9,7 @@ class MytasksController
     {
         $Task = new Task();
         $user_tasks = $Task->getAllUserTasks('abc');
+        $completed_tasks = $Task->getAllHistoryUserTasks('abc');
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/mytasks/index.php';

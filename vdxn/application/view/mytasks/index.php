@@ -5,7 +5,10 @@
       <span class="tasks__tab tasks__tab--selected">Created by Me</span>
       <span class="tasks__tab">Bidded</span>
     </div>
-    <div id="tasks__tab-results"><?php include ("created_tasks.php") ?></div>
+    <div id="tasks__tab-results"><?php include ("created_tasks.php") ?>
+      <div class="tasks__tab">History</div>
+      <?php include ("created_tasks_history.php") ?>
+    </div>
     <?php
       echo "<script type=\"text/javascript\">
         $('.tasks__tab').click(function(e) {
