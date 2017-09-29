@@ -44,25 +44,31 @@ class Task extends Model
       return $query->fetchAll();
     }
 
-    public function getAllCurrentBiddedTasks($user_id)
+    public function getAllCurrentBiddedTasks($bdername)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT title, description, created_at, updated_at,
+      $sql = "SELECT title, description, Task.created_at, Task.updated_at,
       start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_username=$user_id AND assignee_username IS NULL";
+      FROM Task
+      INNER JOIN Bid ON creator_username=task_creator_username AND Task.title = task_title
+      INNER JOIN User ON username=bidder_username
+      WHERE bidder_username='$bdername' AND assignee_username IS NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllHistoryBiddedTasks($user_id)
+    public function getAllHistoryBiddedTasks($bdername)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT title, description, created_at, updated_at,
+      $sql = "SELECT title, description, Task.created_at, Task.updated_at,
       start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
       assignee_rating
-      FROM Task WHERE creator_username=$user_id AND assignee_username IS NOT NULL";
+      FROM Task
+      INNER JOIN Bid ON creator_username=task_creator_username AND title = task_title
+      INNER JOIN User ON username=bidder_username
+      WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();

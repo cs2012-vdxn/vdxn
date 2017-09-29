@@ -8,8 +8,11 @@ class MytasksController
     public function index()
     {
         $Task = new Task();
-        $user_tasks = $Task->getAllUserTasks('abc');
-        $completed_tasks = $Task->getAllHistoryUserTasks('abc');
+        $username = $_SESSION['user']->username;
+        $user_tasks = $Task->getAllUserTasks($username);
+        $completed_tasks = $Task->getAllHistoryUserTasks($username);
+        $bidded_tasks = $Task->getAllCurrentBiddedTasks($username);
+        $history_bidded_tasks = $Task->getAllHistoryBiddedTasks($username);
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/mytasks/index.php';
