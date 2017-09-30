@@ -1,1 +1,6 @@
 .vagrant
+modules.xml
+vcs.xml
+vdxn.iml
+.idea
+package-lock.json
