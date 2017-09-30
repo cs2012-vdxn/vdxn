@@ -11,10 +11,10 @@ class Task extends Model
      */
      public function getAllTasks()
      {
-         $sql = "SELECT title, description, created_at, updated_at,
+         $sql = 'SELECT title, description, created_at, updated_at,
          start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
          assignee_rating
-         FROM Task";
+         FROM Task';
          $query = $this->db->prepare($sql);
          $query->execute();
          return $query->fetchAll();
@@ -22,10 +22,10 @@ class Task extends Model
 
     public function getTask($tid)
     {
-      $sql = "SELECT id, title, description, created_at, updated_at,
+      $sql = 'SELECT id, title, description, created_at, updated_at,
       start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
       assignee_rating
-      FROM Task WHERE id=$tid";
+      FROM Task WHERE id=$tid';
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();
