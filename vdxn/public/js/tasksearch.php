@@ -12,9 +12,9 @@ if ($test_db->connect_errno) {
     exit();
 }
 
-$html = '<tr><th>Title</th><th>Description</th><th>Create time</th>
-                            <th>Updated time</th><th>Expiry</th><th>Event Date</th>
-                            <th>Min Bid</th><th>Max Bid</th><th>Tasker</th>
+$html = '<tr><td>Title</td><td>Description</td><td>Create time</td>
+                            <td>Updated time</td><td>Expiry</td><td>Event Date</td>
+                            <td>Min Bid</td><td>Max Bid</td><td>Tasker</td>
                         </tr>';
 
 // Get the Search
@@ -45,7 +45,7 @@ if (strlen($search_string) >= 1 && $search_string !== ' ') {
             $d_eventDate = $result['start_at'];
             $d_minBid = $result['min_bid'];
             $d_maxBid = $result['max_bid'];
-            $d_tasker = $result['creater_username'];
+            $d_tasker = $result['assignee_username'];
             // Replace the items into above HTML
             $o = str_replace('Title', $d_title, $html);
             $o = str_replace('Description', $d_description, $o);
@@ -55,14 +55,14 @@ if (strlen($search_string) >= 1 && $search_string !== ' ') {
             $o = str_replace('Event Date', $d_eventDate, $o);
             $o = str_replace('Min Bid', $d_minBid, $o);
             $o = str_replace('Max Bid', $d_maxBid, $o);
-            $o = str_replace('tasker', $d_tasker, $o);
+            $o = str_replace('Tasker', $d_tasker, $o);
             // Output it
             echo($o);
 
         }
     } else {
             // Replace for no results
-            $o = str_replace('Title', '<span class="label label-danger">No Names Found</span>', $html);
+            $o = str_replace('Title', '<span class="label label-danger">No Tasks Found</span>', $html);
             $o = str_replace('Description', '', $o);
             $o = str_replace('Create time', '', $o);
             $o = str_replace('Updated time', '', $o);
@@ -70,7 +70,7 @@ if (strlen($search_string) >= 1 && $search_string !== ' ') {
             $o = str_replace('Event Date', '', $o);
             $o = str_replace('Min Bid', '', $o);
             $o = str_replace('Max Bid', '', $o);
-            $o = str_replace('tasker', '', $o);
+            $o = str_replace('Tasker', '', $o);
             // Output
             echo($o);
         }
@@ -88,7 +88,7 @@ else {
 // Check for results
     foreach ($result_array as $result) {
         // Output strings and highlight the matches
-        $d_title = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result['title']);
+        $d_title =  $result['title'];
         $d_description = $result['description'];
         $d_createTime = $result['created_at'];
         $d_updateTime = $result['updated_at'];
@@ -96,7 +96,7 @@ else {
         $d_eventDate = $result['start_at'];
         $d_minBid = $result['min_bid'];
         $d_maxBid = $result['max_bid'];
-        $d_tasker = $result['creater_username'];
+        $d_tasker = $result['assignee_username'];
         // Replace the items into above HTML
         $o = str_replace('Title', $d_title, $html);
         $o = str_replace('Description', $d_description, $o);
@@ -106,7 +106,7 @@ else {
         $o = str_replace('Event Date', $d_eventDate, $o);
         $o = str_replace('Min Bid', $d_minBid, $o);
         $o = str_replace('Max Bid', $d_maxBid, $o);
-        $o = str_replace('tasker', $d_tasker, $o);
+        $o = str_replace('Tasker', $d_tasker, $o);
         // Output it
         echo($o);
     }
