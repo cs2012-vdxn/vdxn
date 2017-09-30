@@ -6,17 +6,16 @@
     </p>
     <div class="row">
         <div class="col-xm">
-            <p>Type a name to begin searching</p>
+            <p>Type a title to begin searching</p>
             <form class="form-horizontal" name="search" role="form" method="POST">
                 <div class="input-group col-xm">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Search by name..."
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Search by title..."
                            autocomplete="off"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default btnSearch">
                             <span class="glyphicon glyphicon-search"> </span>
                         </button>
                     </span>
-                    <!--p>Suggestions: <span id="txtHint"></span></p-->
                 </div>
             </form>
         </div>
@@ -54,11 +53,10 @@
 
         function search() {
             var query_value = $('input#name').val();
-            console.log(query_value);
 
                 $.ajax({
                     type: "POST",
-                    url: "//192.168.33.66/js/tasksearch.php",
+                    url: 'http://192.168.33.66/tasksearch.php',
                     data: { query: query_value },
                     cache: false,
                     success: function(html){
