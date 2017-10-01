@@ -56,7 +56,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: 'http://192.168.33.66/tasksearch.php',
+                    url: 'tasks/searchByTitle',
                     data: { query: query_value },
                     cache: false,
                     success: function(html){
@@ -81,4 +81,3 @@
 
     });
 </script>
-

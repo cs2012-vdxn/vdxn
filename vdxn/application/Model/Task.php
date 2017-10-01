@@ -92,6 +92,14 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    public function findAllTasksContaining($search_string)
+    {
+      $sql = 'SELECT * FROM Task WHERE title LIKE "%' . $search_string . '%"';
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
