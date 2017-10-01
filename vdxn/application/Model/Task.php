@@ -11,21 +11,15 @@ class Task extends Model
      */
      public function getAllTasks()
      {
-         $sql = 'SELECT title, description, created_at, updated_at,
-         start_at, min_bid, max_bid, creator_username, assignee_username, creator_rating,
-         assignee_rating
-         FROM Task';
+         $sql = 'SELECT * FROM Task';
          $query = $this->db->prepare($sql);
          $query->execute();
          return $query->fetchAll();
      }
 
-    public function getTask($tid)
+    public function getTask($title, $creator_username)
     {
-      $sql = 'SELECT id, title, description, created_at, updated_at,
-      start_at, min_bid, max_bid, creator_id, assignee_id, creator_rating,
-      assignee_rating
-      FROM Task WHERE id=$tid';
+      $sql = "SELECT * FROM Task WHERE title='$title' AND creator_username='$creator_username'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();
@@ -161,29 +155,39 @@ class Task extends Model
       Bidding related functions
     */
 
-    public function getBids($tid)
+    public function getBids($task_title, $task_creator_username)
     {
       $sql = "SELECT
-      `task_id`,
-      `bidder_id`,
+      `task_title`,
+      `task_creator_username`,
+      `bidder_username`,
       `amount`,
+      `details`,
       `created_at`,
-      `updated_at`
-      FROM Bid WHERE `task_id`='$tid'";
+      `updated_at`,
+      `deleted_at`
+      FROM Bid
+      WHERE task_title='$task_title'
+      AND task_creator_username='$task_creator_username'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getUserBidForTask($tid, $uid)
+    public function getUserBidForTask($task_title, $bidder_username)
     {
       $sql = "SELECT
-      `task_id`,
-      `bidder_id`,
+      `task_title`,
+      `task_creator_username`,
+      `bidder_username`,
       `amount`,
+      `details`,
       `created_at`,
-      `updated_at`
-      FROM Bid WHERE `task_id`='$tid' AND `bidder_id`='$uid'";
+      `updated_at`,
+      `deleted_at`
+      FROM Bid
+      WHERE task_title='$task_title'
+      AND bidder_username='$bidder_username'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();
