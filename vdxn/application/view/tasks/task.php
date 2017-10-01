@@ -9,7 +9,7 @@
     <p>Maximum: <?php echo $task->{'max_bid'};?></p>
 
     <h2>Others</h2>
-    <p>Creator: <?php echo $task->{'creator_id'}?></p>
+    <p>Creator: <?php echo $task->{'creator_username'}?></p>
 
     <hr>
 
@@ -41,7 +41,7 @@
       } else if($hasUserBid)
       {
         echo '<h3>Bidding summary</h3>';
-      }else
+      } else
       {
         echo '<form method="post" action="/tasks/newbid/'.$tid.'">';
         echo '<label>Offer amount</label><br><input type="text" name="amount"><br>';
