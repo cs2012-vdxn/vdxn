@@ -15,18 +15,19 @@
 
     <?php
       echo '<table>';
-      echo '<tr><th>Amount</th><th>Created at</th><th>Updated at</th></tr>';
+      echo '
+      <tr>
+        <th>Amount</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Bidder Username</th>
+      </tr>';
       foreach($bids as $bid) {
         echo '<tr>';
-        echo '<td>';
-        echo $bid->{'amount'};
-        echo '</td>';
-        echo '<td>';
-        echo $bid->{'created_at'};
-        echo '</td>';
-        echo '<td>';
-        echo $bid->{'updated_at'};
-        echo '</td>';
+        echo '<td>' . $bid->amount . '</td>';
+        echo '<td>' . $bid->created_at . '</td>';
+        echo '<td>' . $bid->updated_at . '</td>';
+        echo '<td>' . $bid->bidder_username . '</td>';
         echo '</tr>';
       }
       echo '</table>';
@@ -37,7 +38,7 @@
     <?php
       if($isTaskOwner)
       {
-        echo '<h3>You have already bidded.</h3>';
+        echo '<h5>You are the creator of this task</h5>';
       } else if($hasUserBid)
       {
         echo '<h3>Bidding summary</h3>';
