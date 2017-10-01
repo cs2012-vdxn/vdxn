@@ -6,6 +6,7 @@
       <span class="tasks__tab tasks__tab--selected">Bidded</span>
     </div>
     <div class="tasks__tab-results">
+      <div class="tasks__tab">Ongoing</div>
       <?php include ("bidded_tasks.php") ?>
         <div class="tasks__tab">History</div>
       <?php include ("bidded_tasks_history.php") ?>

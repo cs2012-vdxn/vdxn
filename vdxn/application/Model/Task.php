@@ -41,7 +41,7 @@ class Task extends Model
     {
       // tasks created by this user and has been completed
       $sql = "SELECT title, description, created_at,
-      start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
+      start_at, completed_at, assignee_username, creator_rating,
       assignee_rating
       FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
       $query = $this->db->prepare($sql);
@@ -57,9 +57,8 @@ class Task extends Model
       creator_username, creator_rating,
       assignee_rating
       FROM Task
-      INNER JOIN Bid ON creator_username=task_creator_username AND Task.title = task_title
-      INNER JOIN User ON username=bidder_username
-      WHERE bidder_username='$bdername' AND assignee_username IS NULL";
+      INNER JOIN Bid ON Task.creator_username=Bid.task_creator_username AND Task.title = Bid.task_title
+      WHERE Bid.bidder_username='$bdername' AND Task.assignee_username IS NULL";
       // TODO: find the current smallest bid
       $query = $this->db->prepare($sql);
       $query->execute();
