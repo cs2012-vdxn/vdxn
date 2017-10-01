@@ -152,8 +152,8 @@ class TasksController {
             $d_description = $result->description;
             $d_createTime = $result->created_at;
             $d_updateTime = $result->updated_at;
-            $d_expiry = $result->end_at;
-            $d_eventDate = $result->start_at;
+            $d_expiry = isset($result->end_at) ? $result->end_at : null;
+            $d_eventDate = isset($result->start_at) ? $result->start_at : null;
             $d_minBid = $result->min_bid;
             $d_maxBid = $result->max_bid;
             $d_tasker = $result->assignee_username;
@@ -203,8 +203,8 @@ class TasksController {
           $d_description = $result->description;
           $d_createTime = $result->created_at;
           $d_updateTime = $result->updated_at;
-          $d_expiry = $result->end_at;
-          $d_eventDate = $result->start_at;
+          $d_expiry = isset($result->end_at) ? $result->end_at : null;
+          $d_eventDate = isset($result->start_at) ? $result->start_at : null;
           $d_minBid = $result->min_bid;
           $d_maxBid = $result->max_bid;
           $d_tasker = $result->assignee_username;
