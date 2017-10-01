@@ -17,15 +17,18 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
-    public function task($tid) {
+    public function task() {
       $Task = new Task();
 
-      $task = $Task->getTask($tid);
-      $bids = $Task->getBids($tid);
+      $title = isset($_GET['title']) ? $_GET['title'] : "";
+      $creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+
+      $task = $Task->getTask($title, $creator_username);
+      $bids = $Task->getBids($title, $creator_username);
 
       $user = 2;
-      $hasUserBid = $this->has_user_bid_on_task($tid, $user);
-      $isTaskOwner = $this->is_task_owner($task, $user);
+      $hasUserBid = $this->has_user_bid_on_task($task->title, $task->creator_username);
+      $isTaskOwner = $this->is_task_owner($task, $title, $creator_username);
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/tasks/task.php';
@@ -236,20 +239,19 @@ class TasksController {
       return true;
     }
 
-    private function has_user_bid_on_task($tid, $user) {
+    private function has_user_bid_on_task($title, $bidder_username) {
       $Task = new Task();
-      if ($Task->getUserBidForTask($tid, $user)) {
+      if ($Task->getUserBidForTask($title, $bidder_username)) {
         return true;
       } else {
         return false;
       }
     }
 
-    private function is_task_owner($task, $user) {
-      if (!$task || !$user) {
+    private function is_task_owner($task, $title, $creator_username) {
+      if (!$task || !$title || !$creator_username) {
         return false;
       }
-      // TODO as $user is current assumed to be an integer
-      return ($task->{'creator_id'}) == $user;
+      return $task->title == $title && $task->creator_username == $creator_username;
     }
 }
