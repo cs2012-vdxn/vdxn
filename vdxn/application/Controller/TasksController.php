@@ -26,9 +26,9 @@ class TasksController {
       $task = $Task->getTask($title, $creator_username);
       $bids = $Task->getBids($title, $creator_username);
 
-      $user = 2;
-      $hasUserBid = $this->has_user_bid_on_task($task->title, $task->creator_username);
-      $isTaskOwner = $this->is_task_owner($task, $title, $creator_username);
+      $username = $_SESSION['user']->{'username'};
+      $hasUserBid = $this->has_user_bid_on_task($task->title, $username);
+      $isTaskOwner = $this->is_task_owner($task, $username);
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/tasks/task.php';
@@ -239,19 +239,16 @@ class TasksController {
       return true;
     }
 
-    private function has_user_bid_on_task($title, $bidder_username) {
+    private function has_user_bid_on_task($title, $username) {
       $Task = new Task();
-      if ($Task->getUserBidForTask($title, $bidder_username)) {
+      if ($Task->getUserBidForTask($title, $username)) {
         return true;
       } else {
         return false;
       }
     }
 
-    private function is_task_owner($task, $title, $creator_username) {
-      if (!$task || !$title || !$creator_username) {
-        return false;
-      }
-      return $task->title == $title && $task->creator_username == $creator_username;
+    private function is_task_owner($task, $username) {
+      return $task->creator_username == $username;
     }
 }
