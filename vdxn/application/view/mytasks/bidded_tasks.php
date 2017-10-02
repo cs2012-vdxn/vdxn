@@ -3,8 +3,8 @@
   echo '<th>Title</th>
         <th>Description</th>
         <th>Start At</th>
-        <th>Min bid</th>
-        <th>Max bid</th>
+        <th>Current Min bid</th>
+        <th>Current Max bid</th>
         <th>My Bid</th>
         <th>Created by</th>
         <th>Creator Rating</th>
