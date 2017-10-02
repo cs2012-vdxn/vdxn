@@ -101,7 +101,7 @@ INSERT INTO `mini`.`Bid` (`task_title`, `task_creator_username`, `bidder_usernam
 ('Water my lawn', 'abc', 'ab', NULL, '10', '2017-09-04 00:00:00', NULL, NULL);
 
 INSERT INTO `mini`.`Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('Feed my dog', 'abc', 'abc', NULL, '10', '2017-09-04 00:00:00', NULL, NULL),
+('Feed my dog', 'ab', 'abc', NULL, '10', '2017-09-04 00:00:00', NULL, NULL),
 ('Feed my dog', 'abc', 'keafranc1388', NULL, '50', '2017-09-06 00:00:00', NULL, NULL),
 ('Feed my dog', 'abc', 'jamajense5492', NULL, '24', '2017-09-14 00:00:00', NULL, NULL),
 ('Carry a large TV to my room', 'abc', 'ab', NULL, '10', '2017-09-04 00:00:00', NULL, NULL),
@@ -111,7 +111,7 @@ INSERT INTO Task (title, description, created_at, updated_at, start_at, min_bid,
 ('Feed my dogs', 'I need my dog fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my donkey', 'I need my donkey primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Feed my hamster', 'I need my hamster fed ', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'ab', 'abc', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
-('Feed my cow', 'I need my cow primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
+('Feed my cow', 'I need my cow primed for selling', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', NULL, 0, 0),
 ('Feed my fat cat', 'I need my cat fat', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Wash my rabbit', 'I need my rabbit shiny white', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
 ('Walk my doggy', 'I need my dog healthy', '2017-09-22 00:00:00', '2017-09-22 00:00:00', '2017-09-30 00:00:00', 1, 100, 'abc', 'ab', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0),
