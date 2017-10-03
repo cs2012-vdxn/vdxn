@@ -40,7 +40,6 @@ class TasksController {
       if ($this->validate_task($_POST)) {
           //TODO
           $clean_task_params = $_POST;
-          var_dump($_POST);
           $Task = new Task();
           $task = $Task->createTask($clean_task_params);
           require APP . 'view/tasks/taskcreated.php';

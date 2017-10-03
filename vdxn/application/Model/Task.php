@@ -102,7 +102,7 @@ class Task extends Model
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
-      (`id`,
+      (
       `title`,
       `description`,
       `created_at`,
@@ -110,27 +110,26 @@ class Task extends Model
       `start_at`,
       `min_bid`,
       `max_bid`,
-      `creator_id`,
-      `assignee_id`,
+      `creator_username`,
+      `assignee_username`,
       `deleted_at`,
       `completed_at`,
       `creator_rating`,
       `assignee_rating`)
-      VALUES (NULL,
+      VALUES (
       '".$task_params['title']."',
       '".$task_params['description']."',
       '2017-09-24 03:09:10',
       '2017-09-24 03:09:10',
-      '',
       '2017-09-27 04:10:14',
       '5',
       '100',
-      '1',
-      '',
-      '',
-      '',
-      '',
-      '')";
+      '".$_SESSION['user']->username."',
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL)";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }

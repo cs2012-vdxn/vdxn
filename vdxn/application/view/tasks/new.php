@@ -10,7 +10,7 @@
       <br>
       <label>Description</label>
       <br>
-      <textarea name="details"></textarea>
+      <textarea name="description"></textarea>
       <br>
       <label>Task Date</label>
       <br>
