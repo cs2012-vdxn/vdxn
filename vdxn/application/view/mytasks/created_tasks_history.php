@@ -14,10 +14,19 @@
     foreach($task as $item) {
       echo "<td>$item</td>";
     }
+
     echo "<td><a href='/tasks/task?title=" .
           $task->title . "&creator_username=" .
           $_SESSION['user']->username .
           "'>Link</a></td>";
+    echo "<td><a href='/tasks/edittask?title=" .
+          $task->title . "&creator_username=" .
+          $_SESSION['user']->username .
+          "'>Edit</a></td>";
+    echo "<td><a href='/tasks/deletetask?title=" .
+          $task->title . "&creator_username=" .
+          $_SESSION['user']->username .
+          "'>Delete</a></td>";
     echo '</tr>';
   }
   echo '</table>';

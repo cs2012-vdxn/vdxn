@@ -18,6 +18,14 @@
           $task->title . "&creator_username=" .
           $task->creator_username .
           "'>Link</a></td>";
+          echo "<td><a href='/tasks/edittask?title=" .
+                $task->title . "&creator_username=" .
+                $task->creator_username .
+                "'>Edit</a></td>";
+          echo "<td><a href='/tasks/deletetask?title=" .
+                $task->title . "&creator_username=" .
+                $task->creator_username .
+                "'>Delete</a></td>";
     echo '</tr>';
   }
   echo '</table>';

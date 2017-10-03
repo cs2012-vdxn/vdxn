@@ -49,31 +49,36 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
-    public function edittask($tid) {
+    public function edittask() {
+      $title = $_GET['title'];
+      $creator_username = $_GET['creator_username'];
+
       require APP . 'view/_templates/header.php';
       $Task = new Task();
 
       if ($this->validate_task($_POST)) {
           //TODO
           $clean_task_params = $_POST;
-          if ($Task->editTask($tid, $clean_task_params)) {
+          if ($Task->editTask($title, $creator_username, $clean_task_params)) {
               require APP . 'view/tasks/taskedited.php';
           } else {
               die("ERROR TO CATCH");
           }
       } else {
-          $task = $Task->getTask($tid);
+          $task = $Task->getTask($title, $creator_username);
           require APP . 'view/tasks/edit.php';
       }
       require APP . 'view/_templates/footer.php';
     }
 
-    public function deletetask($tid) {
+    public function deletetask() {
       require APP . 'view/_templates/header.php';
+      $title = $_GET['title'];
+      $creator_username = $_GET['creator_username'];
       $successful_delete = false;
-      if ($this->can_delete_task($tid, null)) {
+      if (true) {
           $Task = new Task();
-          if ($Task->deleteTask($tid)) {
+          if ($Task->deleteTask($title, $creator_username)) {
               $successful_delete = true;
           }
       }

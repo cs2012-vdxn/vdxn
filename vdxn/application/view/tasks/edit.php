@@ -25,6 +25,5 @@
       <input type="text" name="max_bid" value="<?php echo $task->{'max_bid'}?>">
       <br>
       <input type="submit" value="Update Task">
-      <button href="/tasks/deletetask/<?php echo $tid;?>">Delete</button>
     </form>
 </div>

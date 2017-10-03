@@ -134,15 +134,15 @@ class Task extends Model
       return $query->execute();
     }
 
-    public function deleteTask($tid)
+    public function deleteTask($title, $creator_username)
     {
       // TODO: check if user is authenticated and allowed to delete task
-      $sql = "DELETE FROM Task WHERE id='$tid'";
+      $sql = "DELETE FROM Task WHERE Task.title='$title' AND Task.creator_username='$creator_username';";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
 
-    public function editTask($tid, $params)
+    public function editTask($title, $creator_username, $params)
     {
       // TODO: check if user is authenticated and allowed to edit task
       $sql = "UPDATE `Task` SET `title` = '".$params['title']."',
@@ -150,7 +150,7 @@ class Task extends Model
         `start_at` = '2017-09-25 00:00:00',
         `min_bid` = '".$params['min_bid']."',
         `max_bid` = '".$params['max_bid']."'
-        WHERE `Task`.`id`=$tid";
+        WHERE `Task`.title='$title' AND Task.creator_username='$creator_username'";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
