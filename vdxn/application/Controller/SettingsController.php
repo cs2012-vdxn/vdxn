@@ -11,6 +11,7 @@
 
 namespace Mini\Controller;
 session_start();
+use Mini\Model\Account;
 class SettingsController
 {
     public function index()
@@ -19,5 +20,28 @@ class SettingsController
         require APP . 'view/_templates/header.php';
         require APP . 'view/settings/index.php';
         require APP . 'view/_templates/footer.php';
+    }
+    public function change_password()
+    {
+        if (empty($_POST["password_old"]) || empty($_POST["password_new"])
+            || empty($_POST["password_new_confirm"])) {
+            header('location: ' . URL . '/settings');
+        }
+
+        if ($_POST["password_new"] != $_POST["password_new_confirm"]) {
+            header('location: ' . URL . '/settings');
+        }
+
+        $password_old = $_POST["password_old"];
+        $password_new = $_POST["password_new_confirm"];
+
+        $Account = new Account();
+        $username = $_SESSION['user']->{'username'};
+        if($Account->changePassword($username, $password_old, $password_new)) {
+            echo "Password successfully changed.<a href='/settings'>Back</a>";
+        } else {
+            echo "Error<a href='/settings'>Back</a>";
+        }
+        //header('location: ' . URL . '/settings');
     }
 }

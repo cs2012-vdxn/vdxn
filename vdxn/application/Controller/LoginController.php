@@ -9,7 +9,7 @@
  */
 namespace Mini\Controller;
 session_start();
-use Mini\Model\Login;
+use Mini\Model\Account;
 class LoginController
 {
     public function index()
@@ -25,7 +25,7 @@ class LoginController
     public function submitForm()
     {
       if (!empty($_POST["username"]) && !empty($_POST["password"])) {
-        $Login = new Login();
+        $Login = new Account();
 
         if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
           header('location: ' . URL . 'tasks');
