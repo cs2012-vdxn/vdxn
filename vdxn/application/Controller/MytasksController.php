@@ -17,6 +17,7 @@ class MytasksController
       $history_tasks = $Task->getAllHistoryUserTasks($username);
       // load views
       require APP . 'view/_templates/header.php';
+      require APP . 'view/mytasks/dropdown.php';
       require APP . 'view/mytasks/created.php';
       require APP . 'view/_templates/footer.php';
     }
@@ -28,6 +29,7 @@ class MytasksController
       $history_tasks = $Task->getAllHistoryBiddedTasks($username);
       // load views
       require APP . 'view/_templates/header.php';
+      require APP . 'view/mytasks/dropdown.php';
       require APP . 'view/mytasks/bidded.php';
       require APP . 'view/_templates/footer.php';
     }
