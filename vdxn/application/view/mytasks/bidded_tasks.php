@@ -1,16 +1,16 @@
 <?php
-  echo '<table border="1">';
-  echo '<th>Title</th>
-        <th>Description</th>
-        <th>Start At</th>
-        <th>Current Min bid</th>
-        <th>Current Max bid</th>
-        <th>My Bid</th>
-        <th>Created by</th>
-        <th>Creator Rating</th>
-        <th>Assignee Rating</th></tr>';
+  echo '<table border="1" class="sortable paginate dropdown">';
+  echo '<th data-col="title">Title</th>
+        <th data-col="description">Description</th>
+        <th data-col="start_at">Start At</th>
+        <th data-col="curr_min_bid">Current Min bid</th>
+        <th data-col="curr_max_bid">Current Max bid</th>
+        <th data-col="myBid">My Bid</th>
+        <th data-col="created_at">Created by</th>
+        <th data-col="creator_rating">Creator Rating</th>
+        <th data-col="assignee_rating">Assignee Rating</th></tr>';
   foreach($user_tasks as $task) {
-    echo '<tr>';
+    echo '<tr class="data-row" data-attr="edit link delete">';
     foreach($task as $item) {
       echo "<td>$item</td>";
     }

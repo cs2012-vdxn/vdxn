@@ -53,7 +53,7 @@ class Task extends Model
     {
       // tasks this user has bidded for
       $sql = "SELECT title, description,
-      start_at, MIN(b2.amount), MAX(b2.amount), myBid /* my current bid */,
+      start_at, MIN(b2.amount) as curr_min_bid, MAX(b2.amount) as curr_max_bid, myBid /* my current bid */,
       creator_username, creator_rating,
       assignee_rating
       FROM (
@@ -75,7 +75,7 @@ class Task extends Model
     {
       // tasks this user has bidded for and has had an assignee chosen
       $sql = "SELECT title, description,
-      start_at, myBid, winningBid.amount, creator_username,
+      start_at, myBid, winningBid.amount as winning_bid, creator_username,
       assignee_username
       FROM
       (SELECT title, description,
