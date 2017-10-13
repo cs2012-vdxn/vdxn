@@ -20,17 +20,31 @@ class SignupController
     }
     public function submitForm()
     {
-      if (!empty($_POST["username"]) && !empty($_POST["password"])) {
-        $Login = new Account();
+      if (!empty($_POST["username"]) &&
+          !empty($_POST["email"]) &&
+          !empty($_POST["firstName"]) &&
+          !empty($_POST["lastName"]) &&
+          !empty($_POST["contactNumber"]) &&
+          !empty($_POST["password"]) &&
+          !empty($_POST["password2"])) {
 
-        if($Login->authenticate($this->sanitize($_POST["username"]), $this->sanitize($_POST["password"]))) {
-          header('location: ' . URL . 'tasks');
-        } else {
+        $Account = new Account();
+
+        if($Account->create(
+          $this->sanitize($_POST["username"]),
+          $this->sanitize($_POST["email"]),
+          $this->sanitize($_POST["firstName"]),
+          $this->sanitize($_POST["lastName"]),
+          $this->sanitize($_POST["contactNumber"]),
+          $this->sanitize($_POST["password"]))) {
+
           header('location: ' . URL . 'login');
+
+        } else {
+          header('location: ' . URL . 'signup');
         }
       } else {
-        // TODO: echo "Please fill in both username and password";
-        //header('location: ' . URL . 'login');
+        header('location: ' . URL . 'signup');
       }
     }
     function sanitize($data) {

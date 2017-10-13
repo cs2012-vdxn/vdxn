@@ -41,4 +41,33 @@ class Account extends Model
     $query = $this->db->prepare($sql);
     return $query->execute();
   }
+  function create($username, $email, $firstName, $lastName, $contactNumber, $password) {
+    $time = date("Y-m-d H:i:s");
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO User
+    (`username`,
+      `first_name`,
+      `last_name`,
+      `password_hash`,
+      `contact`,
+      `email`,
+      `created_at`,
+      `updated_at`,
+      `deleted_at`,
+      `user_type`)
+      VALUES (
+        '$username',
+        '$firstName',
+        '$lastName',
+        '$passwordHash',
+        '$contactNumber',
+        '$email',
+        '$time',
+        '',
+        '',
+        'User'
+    );";
+    $query = $this->db->prepare($sql);
+    return $query->execute();
+  }
 }
