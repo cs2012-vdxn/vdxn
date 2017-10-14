@@ -25,33 +25,71 @@ class Task extends Model
       return $query->fetch();
     }
 
-
     public function getAllUserTasks($tkername)
+    {
+      $sql = $this->getAllUserTasksQuery($tkername, NULL, NULL, NULL);
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
     {
       $sql = "SELECT title, description, created_at,
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
       FROM Task WHERE creator_username='$tkername' AND completed_at IS NULL";
-      $query = $this->db->prepare($sql);
-      $query->execute();
-      return $query->fetchAll();
+      if(isset($offset)) {
+        $sql += " OFFSET $offset";
+      }
+      if(isset($limit)) {
+        $sql += " LIMIT $limit";
+      }
+      if(isset($order_by)) {
+        $sql += " ORDER BY $order_by";
+      }
+      // TODO: have a default sorting order
+      return $sql;
     }
 
     public function getAllHistoryUserTasks($tkername)
     {
       // tasks created by this user and has been completed
-      $sql = "SELECT title, description, created_at,
-      start_at, completed_at, assignee_username, creator_rating,
-      assignee_rating
-      FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
+      $sql = $this->getAllHistoryUserTasksQuery($tkername, NULL, NULL, NULL);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
+    public function getAllHistoryUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    {
+      $sql = "SELECT title, description, created_at,
+      start_at, completed_at, assignee_username, creator_rating,
+      assignee_rating
+      FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
+      if(isset($offset)) {
+        $sql += " OFFSET $offset";
+      }
+      if(isset($limit)) {
+        $sql += " LIMIT $limit";
+      }
+      if(isset($order_by)) {
+        $sql += " ORDER BY $order_by";
+      }
+      return $sql;
+    }
+
     public function getAllCurrentBiddedTasks($bdername)
     {
       // tasks this user has bidded for
+      $sql = $this->getAllCurrentBiddedTasksQuery($bdername, NULL, NULL, NULL);
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllCurrentBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    {
       $sql = "SELECT title, description,
       start_at, MIN(b2.amount) as curr_min_bid, MAX(b2.amount) as curr_max_bid, myBid /* my current bid */,
       creator_username, creator_rating,
@@ -65,15 +103,28 @@ class Task extends Model
       INNER JOIN Bid b1 ON Task.creator_username=b1.task_creator_username AND Task.title = b1.task_title
       WHERE b1.bidder_username='$bdername' AND Task.assignee_username IS NULL) t
       INNER JOIN Bid b2 ON b2.task_title = t.title AND b2.task_creator_username = t.creator_username";
-
-      $query = $this->db->prepare($sql);
-      $query->execute();
-      return $query->fetchAll();
+      if(isset($offset)) {
+        $sql += " OFFSET $offset";
+      }
+      if(isset($limit)) {
+        $sql += " LIMIT $limit";
+      }
+      if(isset($order_by)) {
+        $sql += " ORDER BY $order_by";
+      }
+      return $sql;
     }
 
     public function getAllHistoryBiddedTasks($bdername)
     {
       // tasks this user has bidded for and has had an assignee chosen
+      $sql = $this->getAllHistoryBiddedTasksQuery($bdername, NULL, NULL, NULL);
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    public function getAllHistoryBiddedTasksQuery($bdername, $offset = NULL, $pagesize = NULL, $order_by = NULL) {
       $sql = "SELECT title, description,
       start_at, myBid, winningBid.amount as winning_bid, creator_username,
       assignee_username
@@ -86,9 +137,16 @@ class Task extends Model
       WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL) t
       INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND t.title = winningBid.task_title
       INNER JOIN User winner ON winner.username = t.assignee_username";
-      $query = $this->db->prepare($sql);
-      $query->execute();
-      return $query->fetchAll();
+      if(isset($offset)) {
+        $sql += " OFFSET $offset";
+      }
+      if(isset($limit)) {
+        $sql += " LIMIT $limit";
+      }
+      if(isset($order_by)) {
+        $sql += " ORDER BY $order_by";
+      }
+      return $sql;
     }
 
     public function findAllTasksContaining($search_string)
