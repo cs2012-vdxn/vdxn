@@ -1,4 +1,6 @@
 <?php
+  echo '<div class="table-wrapper"'>;
+  include ('dropdown.php');
   echo '<table border="1" class="sortable paginate dropdown">';
   echo '<th data-col="title">Title</th>
         <th data-col="description">Description</th>
@@ -29,4 +31,5 @@
     echo '</tr>';
   }
   echo '</table>';
+  echo '</div>';
 ?>
