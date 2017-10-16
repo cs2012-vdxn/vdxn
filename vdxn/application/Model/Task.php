@@ -165,8 +165,8 @@ class Task extends Model
       `task_title`,
       `task_creator_username`,
       `bidder_username`,
-      `amount`,
       `details`,
+      `amount`,
       `created_at`,
       `updated_at`,
       `deleted_at`
@@ -197,22 +197,26 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function createTaskBid($tid, $bid, $bid_params)
+    public function createTaskBid($task_title, $task_creator_username, $amount, $details)
     {
       $sql = "INSERT INTO Bid (
-        `id`,
-        `task_id`,
-        `bidder_id`,
+        `task_title`,
+        `task_creator_username`,
+        `bidder_username`,
+        `details`,
         `amount`,
         `created_at`,
-        `updated_at`)
+        `updated_at`,
+        `deleted_at`)
       VALUES (
-        '',
-        '$tid',
-        '".$bid."',
-        '".$bid_params['amount']."',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP)";
+        '".$task_title."',
+        '".$task_creator_username."',
+        '".$_SESSION['user']->username."',
+        '".$details."',
+        $amount,
+        '2017-09-24 03:09:10',
+        '2017-09-24 03:09:10',
+        '2017-09-24 03:09:10')";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }

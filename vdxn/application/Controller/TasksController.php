@@ -33,10 +33,12 @@ class TasksController {
       $isTaskOwner = $this->is_task_owner($task, $username);
 
       require APP . 'view/_templates/header.php';
+
       echo '<div class="container-fluid col-md-offset-3 col-md-6 col-xs-8 col-xs-offset-2" style="padding-bottom: 100px;">';
       require APP . 'view/tasks/task.php';
       require APP . 'view/tasks/bids_top3.php';
       echo '</div>';
+
       require APP . 'view/_templates/footer.php';
     }
 
@@ -96,20 +98,23 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
-    public function newbid($tid) {
-      require APP . 'view/_templates/header.php';
-
-      $clean_bid_params = $_POST;
-
-      $bid = 10;
+    //==========================================
+    // TASKS BIDDING FUNCTIONS
+    //==========================================
+    public function newbid() {
       $Task = new Task();
-      if ($Task->createTaskBid($tid, $bid, $clean_bid_params)) {
-          require APP . 'view/tasks/bidcreated.php';
-      } else {
-          die("Bid creation error");
-      }
 
-      require APP . 'view/_templates/footer.php';
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+      $bid_amount = isset($_POST['bid_amount']) ? (int)$_POST['bid_amount'] : "";
+      $bid_details = isset($_POST['bid_details']) ? $_POST['bid_details'] : "";
+
+      // Save this bid to database
+      $Task->createTaskBid($task_title, $task_creator_username, $bid_amount, $bid_details);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
     public function bids($tid) {
@@ -123,6 +128,9 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    //==========================================
+    // TASKS SEARCH FUNCTIONS
+    //==========================================
     public function searchByTitle() {
       $Task = new Task();
 
