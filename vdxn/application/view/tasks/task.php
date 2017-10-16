@@ -1,54 +1,72 @@
-<div class="container">
-    <h1>Task - <?php echo $task->{'title'}; ?></h1>
-    <p><?php echo $task->{'description'}; ?></p>
-    <p>Created at: <?php echo $task->{'created_at'};?></p>
-    <p>Last updated at: <?php echo $task->{'updated_at'};?></p>
+<div class="row">
+  <h3><?php echo $task->{'title'}; ?></h3>
+  <p><b>Due: <?php echo $task->{'created_at'};?></b></p>
+  <p><?php echo $task->{'description'}; ?></p>
+  <p>[list of tags here] [list of categories here]</p>
+  <p style="">
+    <small>
+      <b>Created at:</b> <?php echo $task->{'created_at'}; ?>
+      <b style="padding-left: 2em;">Updated at:</b> <?php echo $task->{'updated_at'}; ?>
+    </small>
+  </p>
 
-    <h2>Bidding</h2>
-    <p>Minimum: <?php echo $task->{'min_bid'};?></p>
-    <p>Maximum: <?php echo $task->{'max_bid'};?></p>
+  <?php
+    if ($isTaskOwner) {
+      echo '<p>';
+      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-primary">
+              <span class="fui-new"></span> Edit
+            </a>';
+      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
+              <span class="fui-trash"></span> Delete
+            </a>';
+      echo '</p>';
+    }
+  ?>
 
-    <h2>Others</h2>
-    <p>Creator: <?php echo $task->{'creator_username'}?></p>
+  <hr/>
 
-    <hr>
+  <?php
+    if(!$isTaskOwner) {
+      echo '<div class="col-md-offset-3 col-md-6 col-xs-8 col-xs-offset-2" style="margin-bottom: 20px;">';
+      echo   '<div class="share mrl">';
+      echo      '<ul>';
+      echo        '<li>';
+      if ($hasUserBid) {
+        echo          '<form method="post" action="/tasks/del_or_edit_bid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
+        echo          '<div style="margin: 0 0 10px 3px;">
+                        <b>Current bid: '.$bid->{'amount'}.'</b>
+                        <input type="text" name="edited_bid_amount" value="" placeholder="Enter new bid" class="form-control" />
+                        <br/>
+                        <b>Bid details:</b>
+                        <br>
+                          <textarea name="edited_bid_details" placeholder="Any comments about yourself?" class="form-control">'.$bid->{'details'}.'</textarea>
+                        <br>
+                        <div style="text-align: center;">
+                          <input type="submit" name="edit_bid" value="Update Bid" class="btn btn-embossed btn-sm btn-primary">
+                          <input type="submit" name="delete_bid" value="Retract Bid" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 1em;">
+                        </div>
+                      </div>';
+        echo          '</form>';
+      } else {
+        echo          '<form method="post" action="/tasks/newbid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
+        echo          '<div style="margin: 0 0 10px 3px;">
+                        <b>You haven\'t bidded for this task yet.</b>
+                        <input type="text" name="bid_amount" value="" placeholder="Enter bid amount" class="form-control" style="margin-bottom: 1.5em;"/>
 
-    <?php
-      echo '<table>';
-      echo '
-      <tr>
-        <th>Amount</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th>Bidder Username</th>
-      </tr>';
-      foreach($bids as $bid) {
-        echo '<tr>';
-        echo '<td>' . $bid->amount . '</td>';
-        echo '<td>' . $bid->created_at . '</td>';
-        echo '<td>' . $bid->updated_at . '</td>';
-        echo '<td>' . $bid->bidder_username . '</td>';
-        echo '</tr>';
+                        <b>Bid details:</b>
+                        <br><textarea name="bid_details" placeholder="Any comments about yourself?" class="form-control"></textarea><br>
+                        <div style="text-align: center;">
+                          <input type="submit" name="create_bid" value="Place Bid" class="btn btn-embossed btn-sm btn-primary">
+                        </div>
+                      </div>';
       }
-      echo '</table>';
-    ?>
+      echo        '</li>';
+      echo      '</ul>';
+      echo    '</div>';
+      echo '</div>';
+    } else {
+      echo 'Hi, I am task owner. No need to bid for my own tasks :)';
+    }
+  ?>
 
-    <hr>
-
-    <?php
-      if($isTaskOwner)
-      {
-        echo '<h5>You are the creator of this task</h5>';
-      } else if($hasUserBid)
-      {
-        echo '<h3>Bidding summary</h3>';
-      } else
-      {
-        echo '<form method="post" action="/tasks/newbid/'.$tid.'">';
-        echo '<label>Offer amount</label><br><input type="text" name="amount"><br>';
-        echo '<label>Details</label><br><textarea name="details"></textarea><br>';
-        echo '<input type="submit" value="Submit Bid">';
-        echo '</form>';
-      }
-    ?>
 </div>

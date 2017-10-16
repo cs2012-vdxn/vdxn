@@ -155,10 +155,17 @@ class Task extends Model
       return $query->execute();
     }
 
-    /*
-      Bidding related functions
-    */
+    //==========================================
+    // BIDDING RELATED FUNCTIONS
+    //==========================================
 
+    /**
+     * Gets all the bids for this specified task.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Array    Array of bids for this specified task
+     */
     public function getBids($task_title, $task_creator_username)
     {
       $sql = "SELECT
@@ -178,6 +185,15 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    /**
+     * Retrieves the bidder's bid for this task. Returns an empty array if
+     * this bidder does not have any bids for this task.
+     *
+     * @param  String $task_title         Title of the task
+     * @param  String $bidder_username    Username of the bidder
+     * @return Object    Bid object representing the bid made for this task by
+     *                   the specified bidder.
+     */
     public function getUserBidForTask($task_title, $bidder_username)
     {
       $sql = "SELECT
@@ -197,23 +213,72 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function createTaskBid($tid, $bid, $bid_params)
+    /**
+     * Creates a new bid for this task, associated with the current logged in
+     * user.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Int    $amount                   Amount of bid points placed for this task
+     * @param  String $details                  Additional comments made for this bid
+     */
+    public function createTaskBid($task_title, $task_creator_username, $amount, $details)
     {
       $sql = "INSERT INTO Bid (
-        `id`,
-        `task_id`,
-        `bidder_id`,
+        `task_title`,
+        `task_creator_username`,
+        `bidder_username`,
+        `details`,
         `amount`,
         `created_at`,
-        `updated_at`)
+        `updated_at`,
+        `deleted_at`)
       VALUES (
-        '',
-        '$tid',
-        '".$bid."',
-        '".$bid_params['amount']."',
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP)";
+        '".$task_title."',
+        '".$task_creator_username."',
+        '".$_SESSION['user']->username."',
+        '".$details."',
+        $amount,
+        '2017-09-24 03:09:10',
+        '2017-09-24 03:09:10',
+        '2017-09-24 03:09:10')";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
+
+    /**
+     * Edits the amount and details of a bid.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     * @param  Int    $amount                   Amount of bid points placed for this task
+     * @param  String $details                  Additional comments made for this bid
+     */
+    public function editTaskBid($task_title, $task_creator_username, $bidder_username, $amount, $details)
+    {
+      $sql = "UPDATE Bid ".
+        "SET amount=".$amount.", details='".$details."' ".
+        "WHERE task_title='".$task_title."' AND task_creator_username='".$task_creator_username."' AND bidder_username='".$bidder_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+    /**
+     * Deletes a bid from the Bid table.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     */
+    public function deleteTaskBid($task_title, $task_creator_username, $bidder_username)
+    {
+      $sql = "DELETE FROM Bid".
+        " WHERE task_title='".$task_title."'".
+        " AND task_creator_username='".$task_creator_username."'".
+        " AND bidder_username='".$bidder_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
 }
