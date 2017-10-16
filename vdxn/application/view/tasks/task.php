@@ -34,14 +34,16 @@
       if ($hasUserBid) {
         echo          '<form method="post" action="/tasks/del_or_edit_bid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
         echo          '<div style="margin: 0 0 10px 3px;">
-                        <b>You bidded: [TODO] $123</b>
+                        <b>Current bid: '.$bid->{'amount'}.'</b>
                         <input type="text" name="edited_bid_amount" value="" placeholder="Enter new bid" class="form-control" />
                         <br/>
                         <b>Bid details:</b>
-                        <br><textarea name="edited_bid_details" placeholder="Comments about this bid" class="form-control">[TODO] $some comments...</textarea><br>
+                        <br>
+                          <textarea name="edited_bid_details" placeholder="Any comments about yourself?" class="form-control">'.$bid->{'details'}.'</textarea>
+                        <br>
                         <div style="text-align: center;">
                           <input type="submit" name="edit_bid" value="Update Bid" class="btn btn-embossed btn-sm btn-primary">
-                          <input type="submit" name="delete_bid" value="Delete Bid" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 1em;">
+                          <input type="submit" name="delete_bid" value="Retract Bid" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 1em;">
                         </div>
                       </div>';
         echo          '</form>';
@@ -52,7 +54,7 @@
                         <input type="text" name="bid_amount" value="" placeholder="Enter bid amount" class="form-control" style="margin-bottom: 1.5em;"/>
 
                         <b>Bid details:</b>
-                        <br><textarea name="bid_details" placeholder="Comments about this bid" class="form-control"></textarea><br>
+                        <br><textarea name="bid_details" placeholder="Any comments about yourself?" class="form-control"></textarea><br>
                         <div style="text-align: center;">
                           <input type="submit" name="create_bid" value="Place Bid" class="btn btn-embossed btn-sm btn-primary">
                         </div>

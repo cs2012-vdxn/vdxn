@@ -6,6 +6,7 @@
             <th>Rank</th>
             <th>Bidder Username</th>
             <th>Amount</th>
+            <th>Comments</th>
             <th>Created at</th>
           </tr></thead>';
     foreach($bids as $i => $bid) {
@@ -13,6 +14,7 @@
       echo '<td>#' . ($i + 1) . '</td>';
       echo '<td>' . $bid->bidder_username . '</td>';
       echo '<td>' . $bid->amount . '</td>';
+      echo '<td>' . $bid->details . '</td>';
       echo '<td>' . $bid->created_at . '</td>';
       echo '</tr>';
     }
