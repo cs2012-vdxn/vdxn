@@ -246,6 +246,15 @@ class Task extends Model
       return $query->execute();
     }
 
+    /**
+     * Edits the amount and details of a bid.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     * @param  Int    $amount                   Amount of bid points placed for this task
+     * @param  String $details                  Additional comments made for this bid
+     */
     public function editTaskBid($task_title, $task_creator_username, $bidder_username, $amount, $details)
     {
       $sql = "UPDATE Bid ".
@@ -255,6 +264,13 @@ class Task extends Model
       return $query->execute();
     }
 
+    /**
+     * Deletes a bid from the Bid table.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     */
     public function deleteTaskBid($task_title, $task_creator_username, $bidder_username)
     {
       $sql = "DELETE FROM Bid".
