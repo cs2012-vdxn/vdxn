@@ -31,7 +31,9 @@ class TasksController {
       $isTaskOwner = $this->is_task_owner($task, $username);
 
       require APP . 'view/_templates/header.php';
+      echo '<div class="container">';
       require APP . 'view/tasks/task.php';
+      echo '</div>';
       require APP . 'view/_templates/footer.php';
     }
 
