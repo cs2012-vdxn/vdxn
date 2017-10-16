@@ -65,10 +65,7 @@
       echo    '</div>';
       echo '</div>';
     } else {
-      echo '<label>Offer amount</label><br><input type="text" name="amount"><br>';
-      echo '<label>Details</label><br><textarea name="details"></textarea><br>';
-      echo '<input type="submit" value="Submit Bid">';
-      echo '</form>';
+      echo 'Hi, I am task owner. No need to bid for my own tasks :)';
     }
   ?>
 
