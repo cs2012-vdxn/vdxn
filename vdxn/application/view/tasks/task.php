@@ -9,6 +9,7 @@
       <b style="padding-left: 2em;">Updated at:</b> <?php echo $task->{'updated_at'}; ?>
     </small>
   </p>
+
   <?php
     if ($isTaskOwner) {
       echo '<p>';
@@ -25,14 +26,48 @@
   <hr/>
 
   <?php
-    if($hasUserBid) {
-      // echo '<h3>Bidding summary</h3>';
+    if(!$isTaskOwner) {
+      echo '<div class="col-md-offset-3 col-md-6 col-xs-8 col-xs-offset-2" style="margin-bottom: 20px;">';
+      echo   '<div class="share mrl">';
+      echo      '<ul>';
+      echo        '<li>';
+      if ($hasUserBid) {
+        echo          '<form method="post" action="/tasks/del_or_edit_bid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
+        echo          '<div style="margin: 0 0 10px 3px;">
+                        <b>You bidded: [TODO] $123</b>
+                        <input type="text" name="edited_bid_amount" value="" placeholder="Enter new bid" class="form-control" />
+                        <br/>
+                        <b>Bid details:</b>
+                        <br><textarea name="edited_bid_details" placeholder="Comments about this bid" class="form-control">[TODO] $some comments...</textarea><br>
+                        <div style="text-align: center;">
+                          <input type="submit" name="edit_bid" value="Update Bid" class="btn btn-embossed btn-sm btn-primary">
+                          <input type="submit" name="delete_bid" value="Delete Bid" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 1em;">
+                        </div>
+                      </div>';
+        echo          '</form>';
+      } else {
+        echo          '<form method="post" action="/tasks/newbid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
+        echo          '<div style="margin: 0 0 10px 3px;">
+                        <b>You haven\'t bidded for this task yet.</b>
+                        <input type="text" name="bid_amount" value="" placeholder="Enter bid amount" class="form-control" style="margin-bottom: 1.5em;"/>
+
+                        <b>Bid details:</b>
+                        <br><textarea name="bid_details" placeholder="Comments about this bid" class="form-control"></textarea><br>
+                        <div style="text-align: center;">
+                          <input type="submit" name="create_bid" value="Place Bid" class="btn btn-embossed btn-sm btn-primary">
+                        </div>
+                      </div>';
+      }
+      echo        '</li>';
+      echo      '</ul>';
+      echo    '</div>';
+      echo '</div>';
     } else {
-      echo '<form method="post" action="/tasks/newbid/'.$tid.'">';
       echo '<label>Offer amount</label><br><input type="text" name="amount"><br>';
       echo '<label>Details</label><br><textarea name="details"></textarea><br>';
       echo '<input type="submit" value="Submit Bid">';
       echo '</form>';
     }
   ?>
+
 </div>
