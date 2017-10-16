@@ -155,9 +155,9 @@ class Task extends Model
       return $query->execute();
     }
 
-    /*
-      Bidding related functions
-    */
+    //==========================================
+    // BIDDING RELATED FUNCTIONS
+    //==========================================
 
     /**
      * Gets all the bids for this specified task.
@@ -245,4 +245,24 @@ class Task extends Model
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
+
+    public function editTaskBid($task_title, $task_creator_username, $bidder_username, $amount, $details)
+    {
+      $sql = "UPDATE Bid ".
+        "SET amount=".$amount.", details='".$details."' ".
+        "WHERE task_title='".$task_title."' AND task_creator_username='".$task_creator_username."' AND bidder_username='".$bidder_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+    public function deleteTaskBid($task_title, $task_creator_username, $bidder_username)
+    {
+      $sql = "DELETE FROM Bid".
+        " WHERE task_title='".$task_title."'".
+        " AND task_creator_username='".$task_creator_username."'".
+        " AND bidder_username='".$bidder_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
 }
