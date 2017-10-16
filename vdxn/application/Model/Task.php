@@ -159,14 +159,21 @@ class Task extends Model
       Bidding related functions
     */
 
+    /**
+     * Gets all the bids for this specified task.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Array    Array of bids for this specified task
+     */
     public function getBids($task_title, $task_creator_username)
     {
       $sql = "SELECT
       `task_title`,
       `task_creator_username`,
       `bidder_username`,
-      `details`,
       `amount`,
+      `details`,
       `created_at`,
       `updated_at`,
       `deleted_at`
@@ -178,6 +185,15 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    /**
+     * Retrieves the bidder's bid for this task. Returns an empty array if
+     * this bidder does not have any bids for this task.
+     *
+     * @param  String $task_title         Title of the task
+     * @param  String $bidder_username    Username of the bidder
+     * @return Object    Bid object representing the bid made for this task by
+     *                   the specified bidder.
+     */
     public function getUserBidForTask($task_title, $bidder_username)
     {
       $sql = "SELECT
@@ -197,6 +213,15 @@ class Task extends Model
       return $query->fetch();
     }
 
+    /**
+     * Creates a new bid for this task, associated with the current logged in
+     * user.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Int    $amount                   Amount of bid points placed for this task
+     * @param  String $details                  Additional comments made for this bid
+     */
     public function createTaskBid($task_title, $task_creator_username, $amount, $details)
     {
       $sql = "INSERT INTO Bid (
