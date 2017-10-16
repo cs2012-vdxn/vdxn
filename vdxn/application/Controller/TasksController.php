@@ -267,4 +267,11 @@ class TasksController {
     private function is_task_owner($task, $username) {
       return $task->creator_username == $username;
     }
+
+    private function sanitize($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      return $data;
+    }
+
 }
