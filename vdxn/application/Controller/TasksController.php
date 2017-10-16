@@ -20,6 +20,7 @@ class TasksController {
     public function task() {
       $Task = new Task();
 
+      $username = $_SESSION['user']->{'username'};
       $title = isset($_GET['title']) ? $_GET['title'] : "";
       $creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
 
@@ -28,7 +29,6 @@ class TasksController {
       $bids = $Task->getBids($title, $creator_username);
       echo '<p>' . var_dump($bids) . '</p>';
 
-      $username = $_SESSION['user']->{'username'};
       $hasUserBid = $this->has_user_bid_on_task($task->title, $username);
       $isTaskOwner = $this->is_task_owner($task, $username);
 
@@ -239,7 +239,6 @@ class TasksController {
     //==========================================
     // PRIVATE HELPER FUNCTIONS
     //==========================================
-
     private function validate_task($params) {
       return isset($params['title']) && isset($params['description']);
     }
