@@ -115,7 +115,20 @@ class TasksController {
 
       // Redirect back to this task's page
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
 
+    public function mark_as_complete() {
+      $Task = new Task();
+      $task_creator_username = $_SESSION['user']->{'username'}; // Assumes logged in user IS the task creator
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+
+      // Mark this task as completed
+      $Task->markTaskAsComplete($task_title, $task_creator_username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
 
