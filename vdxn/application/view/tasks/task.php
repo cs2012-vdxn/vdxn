@@ -35,8 +35,7 @@
     // Quick check to see if a specified form & bid amount is within range or not
     function validateEnteredBid(formName, bidAmount) {
       var bid = document.forms[formName][bidAmount].value;
-      console.log(bid, typeof bid);
-      if (bid != "" &&
+      if (bid.length > 0 &&
           bid >= <?php echo $task->{'min_bid'} ?> &&
           bid <= <?php echo $task->{'max_bid'} ?>) {
         $('.err_bid_out_of_range').hide();

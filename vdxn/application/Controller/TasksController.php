@@ -99,6 +99,10 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+
+
+
+
     //==========================================
     // BIDDING FUNCTIONS
     //==========================================
@@ -118,7 +122,7 @@ class TasksController {
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
-    public function del_or_edit_bid() {
+    public function edit_bid() {
       $Task = new Task();
       $username = $_SESSION['user']->{'username'};
 
@@ -128,13 +132,21 @@ class TasksController {
       $bid_amount = isset($_POST['edited_bid_amount']) ? (int)$_POST['edited_bid_amount'] : "";
       $bid_details = isset($_POST['edited_bid_details']) ? $this->sanitize($_POST['edited_bid_details']) : "";
 
-      // Since we have 2 buttons: One to edit this bid and another to retract
-      // this bid, we do that check here and perform the appropriate DB queries
-      if (array_key_exists('edit_bid', $_POST)) {
-        $Task->editTaskBid($task_title, $task_creator_username, $username, $bid_amount, $bid_details);
-      } else if (array_key_exists('delete_bid', $_POST)) {
-        $Task->deleteTaskBid($task_title, $task_creator_username, $username);
-      }
+      $Task->editTaskBid($task_title, $task_creator_username, $username, $bid_amount, $bid_details);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
+
+    public function del_bid() {
+      $Task = new Task();
+      $username = $_SESSION['user']->{'username'};
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+
+      $Task->deleteTaskBid($task_title, $task_creator_username, $username);
 
       // Redirect back to this task's page
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
@@ -150,6 +162,9 @@ class TasksController {
       require APP . 'view/tasks/bids.php';
       require APP . 'view/_templates/footer.php';
     }
+
+
+
 
     //==========================================
     // TASKS SEARCH FUNCTIONS

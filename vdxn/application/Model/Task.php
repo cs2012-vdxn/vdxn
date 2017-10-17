@@ -259,7 +259,8 @@ class Task extends Model
     {
       $sql = "UPDATE Bid ".
         "SET amount=".$amount.", details='".$details."' ".
-        "WHERE task_title='".$task_title."' AND task_creator_username='".$task_creator_username."' AND bidder_username='".$bidder_username."';";
+        "WHERE task_title='".$task_title."' AND task_creator_username='".
+        $task_creator_username."' AND bidder_username='".$bidder_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
