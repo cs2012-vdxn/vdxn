@@ -106,17 +106,6 @@ class TasksController {
     //==========================================
     // BIDDING FUNCTIONS
     //==========================================
-    public function bids($tid) {
-      $Task = new Task();
-
-      $task = $Task->getTask($tid);
-      $bids = $Task->getBids($tid);
-
-      require APP . 'view/_templates/header.php';
-      require APP . 'view/tasks/bids.php';
-      require APP . 'view/_templates/footer.php';
-    }
-
     public function newbid() {
       $Task = new Task();
 

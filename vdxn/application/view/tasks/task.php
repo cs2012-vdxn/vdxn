@@ -1,16 +1,6 @@
 <div class="row">
-  <!-- Task Information -->
-  <h3><?php echo $task->{'title'}; ?></h3>
-  <p><b>Due: <?php echo $task->{'created_at'};?></b></p>
-  <p><?php echo $task->{'description'}; ?></p>
-  <p>[list of tags here] [list of categories here]</p>
-  <p style="">
-    <small>
-      <b>Created at:</b> <?php echo $task->{'created_at'}; ?>
-      <b style="padding-left: 2em;">Updated at:</b> <?php echo $task->{'updated_at'}; ?>
-    </small>
-  </p>
-
+  <!-- Task information -->
+  <?php include('task_information.php'); ?>
   <?php
     /* For Task Owners to perform Edit & Delete operations on this task */
     if ($isTaskOwner) {
@@ -47,11 +37,11 @@
     }
   </script>
 
+  <!-- Renders the Bidding Section -->
   <?php
-    /* Renders the section where bids for this task can be placed,
-       edited or deleted */
     echo '<div class="row">';
     if(!$isTaskOwner) {
+      /*  Where bids for this task can be created, edited or deleted  */
       echo  '<div class="col-md-4" style="margin-bottom: 20px;">';
       echo    '<div class="share mrl">';
       include('bids_CRUD/bids_read.php');
@@ -64,9 +54,15 @@
       echo  '</div>';
     }
     echo '<div class="col-md-8">';
-    include('bids_display/bids_top3.php');
-    echo   '</div>';
+      /* Top 3 Bidders */
+      include('bids_display/bids_top3.php');
+      echo '</div>';
     echo '</div>';
   ?>
 
+  <?php
+  /* All Bidders */
+  echo '<hr/>';
+  include('bids_display/bids_all.php');
+  ?>
 </div>
