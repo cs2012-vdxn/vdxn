@@ -8,7 +8,7 @@
           <th>Comments</th>
           <th>Created at</th>
         </tr></thead>';
-  foreach($bids as $i => $bid) {
+  foreach($bids_leaderboard as $i => $bid) {
     echo '<tr>';
     echo '<td>#' . ($i + 1) . '</td>';
     echo '<td>' . $bid->bidder_username . '</td>';

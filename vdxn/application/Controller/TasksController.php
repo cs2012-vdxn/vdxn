@@ -28,8 +28,11 @@ class TasksController {
       $creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
 
       $task = $Task->getTask($title, $creator_username);
-      $bids = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
+      $bids = $Task->getBids($title, $creator_username);
+      $bids_leaderboard = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
       $bid = $Task->getUserBidForTask($title, $username);
+      $assignee = $Task->getTaskAssigneeUserProfile($title, $creator_username);
+      $completed_at = $Task->getTaskCompletedDate($title, $creator_username)->{'completed_at'};
 
       // echo '<p>' . var_dump($task) . '</p>';
       // echo '<p>' . var_dump($bids) . '</p>';
@@ -108,6 +111,7 @@ class TasksController {
 
       // TODO Input Validation
       $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
       $task_assignee_username = isset($_GET['assignee_username']) ? $_GET['assignee_username'] : "";
 
       // Assign this bidder to this task
