@@ -1,6 +1,9 @@
 <!-- Task Information -->
 <h3><?php echo $task->{'title'}; ?></h3>
-<p><b>Due: <?php echo $task->{'created_at'};?></b></p>
+<p>
+  <b>Creator: <?php echo $task->{'creator_username'};?></b>
+  <b style="padding-left: 2em;">Due:</b> <?php echo $task->{'created_at'}; ?>
+</p>
 <p><?php echo $task->{'description'}; ?></p>
 <p>[list of tags here] [list of categories here]</p>
 <p style="">
