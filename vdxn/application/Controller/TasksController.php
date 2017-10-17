@@ -25,7 +25,7 @@ class TasksController {
       $creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
 
       $task = $Task->getTask($title, $creator_username);
-      $bids = $Task->getBids($title, $creator_username);
+      $bids = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
       $bid = $Task->getUserBidForTask($title, $username);
 
       // echo '<p>' . var_dump($task) . '</p>';
@@ -106,6 +106,17 @@ class TasksController {
     //==========================================
     // BIDDING FUNCTIONS
     //==========================================
+    public function bids($tid) {
+      $Task = new Task();
+
+      $task = $Task->getTask($tid);
+      $bids = $Task->getBids($tid);
+
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/tasks/bids.php';
+      require APP . 'view/_templates/footer.php';
+    }
+
     public function newbid() {
       $Task = new Task();
 
@@ -152,16 +163,7 @@ class TasksController {
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
-    public function bids($tid) {
-      $Task = new Task();
 
-      $task = $Task->getTask($tid);
-      $bids = $Task->getBids($tid);
-
-      require APP . 'view/_templates/header.php';
-      require APP . 'view/tasks/bids.php';
-      require APP . 'view/_templates/footer.php';
-    }
 
 
 
