@@ -1,22 +1,19 @@
 <div class="row">
-  <h3><?php echo $task->{'title'}; ?></h3>
-  <p><b>Due: <?php echo $task->{'created_at'};?></b></p>
-  <p><?php echo $task->{'description'}; ?></p>
-  <p>[list of tags here] [list of categories here]</p>
-  <p style="">
-    <small>
-      <b>Created at:</b> <?php echo $task->{'created_at'}; ?>
-      <b style="padding-left: 2em;">Updated at:</b> <?php echo $task->{'updated_at'}; ?>
-    </small>
-  </p>
-
+  <!-- Task information -->
+  <?php include('task_information.php'); ?>
   <?php
-    if ($isTaskOwner) {
+    /* For Task Owners to perform Edit & Delete operations on this task */
+    /* They can only do so if they haven't chosen an assignee already */
+    if ($isTaskOwner && !$assignee) {
+      $link_to_edit_task_page = '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
+      $link_to_del_task_page = '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
       echo '<p>';
-      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-primary">
+      echo '<a href="'.$link_to_edit_task_page.'"
+              class="btn btn-embossed btn-sm btn-primary">
               <span class="fui-new"></span> Edit
             </a>';
-      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
+      echo '<a href="'.$link_to_del_task_page.'"
+              class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
               <span class="fui-trash"></span> Delete
             </a>';
       echo '</p>';
@@ -25,48 +22,57 @@
 
   <hr/>
 
-  <?php
-    if(!$isTaskOwner) {
-      echo '<div class="col-md-offset-3 col-md-6 col-xs-8 col-xs-offset-2" style="margin-bottom: 20px;">';
-      echo   '<div class="share mrl">';
-      echo      '<ul>';
-      echo        '<li>';
-      if ($hasUserBid) {
-        echo          '<form method="post" action="/tasks/del_or_edit_bid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
-        echo          '<div style="margin: 0 0 10px 3px;">
-                        <b>Current bid: '.$bid->{'amount'}.'</b>
-                        <input type="text" name="edited_bid_amount" value="" placeholder="Enter new bid" class="form-control" />
-                        <br/>
-                        <b>Bid details:</b>
-                        <br>
-                          <textarea name="edited_bid_details" placeholder="Any comments about yourself?" class="form-control">'.$bid->{'details'}.'</textarea>
-                        <br>
-                        <div style="text-align: center;">
-                          <input type="submit" name="edit_bid" value="Update Bid" class="btn btn-embossed btn-sm btn-primary">
-                          <input type="submit" name="delete_bid" value="Retract Bid" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 1em;">
-                        </div>
-                      </div>';
-        echo          '</form>';
+  <script>
+    // Quick check to see if a specified form & bid amount is within range or not
+    function validateEnteredBid(formName, bidAmount) {
+      var bid = document.forms[formName][bidAmount].value;
+      if (bid.length > 0 &&
+          bid >= <?php echo $task->{'min_bid'} ?> &&
+          bid <= <?php echo $task->{'max_bid'} ?>) {
+        $('.err_bid_out_of_range').hide();
+        return true;
       } else {
-        echo          '<form method="post" action="/tasks/newbid?title='.$task->{"title"}.'&creator_username='.$task->{"creator_username"}.'">';
-        echo          '<div style="margin: 0 0 10px 3px;">
-                        <b>You haven\'t bidded for this task yet.</b>
-                        <input type="text" name="bid_amount" value="" placeholder="Enter bid amount" class="form-control" style="margin-bottom: 1.5em;"/>
-
-                        <b>Bid details:</b>
-                        <br><textarea name="bid_details" placeholder="Any comments about yourself?" class="form-control"></textarea><br>
-                        <div style="text-align: center;">
-                          <input type="submit" name="create_bid" value="Place Bid" class="btn btn-embossed btn-sm btn-primary">
-                        </div>
-                      </div>';
+        $('.err_bid_out_of_range').show();
+        return false;
       }
-      echo        '</li>';
-      echo      '</ul>';
+    }
+  </script>
+
+  <!-- Renders the Bidding Section -->
+  <?php
+    echo '<div class="row">';
+    if(!$isTaskOwner && !$assignee) {
+      /*  Where bids for this task can be created, edited or deleted  */
+      echo  '<div class="col-md-4" style="margin-bottom: 20px;">';
+      echo    '<div class="share mrl">';
+      include('bids_CRUD/bids_read.php');
+      if ($hasUserBid) {
+        include('bids_CRUD/bids_edit_del.php');
+      } else {
+        include('bids_CRUD/bids_create.php');
+      }
       echo    '</div>';
+      echo  '</div>';
+    }
+
+    if (!$assignee) {
+      echo '<div class="col-md-8">';
+      /* Top 3 Bidders */
+      include('bids_display/bids_top3.php');
       echo '</div>';
-    } else {
-      echo 'Hi, I am task owner. No need to bid for my own tasks :)';
+      echo '</div>';
     }
   ?>
 
+  <?php
+    /* All Bidders - Here, the task creator can assign a bidder to this task */
+    if (!$assignee) {
+      echo '<hr/>';
+      include('bids_display/bids_all.php');
+    } else if ($assignee && !$completed_at) {
+      include('task_states/task_ongoing.php');
+    } else {
+      include('task_states/task_completed.php');
+    }
+  ?>
 </div>

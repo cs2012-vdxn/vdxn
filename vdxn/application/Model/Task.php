@@ -156,6 +156,79 @@ class Task extends Model
     }
 
     //==========================================
+    // TASK CREATOR ASSIGNING DOER FUNCTIONS
+    //==========================================
+    /**
+     * Gets the specified user attributes of a task's assignee / doer.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Array    User profile of the assignee/doer for this task
+     */
+    public function getTaskAssigneeUserProfile($task_title, $task_creator_username)
+    {
+      $sql = "SELECT username, first_name, last_name, contact, email, assignee_rating FROM Task t, User u ".
+        "WHERE t.title = '".$task_title.
+        "' AND t.creator_username = '".$task_creator_username.
+        "' AND t.assignee_username = u.username";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets the date when this task was marked as completed by the task creator.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Array    Date of completion of this task
+     */
+    public function getTaskCompletedDate($task_title, $task_creator_username)
+    {
+      $sql = "SELECT completed_at FROM Task t ".
+        "WHERE t.title = '".$task_title.
+        "' AND t.creator_username = '".$task_creator_username."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Marks a Task as completed. This is done by the Task creator.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     */
+    public function markTaskAsComplete($task_title, $task_creator_username)
+    {
+      $sql = "UPDATE Task ".
+        "SET completed_at='2017-10-10 14:53:12'".
+        " WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+    /**
+     * Assigns a bidder to the Task. This is done by the Task creator.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     */
+    public function assignBidderToTask($task_title, $task_creator_username, $bidder_username)
+    {
+      $sql = "UPDATE Task ".
+        "SET assignee_username='".$bidder_username.
+        "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+
+
+
+
+    //==========================================
     // BIDDING RELATED FUNCTIONS
     //==========================================
 
@@ -180,6 +253,37 @@ class Task extends Model
       FROM Bid
       WHERE task_title='$task_title'
       AND task_creator_username='$task_creator_username'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    /**
+     * Gets top N bids for this specified task.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Int    $topN                     The top N bids ordered either in
+     *                                          ascending or descending order.
+     * @param  String $orderByAscOrDesc         'ASC' to order in ascending order,
+     *                                          'DESC' to order in descending order.
+     * @return Array    Array of top N bids for this specified task
+     */
+    public function getTopNBids($task_title, $task_creator_username, $topN, $orderByAscOrDesc)
+    {
+      $sql = "SELECT
+      `task_title`,
+      `task_creator_username`,
+      `bidder_username`,
+      `amount`,
+      `details`,
+      `created_at`,
+      `updated_at`,
+      `deleted_at`
+      FROM Bid
+      WHERE task_title='$task_title'
+      AND task_creator_username='$task_creator_username'
+      ORDER BY Bid.amount ".$orderByAscOrDesc." LIMIT ".$topN;
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -259,7 +363,8 @@ class Task extends Model
     {
       $sql = "UPDATE Bid ".
         "SET amount=".$amount.", details='".$details."' ".
-        "WHERE task_title='".$task_title."' AND task_creator_username='".$task_creator_username."' AND bidder_username='".$bidder_username."';";
+        "WHERE task_title='".$task_title."' AND task_creator_username='".
+        $task_creator_username."' AND bidder_username='".$bidder_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }

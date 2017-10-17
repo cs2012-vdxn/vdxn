@@ -17,6 +17,9 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    //==========================================
+    // TASK FUNCTIONS
+    //==========================================
     public function task() {
       $Task = new Task();
 
@@ -26,7 +29,10 @@ class TasksController {
 
       $task = $Task->getTask($title, $creator_username);
       $bids = $Task->getBids($title, $creator_username);
+      $bids_leaderboard = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
       $bid = $Task->getUserBidForTask($title, $username);
+      $assignee = $Task->getTaskAssigneeUserProfile($title, $creator_username);
+      $completed_at = $Task->getTaskCompletedDate($title, $creator_username)->{'completed_at'};
 
       // echo '<p>' . var_dump($task) . '</p>';
       // echo '<p>' . var_dump($bids) . '</p>';
@@ -38,7 +44,6 @@ class TasksController {
 
       echo '<div class="container-fluid col-md-offset-2 col-md-8 col-xs-8 col-xs-offset-2" style="padding-bottom: 100px;">';
       require APP . 'view/tasks/task.php';
-      require APP . 'view/tasks/bids_top3.php';
       echo '</div>';
 
       require APP . 'view/_templates/footer.php';
@@ -100,6 +105,40 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    public function assign_bidder() {
+      $Task = new Task();
+      $task_creator_username = $_SESSION['user']->{'username'}; // Assumes logged in user IS the task creator
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+      $task_assignee_username = isset($_GET['assignee_username']) ? $_GET['assignee_username'] : "";
+
+      // Assign this bidder to this task
+      $Task->assignBidderToTask($task_title, $task_creator_username, $task_assignee_username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
+
+    public function mark_as_complete() {
+      $Task = new Task();
+      $task_creator_username = $_SESSION['user']->{'username'}; // Assumes logged in user IS the task creator
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+
+      // Mark this task as completed
+      $Task->markTaskAsComplete($task_title, $task_creator_username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
+
+
+
+
+
     //==========================================
     // BIDDING FUNCTIONS
     //==========================================
@@ -119,7 +158,7 @@ class TasksController {
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
-    public function del_or_edit_bid() {
+    public function edit_bid() {
       $Task = new Task();
       $username = $_SESSION['user']->{'username'};
 
@@ -129,28 +168,30 @@ class TasksController {
       $bid_amount = isset($_POST['edited_bid_amount']) ? (int)$_POST['edited_bid_amount'] : "";
       $bid_details = isset($_POST['edited_bid_details']) ? $this->sanitize($_POST['edited_bid_details']) : "";
 
-      // Since we have 2 buttons: One to edit this bid and another to retract
-      // this bid, we do that check here and perform the appropriate DB queries
-      if (array_key_exists('edit_bid', $_POST)) {
-        $Task->editTaskBid($task_title, $task_creator_username, $username, $bid_amount, $bid_details);
-      } else if (array_key_exists('delete_bid', $_POST)) {
-        $Task->deleteTaskBid($task_title, $task_creator_username, $username);
-      }
+      $Task->editTaskBid($task_title, $task_creator_username, $username, $bid_amount, $bid_details);
 
       // Redirect back to this task's page
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
 
-    public function bids($tid) {
+    public function del_bid() {
       $Task = new Task();
+      $username = $_SESSION['user']->{'username'};
 
-      $task = $Task->getTask($tid);
-      $bids = $Task->getBids($tid);
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
 
-      require APP . 'view/_templates/header.php';
-      require APP . 'view/tasks/bids.php';
-      require APP . 'view/_templates/footer.php';
+      $Task->deleteTaskBid($task_title, $task_creator_username, $username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
     }
+
+
+
+
+
 
     //==========================================
     // TASKS SEARCH FUNCTIONS
@@ -295,6 +336,12 @@ class TasksController {
     private function sanitize($data) {
       $data = trim($data);
       $data = stripslashes($data);
+
+      // We need to escape single and double quotes or our prepared SQL
+      // statements will throw a Syntax Error
+      $data = str_replace('"', '', $data);
+      $data = str_replace("'", '', $data);
+
       return $data;
     }
 
