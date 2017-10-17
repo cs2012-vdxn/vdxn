@@ -309,6 +309,12 @@ class TasksController {
     private function sanitize($data) {
       $data = trim($data);
       $data = stripslashes($data);
+
+      // We need to escape single and double quotes or our prepared SQL
+      // statements will throw a Syntax Error
+      $data = str_replace('"', '', $data);
+      $data = str_replace("'", '', $data);
+
       return $data;
     }
 
