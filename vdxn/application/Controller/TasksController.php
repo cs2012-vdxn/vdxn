@@ -38,7 +38,6 @@ class TasksController {
 
       echo '<div class="container-fluid col-md-offset-2 col-md-8 col-xs-8 col-xs-offset-2" style="padding-bottom: 100px;">';
       require APP . 'view/tasks/task.php';
-      require APP . 'view/tasks/bids_top3.php';
       echo '</div>';
 
       require APP . 'view/_templates/footer.php';
