@@ -186,6 +186,37 @@ class Task extends Model
     }
 
     /**
+     * Gets top N bids for this specified task.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Int    $topN                     The top N bids ordered either in
+     *                                          ascending or descending order.
+     * @param  String $orderByAscOrDesc         'ASC' to order in ascending order,
+     *                                          'DESC' to order in descending order.
+     * @return Array    Array of top N bids for this specified task
+     */
+    public function getTopNBids($task_title, $task_creator_username, $topN, $orderByAscOrDesc)
+    {
+      $sql = "SELECT
+      `task_title`,
+      `task_creator_username`,
+      `bidder_username`,
+      `amount`,
+      `details`,
+      `created_at`,
+      `updated_at`,
+      `deleted_at`
+      FROM Bid
+      WHERE task_title='$task_title'
+      AND task_creator_username='$task_creator_username'
+      ORDER BY Bid.amount ".$orderByAscOrDesc." LIMIT ".$topN;
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    /**
      * Retrieves the bidder's bid for this task. Returns an empty array if
      * this bidder does not have any bids for this task.
      *
