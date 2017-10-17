@@ -1,4 +1,5 @@
 <div class="row">
+  <!-- Task Information -->
   <h3><?php echo $task->{'title'}; ?></h3>
   <p><b>Due: <?php echo $task->{'created_at'};?></b></p>
   <p><?php echo $task->{'description'}; ?></p>
@@ -11,12 +12,17 @@
   </p>
 
   <?php
+    /* For Task Owners to perform Edit & Delete operations on this task */
     if ($isTaskOwner) {
+      $link_to_edit_task_page = '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
+      $link_to_del_task_page = '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
       echo '<p>';
-      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-primary">
+      echo '<a href="'.$link_to_edit_task_page.'"
+              class="btn btn-embossed btn-sm btn-primary">
               <span class="fui-new"></span> Edit
             </a>';
-      echo '<a href="#nothing" class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
+      echo '<a href="'.$link_to_del_task_page.'"
+              class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
               <span class="fui-trash"></span> Delete
             </a>';
       echo '</p>';
@@ -43,8 +49,10 @@
   </script>
 
   <?php
+    /* Renders the section where bids for this task can be placed,
+       edited or deleted */
+    echo '<div class="row">';
     if(!$isTaskOwner) {
-      echo '<div class="row">';
       echo  '<div class="col-md-4" style="margin-bottom: 20px;">';
       echo    '<div class="share mrl">';
       include('bids_CRUD/bids_read.php');
@@ -55,13 +63,11 @@
       }
       echo    '</div>';
       echo  '</div>';
-      echo  '<div class="col-md-8">';
-      include('bids_top3.php');
-      echo  '</div>';
-      echo '</div>';
-    } else {
-      echo 'Hi, I am task owner. No need to bid for my own tasks :)';
     }
+    echo '<div class="col-md-8">';
+    include('bids_top3.php');
+    echo   '</div>';
+    echo '</div>';
   ?>
 
 </div>
