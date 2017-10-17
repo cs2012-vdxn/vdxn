@@ -9,5 +9,5 @@
 ?>
 <dl class="<?php echo $color_bid_text; ?>" style="border-radius: 8px 8px 0px 0px">
   <dt><?php echo $curr_bid_text; ?></dt>
-  <small>Max bid:, Min bid:</small>
+  <?php echo "<small>Min bid: ".$task->{'min_bid'}.", Max bid:".$task->{'max_bid'}."</small>"; ?>
 </dl>
