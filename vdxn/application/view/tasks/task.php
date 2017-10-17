@@ -61,7 +61,7 @@
   ?>
 
   <?php
-  /* All Bidders */
+  /* All Bidders - Here, the task creator can assign a bidder to this task */
   echo '<hr/>';
   include('bids_display/bids_all.php');
   ?>
