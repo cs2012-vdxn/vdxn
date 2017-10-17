@@ -156,6 +156,25 @@ class Task extends Model
     }
 
     //==========================================
+    // TASK CREATOR ASSIGNING DOER FUNCTIONS
+    //==========================================
+    /**
+     * Assigns a bidder to the Task. This is done by the Task creator.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  String $bidder_username          Username of the bidder
+     */
+    public function assignBidderToTask($task_title, $task_creator_username, $bidder_username)
+    {
+      $sql = "UPDATE Task ".
+        "SET assignee_username='".$bidder_username.
+        "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+    //==========================================
     // BIDDING RELATED FUNCTIONS
     //==========================================
 

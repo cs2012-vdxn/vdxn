@@ -17,6 +17,9 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    //==========================================
+    // TASK FUNCTIONS
+    //==========================================
     public function task() {
       $Task = new Task();
 
@@ -97,6 +100,22 @@ class TasksController {
           require APP . 'view/tasks/tasknotdeleted.php';
       }
       require APP . 'view/_templates/footer.php';
+    }
+
+    public function assign_bidder() {
+      $Task = new Task();
+      $task_creator_username = $_SESSION['user']->{'username'}; // Assumes logged in user IS the task creator
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_assignee_username = isset($_GET['assignee_username']) ? $_GET['assignee_username'] : "";
+
+      // Assign this bidder to this task
+      $Task->assignBidderToTask($task_title, $task_creator_username, $task_assignee_username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+
     }
 
 

@@ -22,12 +22,15 @@ Rating
           <th></th>
         </tr></thead>';
   foreach($bids as $bid) {
+    $confirm_assignee_link =
+      '"/tasks/assign_bidder?title='.$task->{'title'}.
+      '&assignee_username='.$bid->bidder_username.'"';
     echo '<tr>';
     echo '<td>' . $bid->bidder_username . '</td>';
     echo '<td>' . $bid->amount . '</td>';
     echo '<td>' . $bid->details . '</td>';
     echo '<td>' . $bid->created_at . '</td>';
-    echo '<td><a href="#">Confirm</a></td>';
+    echo '<td><a href='.$confirm_assignee_link.'>Confirm</a></td>';
     echo '</tr>';
   }
   echo '</table>';
