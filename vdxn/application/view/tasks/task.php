@@ -64,7 +64,7 @@
       echo  '</div>';
     }
     echo '<div class="col-md-8">';
-    include('bids_top3.php');
+    include('bids_display/bids_top3.php');
     echo   '</div>';
     echo '</div>';
   ?>
