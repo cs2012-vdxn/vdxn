@@ -3,7 +3,8 @@
   <?php include('task_information.php'); ?>
   <?php
     /* For Task Owners to perform Edit & Delete operations on this task */
-    if ($isTaskOwner) {
+    /* They can only do so if they haven't chosen an assignee already */
+    if ($isTaskOwner && !$assignee) {
       $link_to_edit_task_page = '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
       $link_to_del_task_page = '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
       echo '<p>';
@@ -40,7 +41,7 @@
   <!-- Renders the Bidding Section -->
   <?php
     echo '<div class="row">';
-    if(!$isTaskOwner) {
+    if(!$isTaskOwner && !$assignee) {
       /*  Where bids for this task can be created, edited or deleted  */
       echo  '<div class="col-md-4" style="margin-bottom: 20px;">';
       echo    '<div class="share mrl">';
@@ -53,16 +54,25 @@
       echo    '</div>';
       echo  '</div>';
     }
-    echo '<div class="col-md-8">';
+
+    if (!$assignee) {
+      echo '<div class="col-md-8">';
       /* Top 3 Bidders */
       include('bids_display/bids_top3.php');
       echo '</div>';
-    echo '</div>';
+      echo '</div>';
+    }
   ?>
 
   <?php
-  /* All Bidders - Here, the task creator can assign a bidder to this task */
-  echo '<hr/>';
-  include('bids_display/bids_all.php');
+    /* All Bidders - Here, the task creator can assign a bidder to this task */
+    if (!$assignee) {
+      echo '<hr/>';
+      include('bids_display/bids_all.php');
+    } else if ($assignee && !$completed_at) {
+      include('task_states/task_ongoing.php');
+    } else {
+      include('task_states/task_completed.php');
+    }
   ?>
 </div>
