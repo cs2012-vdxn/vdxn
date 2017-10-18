@@ -21,19 +21,41 @@
   <?php
     /* For Task Owners to perform Edit & Delete operations on this task */
     /* They can only do so if they haven't chosen an assignee already */
-    if ($isTaskOwner && !$assignee) {
-      $link_to_edit_task_page = '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
-      $link_to_del_task_page = '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
-      echo '<p>';
-      echo '<a href="'.$link_to_edit_task_page.'"
-              class="btn btn-embossed btn-sm btn-primary">
-              <span class="fui-new"></span> Edit
-            </a>';
-      echo '<a href="'.$link_to_del_task_page.'"
-              class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
-              <span class="fui-trash"></span> Delete
-            </a>';
-      echo '</p>';
+    if ($isTaskOwner) {
+      if (!$assignee) {
+        // Defining Edit & Delete task POST method's redirect URLs
+        $link_to_edit_task_page =
+          '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
+        $link_to_del_task_page =
+          '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
+
+        echo '<p>';
+        echo '<a href="'.$link_to_edit_task_page.'"
+        class="btn btn-embossed btn-sm btn-primary">
+        <span class="fui-new"></span> Edit
+        </a>';
+        echo '<a href="'.$link_to_del_task_page.'"
+        class="btn btn-embossed btn-sm btn-danger" style="margin-left: 0.75em;">
+        <span class="fui-trash"></span> Delete
+        </a>';
+        echo '</p>';
+      } else {
+        if (!$completed_at) {
+          /* For Task Owners to perform mark this task as COMPLETED */
+          /* They can only do so if they have chosen an assignee already */
+          // Defining Complete task POST method's redirect URLs
+          $post_method_action_url_complete_task =
+            "/tasks/mark_as_complete?title=".$task->{"title"}."&creator_username=".$username;
+
+          echo '<form method="post"';
+          echo '      action="'.$post_method_action_url_complete_task.'">';
+          echo '  <div>';
+          echo '    <input type="submit" name="complete_task" value="MARK AS COMPLETE"';
+          echo '           class="btn btn-embossed btn-wide btn-success"/>';
+          echo '  </div>';
+          echo '</form>';
+        }
+      }
     }
   ?>
 

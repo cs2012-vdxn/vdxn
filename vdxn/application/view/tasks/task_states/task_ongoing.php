@@ -30,18 +30,3 @@
   Return to this page once the task is done to mark it as <b>'COMPLETE'</b>.
   <br/><br/>
 </p>
-
-<!-- COMPLETE Task button -->
-<?php
-  // Defining Complete task POST method's redirect URLs
-  $post_method_action_url_complete_task =
-    "/tasks/mark_as_complete?title=" . $task->{"title"} .
-    "&creator_username=" . $task->{"creator_username"};
-?>
-<form method="post"
-      action="<?php echo $post_method_action_url_complete_task; ?>">
-  <div style="text-align: center;">
-    <input type="submit" name="complete_task" value="MARK AS COMPLETE"
-           class="btn btn-embossed btn-wide btn-success"/>
-  </div>
-</form>
