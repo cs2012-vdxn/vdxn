@@ -17,7 +17,7 @@
       <div style="margin: 0 0 10px 3px;">
         <b>Enter your bid:</b>
         <input type="text" name="bid_amount" value="" placeholder="Bid amount" class="form-control"/>
-        <div style="display:none;">
+        <div class="err_bid_out_of_range" style="display:none;">
           <span style="color: #c91212; font-size: 0.9em;">* Please enter an amount within the limit</span>
         </div>
 
