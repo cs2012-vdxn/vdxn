@@ -163,7 +163,7 @@ class Task extends Model
      *
      * @param  String $task_title               Title of the task
      * @param  String $task_creator_username    Username of the task creator
-     * @return Array    User profile of the assignee/doer for this task
+     * @return Object    User profile of the assignee/doer for this task
      */
     public function getTaskAssigneeUserProfile($task_title, $task_creator_username)
     {
@@ -181,11 +181,45 @@ class Task extends Model
      *
      * @param  String $task_title               Title of the task
      * @param  String $task_creator_username    Username of the task creator
-     * @return Array    Date of completion of this task
+     * @return String    Date of completion of this task
      */
     public function getTaskCompletedDate($task_title, $task_creator_username)
     {
       $sql = "SELECT completed_at FROM Task t ".
+        "WHERE t.title = '".$task_title.
+        "' AND t.creator_username = '".$task_creator_username."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets this task's creator rating.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Float     Task creator's rating
+     */
+    public function getTaskCreatorRating($task_title, $task_creator_username)
+    {
+      $sql = "SELECT creator_rating FROM Task t ".
+        "WHERE t.title = '".$task_title.
+        "' AND t.creator_username = '".$task_creator_username."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets this task's doer's rating.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Float     Task doer's rating
+     */
+    public function getTaskDoerRating($task_title, $task_creator_username)
+    {
+      $sql = "SELECT assignee_rating FROM Task t ".
         "WHERE t.title = '".$task_title.
         "' AND t.creator_username = '".$task_creator_username."'";
       $query = $this->db->prepare($sql);
@@ -224,6 +258,39 @@ class Task extends Model
       return $query->execute();
     }
 
+    /**
+     * Sets the assignee rating for a given task. This is done by the Task creator.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Float  $assignee_rating          Rating of the doer, given by
+     *                                          the task creator
+     */
+    public function rateTaskDoer($task_title, $task_creator_username, $assignee_rating)
+    {
+      $sql = "UPDATE Task ".
+        "SET assignee_rating='".$assignee_rating.
+        "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
+
+    /**
+     * Sets the assignee rating for a given task. This is done by the Task doer.
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @param  Float  $creator_rating           Rating of the creator, given by
+     *                                          the task doer
+     */
+    public function rateTaskCreator($task_title, $task_creator_username, $creator_rating)
+    {
+      $sql = "UPDATE Task ".
+        "SET creator_rating='".$creator_rating.
+        "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+      $query = $this->db->prepare($sql);
+      return $query->execute();
+    }
 
 
 

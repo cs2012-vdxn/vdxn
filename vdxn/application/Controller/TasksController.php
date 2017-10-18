@@ -31,14 +31,21 @@ class TasksController {
       $bids = $Task->getBids($title, $creator_username);
       $bids_leaderboard = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
       $bid = $Task->getUserBidForTask($title, $username);
+
+      // Get the current state of this task
+      // e.g. Whether a doer was assigned, whether this task is completed and whether the
+      //      creator / doer was rated already
       $assignee = $Task->getTaskAssigneeUserProfile($title, $creator_username);
       $completed_at = $Task->getTaskCompletedDate($title, $creator_username)->{'completed_at'};
+      $creator_rating = $Task->getTaskCreatorRating($title, $creator_username)->{'creator_rating'};
+      $assignee_rating = $Task->getTaskDoerRating($title, $creator_username)->{'assignee_rating'};
 
       // echo '<p>' . var_dump($task) . '</p>';
       // echo '<p>' . var_dump($bids) . '</p>';
 
       $hasUserBid = $this->has_user_bid_on_task($task->title, $username);
       $isTaskOwner = $this->is_task_owner($task, $username);
+      $isTaskAssignee = $this->is_task_assignee($task, $username);
 
       require APP . 'view/_templates/header.php';
 
@@ -49,6 +56,9 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    //==========================================
+    // TASK SET CRUD FUNCTIONS
+    //==========================================
     public function newtask() {
       require APP . 'view/_templates/header.php';
       if ($this->validate_task($_POST)) {
@@ -105,6 +115,10 @@ class TasksController {
       require APP . 'view/_templates/footer.php';
     }
 
+    //==========================================
+    // TASK SET STATE FUNCTIONS
+    // For assigning bidders, marking as complete or rating
+    //==========================================
     public function assign_bidder() {
       $Task = new Task();
       $task_creator_username = $_SESSION['user']->{'username'}; // Assumes logged in user IS the task creator
@@ -130,6 +144,36 @@ class TasksController {
 
       // Mark this task as completed
       $Task->markTaskAsComplete($task_title, $task_creator_username);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
+
+    public function rate_creator() {
+      $Task = new Task();
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+      $creator_rating = isset($_POST['task_creator_rating']) ? floatval($_POST['task_creator_rating']) : "";
+      
+      // Rate this task creator
+      $Task->rateTaskCreator($task_title, $task_creator_username, $creator_rating);
+
+      // Redirect back to this task's page
+      header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
+    }
+
+    public function rate_assignee() {
+      $Task = new Task();
+
+      // TODO Input Validation
+      $task_title = isset($_GET['title']) ? $_GET['title'] : "";
+      $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
+      $doer_rating = isset($_POST['task_doer_rating']) ? floatval($_POST['task_doer_rating']) : "";
+
+      // Rate this task doer
+      $Task->rateTaskDoer($task_title, $task_creator_username, $doer_rating);
 
       // Redirect back to this task's page
       header('location: ' . URL . 'tasks/task?title=' . $task_title . '&creator_username=' . $task_creator_username);
@@ -331,6 +375,10 @@ class TasksController {
 
     private function is_task_owner($task, $username) {
       return $task->creator_username == $username;
+    }
+
+    private function is_task_assignee($task, $username) {
+      return $task->assignee_username == $username;
     }
 
     private function sanitize($data) {
