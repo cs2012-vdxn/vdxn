@@ -1,3 +1,20 @@
+<!--
+  INDIVIDUAL TASK PAGE
+  This view defines the page where a user can see a task's details.
+
+  TASK CREATORS
+  Here, task creators can view, edit & delete their task.
+  They can also choose an assignee / doer for this task. Once they do so, the
+  contact information of the assignee / doer, will then be displayed so that
+  task creators can liaise with them.
+  Once a job is completed, task creators can mark this task as 'COMPLETE'
+  and rate their assigned task doer on their performance.
+
+  TASK DOERS
+  Task doers / bidders can bid for this task and see the top 3 bids as well as
+  all of the bids for this task. Chosen task doers can rate their task creators
+  on this page as well, after a task has been marked as 'COMPLETE'.
+-->
 <div class="row">
   <!-- Task information -->
   <?php include('task_information.php'); ?>
@@ -56,8 +73,8 @@
     }
 
     if (!$assignee) {
-      echo '<div class="col-md-8">';
       /* Top 3 Bidders */
+      echo '<div class="col-md-8">';
       include('bids_display/bids_top3.php');
       echo '</div>';
       echo '</div>';
@@ -65,7 +82,16 @@
   ?>
 
   <?php
-    /* All Bidders - Here, the task creator can assign a bidder to this task */
+    /* == Section that changes depending on the task state  ==
+       == BIDDING IN PROCESS, TASK ONGOING & TASK COMPLETED ==
+       Here, the task creator can assign a bidder to this task.
+
+       Once a a user has been assigned to this task, his/her contact information
+       will be displayed.
+
+       Once the task has been marked as completed by the task creator, both
+       the creator and assignee / doer can rate each other.
+    */
     if (!$assignee) {
       echo '<hr/>';
       include('bids_display/bids_all.php');
