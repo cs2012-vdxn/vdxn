@@ -7,7 +7,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $("#bidded-history-pagesize").change(function() {
-        var table = $("#bidded-history-table");
+        var table = $("#bidded-tasks-table");
         table.data("pagesize", $(this).val());
         $.ajax({
             type: "POST",
@@ -15,7 +15,7 @@
             data: { offset: table.data("offset"), pagesize: $(this).val(), order_by: table.data("order_by") },
             cache: false,
             success: function(html){
-                $("table#bidded-history-table tbody").html(html);
+                $("table#bidded-tasks-table tbody").html(html);
             }
         });
       });

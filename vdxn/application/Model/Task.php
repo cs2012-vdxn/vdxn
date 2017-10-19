@@ -25,9 +25,9 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function getAllUserTasks($tkername)
+    public function getAllUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
     {
-      $sql = $this->getAllUserTasksQuery($tkername, NULL, NULL, NULL);
+      $sql = $this->getAllUserTasksQuery($tkername, $offet, $limit, $order_by);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -52,10 +52,10 @@ class Task extends Model
       return $sql;
     }
 
-    public function getAllHistoryUserTasks($tkername)
+    public function getAllHistoryUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
     {
       // tasks created by this user and has been completed
-      $sql = $this->getAllHistoryUserTasksQuery($tkername, NULL, NULL, NULL);
+      $sql = $this->getAllHistoryUserTasksQuery($tkername, $offset, $limit, $order_by);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -79,10 +79,10 @@ class Task extends Model
       return $sql;
     }
 
-    public function getAllCurrentBiddedTasks($bdername)
+    public function getAllCurrentBiddedTasks($bdername,$offset = NULL, $limit = NULL, $order_by = NULL)
     {
       // tasks this user has bidded for
-      $sql = $this->getAllCurrentBiddedTasksQuery($bdername, NULL, NULL, NULL);
+      $sql = $this->getAllCurrentBiddedTasksQuery($bdername, $offset, $limit, $order_by);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -115,10 +115,10 @@ class Task extends Model
       return $sql;
     }
 
-    public function getAllHistoryBiddedTasks($bdername)
+    public function getAllHistoryBiddedTasks($bdername, $offset = NULL, $pagesize = NULL, $order_by = NULL)
     {
       // tasks this user has bidded for and has had an assignee chosen
-      $sql = $this->getAllHistoryBiddedTasksQuery($bdername, NULL, NULL, NULL);
+      $sql = $this->getAllHistoryBiddedTasksQuery($bdername, $offset, $pagesize, $order_by);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
