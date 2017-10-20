@@ -7,8 +7,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $("#created-history-pagesize select").val($("#created-history-table").data("pagesize"));
-      $("#created-history-pagesize").change(function() {
-        <?php echo "CHANGED" . $(this).val() ?>
+      $("select#created-history-pagesize").change(function() {
         var table = $("#created-history-table");
         table.data("pagesize", $(this).val());
         $.ajax({

@@ -1,12 +1,13 @@
 <?php
 
 namespace Mini\Controller;
+session_start();
 use Mini\Model\Task;
 
 class TableController {
-  public function fetchCompletedTasks {
+  public function fetchCompletedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
@@ -26,14 +27,14 @@ class TableController {
       }
       $tableHtml += "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Edit</a></td>".
             "<td><a href='/tasks/deletetask?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Delete</a></td>".
       '</tr>';
     }
@@ -41,9 +42,10 @@ class TableController {
     return $tableHtml;
   }
 
-  public function fetchCreatedTasks {
+  public function fetchCreatedTasks() {
+    echo "HEY";
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
@@ -65,14 +67,14 @@ class TableController {
       }
       $tableHtml += "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Edit</a></td>".
             "<td><a href='/tasks/deletetask?title=" .
             $task->title . "&creator_username=" .
-            $task->creator_username .
+            $_SESSION['user']->username .
             "'>Delete</a></td>".
       '</tr>';
     }
@@ -80,9 +82,9 @@ class TableController {
     return $tableHtml;
   }
 
-  public function fetchCurrentBiddedTasks {
+  public function fetchCurrentBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
@@ -118,9 +120,9 @@ class TableController {
     return $tableHtml;
   }
 
-  public function fetchHistoryBiddedTasks {
+  public function fetchHistoryBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
