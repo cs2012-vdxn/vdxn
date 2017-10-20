@@ -6,6 +6,7 @@
 </select>
 <script type="text/javascript">
     $(document).ready(function() {
+      $("#bidded-history-pagesize select").val($("#bidded-history-table").data("pagesize"));
       $("#bidded-history-pagesize").change(function() {
         var table = $("#bidded-history-table");
         table.data("pagesize", $(this).val());

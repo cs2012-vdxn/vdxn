@@ -1,16 +1,16 @@
 <!-- Tasks which have been completed -->
 <?php
-echo '<div class="table-wrapper"'>;
+echo '<div class="table-wrapper">';
 include ('created_tasks_dropdown.php');
-  echo '<table id="created-tasks-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0">';
-  echo '<th data-col="title">Title</th>
+  echo '<table id="created-history-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0">';
+  echo '<thead><tr><th data-col="title">Title</th>
         <th data-col="description">Description</th>
         <th data-col="created_at">Created At</th>
-        <th data-col="start_at">Event Date</th>
+        <th data-col="start_at">Start At</th>
         <th data-col="completed_at">Completed At</th>
         <th data-col="assignee_username">Assigned To</th>
         <th data-col="creator_rating">Creator Rating</th>
-        <th data-col="assignee_rating">Assignee Rating</th></tr>';
+        <th data-col="assignee_rating">Assignee Rating</th></tr></thead>';
   foreach($history_tasks as $task) {
     echo '<tr>';
     foreach($task as $item) {
