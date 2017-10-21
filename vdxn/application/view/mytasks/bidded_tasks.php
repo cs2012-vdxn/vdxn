@@ -1,7 +1,7 @@
 <?php
   echo '<div class="table-wrapper">';
   include ('bidded_tasks_dropdown.php');
-  echo '<table id="bidded-tasks-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0">';
+  echo '<table id="bidded-tasks-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0" data-order_by="title" data-dir="ASC">';
   echo '<thead><tr><th data-col="title">Title</th>
         <th data-col="description">Description</th>
         <th data-col="start_at">Start At</th>
@@ -11,6 +11,7 @@
         <th data-col="creator_username">Created by</th>
         <th data-col="creator_rating">Creator Rating</th>
         <th data-col="assignee_rating">Assignee Rating</th></tr></thead>';
+  echo '<tbody>';
   foreach($user_tasks as $task) {
     echo '<tr class="data-row">';
     foreach($task as $item) {
@@ -30,6 +31,7 @@
                 "'>Delete</a></td>";
     echo '</tr>';
   }
+  echo '</tbody>';
   echo '</table>';
   echo '</div>';
 ?>

@@ -25,15 +25,15 @@ class Task extends Model
       return $query->fetch();
     }
 
-    public function getAllUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
-      $sql = $this->getAllUserTasksQuery($tkername, $offset, $limit, $order_by);
+      $sql = $this->getAllUserTasksQuery($tkername, $offset, $limit, $order_by, $dir);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       $sql = "SELECT title, description, created_at,
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
@@ -46,23 +46,26 @@ class Task extends Model
         $sql .= " OFFSET $offset";
       }
       if(isset($order_by)) {
-        $sql .= " ORDER BY $order_by";
+        if(!isset($dir)) {
+          $dir = 'ASC';
+        }
+        $sql .= " ORDER BY $order_by $dir";
       }
       // TODO: have a default sorting order
 
       return $sql;
     }
 
-    public function getAllHistoryUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllHistoryUserTasks($tkername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       // tasks created by this user and has been completed
-      $sql = $this->getAllHistoryUserTasksQuery($tkername, $offset, $limit, $order_by);
+      $sql = $this->getAllHistoryUserTasksQuery($tkername, $offset, $limit, $order_by, $dir);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllHistoryUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllHistoryUserTasksQuery($tkername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       $sql = "SELECT title, description, created_at,
       start_at, completed_at, assignee_username, creator_rating,
@@ -74,22 +77,26 @@ class Task extends Model
       if(isset($offset)) {
         $sql .= " OFFSET $offset";
       }
+      /*
       if(isset($order_by)) {
-        $sql .= " ORDER BY $order_by";
-      }
+        if(!isset($dir)) {
+          $dir = 'ASC';
+        }
+        $sql .= " ORDER BY $order_by $dir";
+      }*/
       return $sql;
     }
 
-    public function getAllCurrentBiddedTasks($bdername,$offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllCurrentBiddedTasks($bdername,$offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       // tasks this user has bidded for
-      $sql = $this->getAllCurrentBiddedTasksQuery($bdername, $offset, $limit, $order_by);
+      $sql = $this->getAllCurrentBiddedTasksQuery($bdername, $offset, $limit, $order_by, $dir);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllCurrentBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL)
+    public function getAllCurrentBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       $sql = "SELECT title, description,
       start_at, MIN(b2.amount) as curr_min_bid, MAX(b2.amount) as curr_max_bid, myBid /* my current bid */,
@@ -111,21 +118,24 @@ class Task extends Model
         $sql .= " OFFSET $offset";
       }
       if(isset($order_by)) {
-        $sql .= " ORDER BY $order_by";
+        if(!isset($dir)) {
+          $dir = 'ASC';
+        }
+        $sql .= " ORDER BY $order_by $dir";
       }
       return $sql;
     }
 
-    public function getAllHistoryBiddedTasks($bdername, $offset = NULL, $pagesize = NULL, $order_by = NULL)
+    public function getAllHistoryBiddedTasks($bdername, $offset = NULL, $pagesize = NULL, $order_by = NULL, $dir = 'ASC')
     {
       // tasks this user has bidded for and has had an assignee chosen
-      $sql = $this->getAllHistoryBiddedTasksQuery($bdername, $offset, $pagesize, $order_by);
+      $sql = $this->getAllHistoryBiddedTasksQuery($bdername, $offset, $pagesize, $order_by, $dir);
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
     }
 
-    public function getAllHistoryBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL) {
+    public function getAllHistoryBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC') {
       $sql = "SELECT title, description,
       start_at, myBid, winningBid.amount as winning_bid, creator_username,
       assignee_username
@@ -145,7 +155,10 @@ class Task extends Model
         $sql .= " OFFSET $offset";
       }
       if(isset($order_by)) {
-        $sql .= " ORDER BY $order_by";
+        if(!isset($dir)) {
+          $dir = 'ASC';
+        }
+        $sql .= " ORDER BY $order_by $dir";
       }
       return $sql;
     }

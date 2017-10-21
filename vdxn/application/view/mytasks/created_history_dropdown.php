@@ -13,7 +13,7 @@
         $.ajax({
             type: "POST",
             url: 'table/fetchCompletedTasks',
-            data: { offset: table.data("offset"), pagesize: $(this).val(), order_by: table.data("order_by") },
+            data: { offset: table.data("offset"), pagesize: $(this).val(), order_by: table.data("order_by"), dir: table.data("dir") },
             cache: false,
             success: function(html){
                 $("table#created-history-table tbody").html(html);

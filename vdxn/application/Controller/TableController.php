@@ -9,23 +9,24 @@ class TableController {
     $order_by = $_POST['order_by'];
     $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
+    $dir = $_POST['dir'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
-    $bidded_tasks = $Task->getAllHistoryUserTasks($username, $offset, $pagesize, $order_by);
-    $tableHtml = '<thead><tr><th data-col="title">Title</th>'.
+    $completed_tasks = $Task->getAllHistoryUserTasks($username, $offset, $pagesize, $order_by, $dir);
+    $tableHtml =''/* '<thead><tr><th data-col="title">Title</th>'.
                 '<th data-col="description">Description</th>'.
                 '<th data-col="created_at">Created At</th>'.
                 '<th data-col="start_at">Start At</th>'.
                 '<th data-col="completed_at">Completed At</th>'.
                 '<th data-col="assignee_username">Assigned To</th>'.
                 '<th data-col="creator_rating">Creator Rating</th>'.
-                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>';
-    foreach($bidded_tasks as $task) {
-      $tableHtml += '<tr>';
+                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>'*/;
+    foreach($completed_tasks as $task) {
+      $tableHtml .= '<tr>';
       foreach($task as $item) {
-        $tableHtml += "<td>$item</td>";
+        $tableHtml .= "<td>$item</td>";
       }
-      $tableHtml += "<td><a href='/tasks/task?title=" .
+      $tableHtml .= "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
             $_SESSION['user']->username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
@@ -38,8 +39,8 @@ class TableController {
             "'>Delete</a></td>".
       '</tr>';
     }
-
-    return $tableHtml;
+    echo $tableHtml;
+    //return $tableHtml;
   }
 
   public function fetchCreatedTasks() {
@@ -47,10 +48,11 @@ class TableController {
     $order_by = $_POST['order_by'];
     $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
+    $dir = $_POST['dir'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
-    $bidded_tasks = $Task->getAllUserTasks($username, $offset, $pagesize, $order_by);
-    $tableHtml = '<thead><tr><th data-col="title">Title</th>'.
+    $bidded_tasks = $Task->getAllUserTasks($username, $offset, $pagesize, $order_by, $dir);
+    $tableHtml = ''/* '<thead><tr><th data-col="title">Title</th>'.
                 '<th data-col="description">Description</th>'.
                 '<th data-col="created_at">Created At</th>'.
                 '<th data-col="start_at">Start At</th>'.
@@ -59,13 +61,13 @@ class TableController {
                 '<th data-col="max_bid">Max Bid</th>'.
                 '<th data-col="assignee_username">Assigned To</th>'.
                 '<th data-col="creator_rating">Creator Rating</th>'.
-                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>';
+                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>'*/;
     foreach($bidded_tasks as $task) {
-      $tableHtml += '<tr>';
+      $tableHtml .= '<tr>';
       foreach($task as $item) {
-        $tableHtml += "<td>$item</td>";
+        $tableHtml .= "<td>$item</td>";
       }
-      $tableHtml += "<td><a href='/tasks/task?title=" .
+      $tableHtml .= "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
             $_SESSION['user']->username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
@@ -84,12 +86,13 @@ class TableController {
 
   public function fetchCurrentBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offset'];
+    $offset = $_POST['offet'];
     $pagesize = $_POST['pagesize'];
+    $dir = $_POST['dir'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
-    $bidded_tasks = $Task->getAllCurrentBiddedTasks($username, $offset, $pagesize, $order_by);
-    $tableHtml = '<thead><tr><th data-col="title">Title</th>'.
+    $bidded_tasks = $Task->getAllCurrentBiddedTasks($username, $offset, $pagesize, $order_by, $dir);
+    $tableHtml = ''/*'<thead><tr><th data-col="title">Title</th>'.
                 '<th data-col="description">Description</th>'.
                 '<th data-col="start_at">Start At</th>'.
                 '<th data-col="curr_min_bid">Current Min bid</th>'.
@@ -97,13 +100,13 @@ class TableController {
                 '<th data-col="myBid">My Bid</th>'.
                 '<th data-col="creator_username">Created by</th>'.
                 '<th data-col="creator_rating">Creator Rating</th>'.
-                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>';
+                '<th data-col="assignee_rating">Assignee Rating</th></tr></thead>'*/;
     foreach($bidded_tasks as $task) {
-      $tableHtml += '<tr>';
+      $tableHtml .= '<tr>';
       foreach($task as $item) {
-        $tableHtml += "<td>$item</td>";
+        $tableHtml .= "<td>$item</td>";
       }
-      $tableHtml += "<td><a href='/tasks/task?title=" .
+      $tableHtml .= "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
             $task->creator_username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
@@ -122,24 +125,25 @@ class TableController {
 
   public function fetchHistoryBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offset'];
+    $offset = $_POST['offet'];
     $pagesize = $_POST['pagesize'];
+    $dir = $_POST['dir'];
     $Task = new Task();
     $username = $_SESSION['user']->username;
-    $history_tasks = $Task->getAllHistoryBiddedTasks($username, $offset, $pagesize, $order_by);
-    $tableHtml = '<thead><tr><th data-col="title">Title</th>'.
+    $history_tasks = $Task->getAllHistoryBiddedTasks($username, $offset, $pagesize, $order_by, $dir);
+    $tableHtml = ''/*'<thead><tr><th data-col="title">Title</th>'.
                 '<th data-col="description">Description</th>'.
                 '<th data-col="start_at">Start At</th>'.
                 '<th data-col="myBid">My Bid</th>'.
                 '<th data-col="winning_bid">Winning Bid</th>'.
                 '<th data-col="creator_username">Created by</th>'.
-                '<th data-col="assignee_username">Assigned To</th></tr></thead>';
+                '<th data-col="assignee_username">Assigned To</th></tr></thead>'*/;
     foreach($history_tasks as $task) {
-      $tableHtml += '<tr>';
+      $tableHtml .= '<tr>';
       foreach($task as $item) {
-        $tableHtml += "<td>$item</td>";
+        $tableHtml .= "<td>$item</td>";
       }
-      $tableHtml += "<td><a href='/tasks/task?title=" .
+      $tableHtml .= "<td><a href='/tasks/task?title=" .
             $task->title . "&creator_username=" .
             $task->creator_username .
             "'>Link</a></td>" . "<td><a href='/tasks/edittask?title=" .
