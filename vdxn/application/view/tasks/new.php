@@ -24,6 +24,25 @@
       <br>
       <input type="text" name="max_bid">
       <br>
-      <input type="submit">
+        <label>Category</label>
+        <br>
+        <div class="form-group">
+            <label for="sel1">Please Select a Category</label>
+            <select class="form-control" id="sel1">
+                <option> </option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
+        <br>
+        <label>Tags</label>
+        <br>
+        <div class="tagsinput-primary">
+            <input name="tagsinput" class="tagsinput" data-role="tagsinput" value="School, Teacher, Colleague" />
+        </div>
+        <br>
+        <input type="submit">
     </form>
 </div>
