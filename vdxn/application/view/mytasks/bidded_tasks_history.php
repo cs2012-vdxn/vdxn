@@ -1,7 +1,7 @@
 <?php
   echo '<div class="table-wrapper">';
   include ('bidded_history_dropdown.php');
-  echo '<table id="bidded-history-table" border="1" class="sortable paginate dropdown" data-order_by="title"  data-dir="ASC" data-pagesize="10" data-offset="0">';
+  echo '<table id="bidded-history-table" border="1" class="sortable paginate dropdown" data-total='.$num_history_tasks.' data-selected-page="1" data-pagesize="10" data-offset="0" data-order_by="title" data-dir="ASC">';
   echo '<thead><tr><th data-col="title">Title</th>
         <th data-col="description">Description</th>
         <th data-col="start_at">Start At</th>
