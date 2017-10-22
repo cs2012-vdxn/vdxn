@@ -133,13 +133,14 @@ class Task extends Model
       $tags_string = $task_params['tagsinput'];
       $tags_arr = explode(",", $tags_string);
       for($i = 0; $i < sizeof($tags_arr); $i++) {
-          if($this -> existsTag($tags_arr[$i]) == 1) {
+          if($this -> existsTag($tags_arr[$i])) {
               $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
           } else {
               $this -> createTag($tags_arr[$i], '2017-09-24 03:09:10');
               $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
           }
       }
+      $this -> createCategoryTask($_SESSION['user']->username,$task_params['title'], $task_params['category'],'2017-09-24 03:09:10');
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
@@ -164,12 +165,13 @@ class Task extends Model
          return $query -> execute();
     }
 
+// check if a tag exists in the database, and return a boolean value of whether the tag exists.
     public function existsTag($tag_name) {
          $sql = "SELECT COUNT(*) AS count FROM Tag WHERE Tag.name = '$tag_name'";
          $query = $this -> db -> prepare($sql);
          $query -> execute();
          $result = $query -> fetch();
-         return $result -> count;
+         return $result -> count != 0;
     }
 
     public function createTag($tag_name, $created_at) {

@@ -261,3 +261,12 @@ INSERT INTO Task (title, description, created_at, updated_at, start_at, end_at, 
 INSERT INTO Task (title, description, created_at, updated_at, start_at, end_at, min_bid, max_bid, creator_username, assignee_username, completed_at, remarks, deleted_at) VALUES ('Wash my clothes', 'I pay well and usually engage with task doers I like repeatedly', '2010-05-10', null, '2010-06-19', null, 49, 292, 'khloevillar8727', null, '2010-09-29', null, null);
 INSERT INTO Task (title, description, created_at, updated_at, start_at, end_at, min_bid, max_bid, creator_username, assignee_username, completed_at, remarks, deleted_at) VALUES ('Wash all my clothes', 'Need urgent help, please ping me.', '2010-05-19', null, '2010-06-16', null, 43, 434, 'khloevillar8727', null, '2010-09-08', null, null);
 INSERT INTO Task (title, description, created_at, updated_at, start_at, end_at, min_bid, max_bid, creator_username, assignee_username, completed_at, remarks, deleted_at) VALUES ('Feed my cat', 'Assist me and will reward handsomely.', '2010-04-30', null, '2010-06-05', null, 39, 434, 'khloevillar8727', null, '2010-08-31', null, null);
+
+-- Pre-determined Categories
+INSERT INTO Category (name, created_at) VALUES ('Minor Repairs', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('Mounting', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('Assembly', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('Help Moving', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('Delivery', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('BabySitting', '2017-10-22');
+INSERT INTO Category (name, created_at) VALUES ('Others', '2017-10-22');

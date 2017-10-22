@@ -30,10 +30,13 @@
             <label for="sel1">Please Select a Category</label>
             <select class="form-control" id="sel1" name="category">
                 <option> </option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                <option>Minor Repairs</option>
+                <option>Mounting</option>
+                <option>Assembly</option>
+                <option>Help Moving</option>
+                <option>Delivery</option>
+                <option>BabySitting</option>
+                <option>Others</option>
             </select>
         </div>
         <br>
