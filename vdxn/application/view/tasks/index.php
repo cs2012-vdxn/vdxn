@@ -41,12 +41,16 @@
                   <th>Assignee Rating</th>
                   <th>Completed at</th>
                   <th>Deleted at</th>
+                    <th>Category</th>
+                    <th>Tags</th>
                   <th>Remarks</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 foreach ($tasks as $task) {
+                    $category = $Task -> getCategoryOfTask($task->title, $task->creator_username);
+                    $tags = $Task -> getTagsOfTask($task->title, $task->creator_username);
                   echo '<tr>';
                   echo '<td>' . $task->title . '</td>';
                   echo '<td>' . $task->description . '</td>';
@@ -62,6 +66,8 @@
                   echo '<td>' . $task->assignee_rating . '</td>';
                   echo '<td>' . $task->completed_at . '</td>';
                   echo '<td>' . $task->deleted_at . '</td>';
+                  echo '<td>' . $category . '</td>>';
+                  echo '<td>' . $tags . '</td>>';
                   echo '<td>' . $task->remarks . '</td>';
 
                   // Link to Task page

@@ -31,6 +31,8 @@ class TasksController {
       $bids = $Task->getBids($title, $creator_username);
       $bids_leaderboard = $Task->getTopNBids($title, $creator_username, 3, 'ASC');
       $bid = $Task->getUserBidForTask($title, $username);
+      $category = $Task -> getCategoryOfTask($title, $creator_username);
+      $tags = $Task -> getTagsOfTask($title, $creator_username);
 
       // Get the current state of this task
       // e.g. Whether a doer was assigned, whether this task is completed and whether the

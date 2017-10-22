@@ -529,4 +529,49 @@ class Task extends Model
       return $query->execute();
     }
 
+    //===========================
+    //TASK CATEGORY AND TAG RELATED FUNCTIONS
+    //===========================
+
+    /**
+     * Get the Tags associated with a task from Tag_task table.
+     *
+     * @param String $task_title    Title of the task
+     * @param String $creator_name  Username of task creator
+     */
+    public function getTagsOfTask($task_title, $creator_name) {
+        $sql = "SELECT t.tag_name AS tags FROM Tag_task t WHERE t.task_title = '$task_title' AND t.task_creator_username = '$creator_name'";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        $results = $query -> fetchAll();
+        $tags = "";
+        if (sizeof($results)==0) {
+            return '';
+        } else {
+            foreach ($results as $result) {
+                $tag = $result -> tags;
+                $tags .= "#".$tag." ";
+            }
+            return $tags;
+        }
+    }
+
+    /**
+     * Get the Category label of a task from Category_task table.
+     *
+     * @param String $task_title      Title of the task
+     * @param String $creator_name    Username of task creator
+     */
+    public function getCategoryOfTask($task_title, $creator_name) {
+        $sql = "SELECT g.category_name AS category FROM Category_task g WHERE g.task_title = '$task_title' AND g.task_creator_username = '$creator_name'";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        $result = $query -> fetch();
+        if ($result == NULL) {
+            return '';
+        } else {
+            return $result->category;
+        }
+    }
+
 }
