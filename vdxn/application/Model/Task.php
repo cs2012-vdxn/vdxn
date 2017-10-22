@@ -39,19 +39,18 @@ class Task extends Model
       start_at, updated_at, min_bid, max_bid, assignee_username, creator_rating,
       assignee_rating
       FROM Task WHERE creator_username='$tkername' AND completed_at IS NULL";
-      if(isset($limit)) {
-        $sql .= " LIMIT $limit";
-      }
-      if(isset($offset)) {
-        $sql .= " OFFSET $offset";
-      }
       if(isset($order_by)) {
         if(!isset($dir)) {
           $dir = 'ASC';
         }
         $sql .= " ORDER BY $order_by $dir";
       }
-      // TODO: have a default sorting order
+      if(isset($limit)) {
+        $sql .= " LIMIT $limit";
+      }
+      if(isset($offset)) {
+        $sql .= " OFFSET $offset";
+      }
 
       return $sql;
     }
@@ -71,19 +70,18 @@ class Task extends Model
       start_at, completed_at, assignee_username, creator_rating,
       assignee_rating
       FROM Task WHERE creator_username='$tkername' AND completed_at IS NOT NULL";
+      if(isset($order_by)) {
+        if(!isset($dir)) {
+          $dir = 'ASC';
+        }
+        $sql .= " ORDER BY $order_by $dir";
+      }
       if(isset($limit)) {
         $sql .= " LIMIT $limit";
       }
       if(isset($offset)) {
         $sql .= " OFFSET $offset";
       }
-      /*
-      if(isset($order_by)) {
-        if(!isset($dir)) {
-          $dir = 'ASC';
-        }
-        $sql .= " ORDER BY $order_by $dir";
-      }*/
       return $sql;
     }
 
@@ -111,17 +109,17 @@ class Task extends Model
       INNER JOIN Bid b1 ON Task.creator_username=b1.task_creator_username AND Task.title = b1.task_title
       WHERE b1.bidder_username='$bdername' AND Task.assignee_username IS NULL) t
       INNER JOIN Bid b2 ON b2.task_title = t.title AND b2.task_creator_username = t.creator_username";
-      if(isset($limit)) {
-        $sql .= " LIMIT $limit";
-      }
-      if(isset($offset)) {
-        $sql .= " OFFSET $offset";
-      }
       if(isset($order_by)) {
         if(!isset($dir)) {
           $dir = 'ASC';
         }
         $sql .= " ORDER BY $order_by $dir";
+      }
+      if(isset($limit)) {
+        $sql .= " LIMIT $limit";
+      }
+      if(isset($offset)) {
+        $sql .= " OFFSET $offset";
       }
       return $sql;
     }
@@ -148,17 +146,17 @@ class Task extends Model
       WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL) t
       INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND t.title = winningBid.task_title
       INNER JOIN User winner ON winner.username = t.assignee_username)";
-      if(isset($limit)) {
-        $sql .= " LIMIT $limit";
-      }
-      if(isset($offset)) {
-        $sql .= " OFFSET $offset";
-      }
       if(isset($order_by)) {
         if(!isset($dir)) {
           $dir = 'ASC';
         }
         $sql .= " ORDER BY $order_by $dir";
+      }
+      if(isset($limit)) {
+        $sql .= " LIMIT $limit";
+      }
+      if(isset($offset)) {
+        $sql .= " OFFSET $offset";
       }
       return $sql;
     }

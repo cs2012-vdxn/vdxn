@@ -7,9 +7,9 @@ class MytasksController
 {
     public function index()
     {
-        $this->getCreatedTasks();
+        $this->created();
     }
-    public function getCreatedTasks()
+    public function created()
     {
       $Task = new Task();
       $username = $_SESSION['user']->username;
@@ -22,7 +22,7 @@ class MytasksController
       require APP . 'view/mytasks/created.php';
       require APP . 'view/_templates/footer.php';
     }
-    public function getBiddedTasks()
+    public function bidded()
     {
       $Task = new Task();
       $username = $_SESSION['user']->username;

@@ -81,12 +81,12 @@ class TableController {
       '</tr>';
     }
 
-    return $tableHtml;
+    echo $tableHtml;
   }
 
   public function fetchCurrentBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $dir = $_POST['dir'];
     $Task = new Task();
@@ -120,12 +120,12 @@ class TableController {
       '</tr>';
     }
 
-    return $tableHtml;
+    echo $tableHtml;
   }
 
   public function fetchHistoryBiddedTasks() {
     $order_by = $_POST['order_by'];
-    $offset = $_POST['offet'];
+    $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];
     $dir = $_POST['dir'];
     $Task = new Task();
@@ -157,6 +157,6 @@ class TableController {
       '</tr>';
     }
 
-    return $tableHtml;
+    echo $tableHtml;
   }
 }

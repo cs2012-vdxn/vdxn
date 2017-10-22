@@ -12,7 +12,7 @@
         table.data("pagesize", $(this).val());
         $.ajax({
             type: "POST",
-            url: 'table/fetchCurrentBiddedTasks',
+            url: '/table/fetchCurrentBiddedTasks',
             data: { offset: table.data("offset"), pagesize: $(this).val(), order_by: table.data("order_by"), dir: table.data("dir") },
             cache: false,
             success: function(html){
