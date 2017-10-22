@@ -28,7 +28,7 @@
         <br>
         <div class="form-group">
             <label for="sel1">Please Select a Category</label>
-            <select class="form-control" id="sel1">
+            <select class="form-control" id="sel1" name="category">
                 <option> </option>
                 <option>1</option>
                 <option>2</option>
@@ -40,7 +40,7 @@
         <label>Tags</label>
         <br>
         <div class="tagsinput-primary">
-            <input name="tagsinput" class="tagsinput" data-role="tagsinput" value="School, Teacher, Colleague" />
+            <input name="tagsinput" class="tagsinput" data-role="tagsinput" value="" />
         </div>
         <br>
         <input type="submit">

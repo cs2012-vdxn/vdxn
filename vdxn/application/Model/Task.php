@@ -130,8 +130,82 @@ class Task extends Model
       NULL,
       NULL,
       NULL)";
+      $tags_string = $task_params['tagsinput'];
+      $tags_arr = explode(",", $tags_string);
+      for($i = 0; $i < sizeof($tags_arr); $i++) {
+          if($this -> existsTag($tags_arr[$i]) == 1) {
+              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
+          } else {
+              $this -> createTag($tags_arr[$i], '2017-09-24 03:09:10');
+              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
+          }
+      }
       $query = $this->db->prepare($sql);
       return $query->execute();
+    }
+
+    public function createCategoryTask($creator_name, $task_title, $task_category,$created_at) {
+         $sql = "INSERT INTO `mini`.`Category_task`
+         (`category_name`,
+         `task_title`,
+         `task_creator_username`,
+         `created_at`,
+         `updated_at`,
+         `deleted_at`)
+         VALUES (
+         '".$task_category."',
+         '".$task_title."',
+         '".$creator_name."',
+         '".$created_at."',
+         NULL,
+         NULL
+         )";
+         $query = $this -> db -> prepare($sql);
+         return $query -> execute();
+    }
+
+    public function existsTag($tag_name) {
+         $sql = "SELECT COUNT(*) AS count FROM Tag WHERE Tag.name = '$tag_name'";
+         $query = $this -> db -> prepare($sql);
+         $query -> execute();
+         $result = $query -> fetch();
+         return $result -> count;
+    }
+
+    public function createTag($tag_name, $created_at) {
+        $sql = "INSERT INTO `mini`.`Tag`
+         (`name`,
+         `created_at`,
+         `updated_at`,
+         `deleted_at`)
+         VALUES (
+         '".$tag_name."',
+         '".$created_at."',
+         NULL,
+         NULL
+         )";
+        $query = $this -> db -> prepare($sql);
+        return $query -> execute();
+    }
+
+    public function createTagTask($tag_name, $creator_name, $task_title, $created_at){
+        $sql = "INSERT INTO `mini`.`Tag_task`
+         (`tag_name`,
+         `task_creator_username`,
+         `task_title`,
+         `created_at`,
+         `updated_at`,
+         `deleted_at`)
+         VALUES (
+         '".$tag_name."',
+         '".$creator_name."',
+         '".$task_title."',
+         '".$created_at."',
+         NULL,
+         NULL
+         )";
+        $query = $this -> db -> prepare($sql);
+        return $query -> execute();
     }
 
     public function deleteTask($title, $creator_username)
