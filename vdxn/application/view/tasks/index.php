@@ -6,10 +6,10 @@
     </p>
     <div class="row">
         <div class="col-xm">
-            <p>Type a title to begin searching</p>
+            <p>Type a title/category/tag to begin searching</p>
             <form class="form-horizontal" name="search" role="form" method="POST">
                 <div class="input-group col-xm">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Search by title..."
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Search by title/category/tag..."
                            autocomplete="off"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default btnSearch">

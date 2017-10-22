@@ -260,7 +260,15 @@ class TasksController {
           <td>Event Date</td>
           <td>Min Bid</td>
           <td>Max Bid</td>
-          <td>Tasker</td>
+          <td>Creator</td>
+          <td>Creator Rating</td>
+          <td>Assignee</td>
+          <td>Assignee Rating</td>
+          <td>Completed At</td>
+          <td>Deleted At</td>
+          <td>Category</td>
+          <td>Tags</td>
+          <td>Remarks</td>
         </tr>';
 
       // Check if length is more than 1 character
@@ -279,6 +287,8 @@ class TasksController {
         if (isset($result_array)) {
           foreach ($result_array as $result) {
             // Output strings and highlight the matches
+              $category = $Task -> getCategoryOfTask($result->title, $result->creator_username);
+              $tags = $Task -> getTagsOfTask($result->title, $result->creator_username);
             $d_title = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $result->title);
             $d_description = $result->description;
             $d_createTime = $result->created_at;
@@ -287,7 +297,10 @@ class TasksController {
             $d_eventDate = isset($result->start_at) ? $result->start_at : null;
             $d_minBid = $result->min_bid;
             $d_maxBid = $result->max_bid;
-            $d_tasker = $result->assignee_username;
+            $d_creator = $result->creator_username;
+              $d_assignee = $result -> assignee_username;
+              $d_category = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $category);
+              $d_tags = preg_replace("/" . $search_string . "/i", "<b>" . $search_string . "</b>", $tags);
             // Replace the items into above HTML
             $o = str_replace('Title', $d_title, $html);
             $o = str_replace('Description', $d_description, $o);
@@ -297,7 +310,14 @@ class TasksController {
             $o = str_replace('Event Date', $d_eventDate, $o);
             $o = str_replace('Min Bid', $d_minBid, $o);
             $o = str_replace('Max Bid', $d_maxBid, $o);
-            $o = str_replace('Tasker', $d_tasker, $o);
+            $o = str_replace('Creator', $d_creator, $o);
+              $o = str_replace('Creator Rating', '', $o);
+              $o = str_replace('Assignee', $d_assignee, $o);
+              $o = str_replace('Completed At', '', $o);
+              $o = str_replace('Deleted At', '', $o);
+              $o = str_replace('Category', $d_category, $o);
+              $o = str_replace('Tags', $d_tags, $o);
+              $o = str_replace('Remarks', '', $o);
             // Output it
             echo($o);
           }
@@ -311,7 +331,14 @@ class TasksController {
           $o = str_replace('Event Date', '', $o);
           $o = str_replace('Min Bid', '', $o);
           $o = str_replace('Max Bid', '', $o);
-          $o = str_replace('Tasker', '', $o);
+          $o = str_replace('Creator', '', $o);
+            $o = str_replace('Creator Rating', '', $o);
+            $o = str_replace('Assignee', '', $o);
+            $o = str_replace('Completed At', '', $o);
+            $o = str_replace('Deleted At', '', $o);
+            $o = str_replace('Category', '', $o);
+            $o = str_replace('Tags', '', $o);
+            $o = str_replace('Remarks', '', $o);
           // Output
           echo($o);
         }
@@ -330,6 +357,8 @@ class TasksController {
         // Check for results
         foreach ($result_array as $result) {
           // Output strings and highlight the matches
+            $category = $Task -> getCategoryOfTask($result->title, $result->creator_username);
+            $tags = $Task -> getTagsOfTask($result->title, $result->creator_username);
           $d_title =  $result->title;
           $d_description = $result->description;
           $d_createTime = $result->created_at;
@@ -338,7 +367,8 @@ class TasksController {
           $d_eventDate = isset($result->start_at) ? $result->start_at : null;
           $d_minBid = $result->min_bid;
           $d_maxBid = $result->max_bid;
-          $d_tasker = $result->assignee_username;
+          $d_creator = $result->creator_username;
+          $d_assignee = $result -> assignee_username;
           // Replace the items into above HTML
           $o = str_replace('Title', $d_title, $html);
           $o = str_replace('Description', $d_description, $o);
@@ -348,7 +378,14 @@ class TasksController {
           $o = str_replace('Event Date', $d_eventDate, $o);
           $o = str_replace('Min Bid', $d_minBid, $o);
           $o = str_replace('Max Bid', $d_maxBid, $o);
-          $o = str_replace('Tasker', $d_tasker, $o);
+          $o = str_replace('Creator', $d_creator, $o);
+            $o = str_replace('Creator Rating', '', $o);
+            $o = str_replace('Assignee', $d_assignee, $o);
+            $o = str_replace('Completed At', '', $o);
+            $o = str_replace('Deleted At', '', $o);
+            $o = str_replace('Category', $category, $o);
+            $o = str_replace('Tags', $tags, $o);
+            $o = str_replace('Remarks', '', $o);
           // Output it
           echo($o);
         }

@@ -91,9 +91,18 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    /**
+     * Find all tasks whose title matches the string pattern.
+     *
+     * @param $search_string   String pattern to be matched
+     * @return mixed
+     */
+
     public function findAllTasksContaining($search_string)
     {
-      $sql = 'SELECT * FROM Task WHERE title LIKE "%' . $search_string . '%"';
+      $sql = 'SELECT * FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username) 
+              LEFT JOIN Category_task c ON t.title = c.task_title AND t.creator_username = c.task_creator_username
+              WHERE t.title LIKE "%' . $search_string . '%"  OR g.tag_name LIKE "%' . $search_string . '%" OR c.category_name LIKE "%' . $search_string . '%"';
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetchAll();
@@ -165,7 +174,12 @@ class Task extends Model
          return $query -> execute();
     }
 
-// check if a tag exists in the database, and return a boolean value of whether the tag exists.
+    /**
+     * check if a tag exists in the database, and return a boolean value of whether the tag exists.
+     *
+     * @param $tag_name Name of the tag
+     * @return bool     Boolean value indicating whether tag exists in Tag table.
+     */
     public function existsTag($tag_name) {
          $sql = "SELECT COUNT(*) AS count FROM Tag WHERE Tag.name = '$tag_name'";
          $query = $this -> db -> prepare($sql);
@@ -173,6 +187,14 @@ class Task extends Model
          $result = $query -> fetch();
          return $result -> count != 0;
     }
+
+    /**
+     * Create a tag instance in Tag table
+     *
+     * @param $tag_name     Name of tag
+     * @param $created_at   Time of tag creation
+     * @return mixed
+     */
 
     public function createTag($tag_name, $created_at) {
         $sql = "INSERT INTO `mini`.`Tag`
@@ -190,6 +212,15 @@ class Task extends Model
         return $query -> execute();
     }
 
+    /**
+     * Create an instance of tag-task relationship in Tag_task table.
+     *
+     * @param $tag_name          Name of tag
+     * @param $creator_name      Username of task creator
+     * @param $task_title        Title of task
+     * @param $created_at        Time of task creation
+     * @return mixed
+     */
     public function createTagTask($tag_name, $creator_name, $task_title, $created_at){
         $sql = "INSERT INTO `mini`.`Tag_task`
          (`tag_name`,
