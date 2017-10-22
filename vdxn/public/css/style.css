@@ -39,11 +39,32 @@
   border: 1px solid #1abc9c;
   border-radius: 2px;
 }
-
 .pagination-button.selected {
   background-color: #1abc9c;
   color: white;
 }
+.sortable__arrows {
+  display: inline-block;
+  float: right;
+}
+
+.sortable__arrow {
+  width: 0;
+  height: 0;
+  margin: 5px;
+}
+.sortable__arrow--up {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid grey;
+}
+
+.sortable__arrow--down {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid grey;
+}
+
 /**
  * UNUSED CSS CLASSES
  */
