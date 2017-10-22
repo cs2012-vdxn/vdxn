@@ -30,6 +30,20 @@
   font-weight: bold;
 }
 
+.table-pagination {
+  float: right;
+  margin: 10px;
+}
+.pagination-button {
+  padding: 4px;
+  border: 1px solid #1abc9c;
+  border-radius: 2px;
+}
+
+.pagination-button.selected {
+  background-color: #1abc9c;
+  color: white;
+}
 /**
  * UNUSED CSS CLASSES
  */
