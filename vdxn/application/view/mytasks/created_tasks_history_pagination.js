@@ -1,5 +1,10 @@
 $(document).ready(function() {
+  paginate();
+});
+function paginate() {
   var pagesize = parseInt($('#created-history-table').data('pagesize'));
+  var tableWrapper = $('#created-history-table').parent();
+  tableWrapper.find('.pagination-button').remove();
   var total = parseInt($('#created-history-table').data('total'));
   var numPage = Math.ceil(parseFloat(total/pagesize));
   console.log(pagesize);
@@ -10,7 +15,6 @@ $(document).ready(function() {
       pagn += '<span class="pagination-button" data-page-num=' + i + ' data-start=' + ((i- 1) *pagesize)+ '>'+ i + '</span>';
     }
   }
-  var tableWrapper = $('#created-history-table').parent();
   tableWrapper.append(pagn);
   var paginationButtons = tableWrapper.find('.pagination-button');
   paginationButtons.first().addClass('selected');
@@ -31,4 +35,4 @@ $(document).ready(function() {
         }
     });
   });
-});
+}
