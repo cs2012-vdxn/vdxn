@@ -40,11 +40,9 @@ class TableController {
       '</tr>';
     }
     echo $tableHtml;
-    //return $tableHtml;
   }
 
   public function fetchCreatedTasks() {
-    echo "HEY";
     $order_by = $_POST['order_by'];
     $offset = $_POST['offset'];
     $pagesize = $_POST['pagesize'];

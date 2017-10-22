@@ -31,5 +31,8 @@
   }
   echo '</tbody>';
   echo '</table>';
+  echo "<script type='text/javascript'>";
+  include('bidded_tasks_history_pagination.js');
+  echo"</script>";
   echo '</div>';
 ?>

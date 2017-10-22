@@ -1,7 +1,7 @@
 <?php
 echo '<div class="table-wrapper">';
 include ('created_tasks_dropdown.php');
-  echo '<table id="created-tasks-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0" data-order_by="title"  data-dir="ASC">';
+  echo '<table id="created-tasks-table" border="1" class="sortable paginate dropdown" data-total='.$num_user_tasks.' data-selected-page="1" data-pagesize="10" data-offset="0" data-order_by="title" data-dir="ASC">';
   echo '<thead><tr><th data-col="title">Title</th>
         <th data-col="description">Description</th>
         <th data-col="created_at">Created At</th>
@@ -34,5 +34,9 @@ include ('created_tasks_dropdown.php');
   }
   echo '</tbody>';
   echo '</table>';
+  // the pagination
+  echo "<script type='text/javascript'>";
+  include('created_tasks_pagination.js');
+  echo"</script>";
   echo '</div>';
 ?>

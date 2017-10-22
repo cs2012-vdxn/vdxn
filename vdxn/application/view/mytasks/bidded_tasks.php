@@ -33,29 +33,8 @@
   }
   echo '</tbody>';
   echo '</table>';
-  // the pagination
-  $pagesize = $domElement->getElementsById("bidded-tasks-table")->getAttribute("data-pagesize");
-  if($num_user_tasks > $pagesize) {
-    echo('<div id="bidded-tasks-pagination" class="table-pagination">');
-    foreach (range(1, ceil(floatval($num_user_tasks)/$pagesize)) as $page) {
-      echo('<span class="pagination-button" data-start=' . (($page - 1) * $pagesize) .'>'. $page . '</span>');
-    }
-    echo('</div>');
-    echo "<script>".
-      "$('#bidded-tasks-pagination pagination-button').click(function() {
-        var table = $('#bidded-tasks-table');
-        table.data('offset', $(this).data('start'));
-        $.ajax({
-            type: 'POST',
-            url: '/table/fetchCurrentBiddedTasks',
-            data: { offset: table.data('offset'), pagesize: table.data('pagesize'), order_by: table.data('order_by'), dir: table.data('dir') },
-            cache: false,
-            success: function(html){
-                $('table#bidded-tasks-table tbody').html(html);
-            }
-        });
-      });".
-    "</script>";
-  }
+  echo "<script type='text/javascript'>";
+  include('bidded_tasks_pagination.js');
+  echo"</script>";
   echo '</div>';
 ?>
