@@ -35,7 +35,7 @@ include ('created_history_dropdown.php');
   echo '</tbody>';
   echo '</table>';
   // the pagination
-  echo "<script>";
+  echo "<script type='text/javascript'>";
   include('created_tasks_history_pagination.js');
   echo"</script>";
   echo '</div>';

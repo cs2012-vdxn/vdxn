@@ -36,7 +36,7 @@
   // the pagination
   $pagesize = $domElement->getElementsById("bidded-tasks-table")->getAttribute("data-pagesize");
   if($num_user_tasks > $pagesize) {
-    echo('<div id="bidded-tasks-pagination" class="pagination">');
+    echo('<div id="bidded-tasks-pagination" class="table-pagination">');
     foreach (range(1, ceil(floatval($num_user_tasks)/$pagesize)) as $page) {
       echo('<span class="pagination-button" data-start=' . (($page - 1) * $pagesize) .'>'. $page . '</span>');
     }

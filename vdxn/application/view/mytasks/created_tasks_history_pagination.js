@@ -5,13 +5,14 @@ $(document).ready(function() {
   console.log(pagesize);
   console.log(total);
   if(total > pagesize) {
-    var pagn = '<div id="created-history-table-pagination" class="pagination">';
+    var pagn = '<div id="created-history-table-pagination" class="table-pagination">';
     for (var i = 1; i <= numPage; i++) {
       pagn += '<span class="pagination-button" data-start=' + ((i- 1) *pagesize) + '>'+ i + '</span>';
     }
   }
-  $('#created-history-table').append($.parseHTML(pagn));
-  $('#created-history-table-pagination .pagination-button').click(function() {
+  $('.table-wrapper').append(pagn);
+
+  $('.table-wrapper .pagination-button').click(function() {
     var table = $('#created-history-table');
     table.data('offset', $(this).data('start'));
     $.ajax({
