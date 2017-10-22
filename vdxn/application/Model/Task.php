@@ -567,7 +567,7 @@ class Task extends Model
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         $result = $query -> fetch();
-        if ($result == NULL) {
+        if ($result == '') {
             return '';
         } else {
             return $result->category;
