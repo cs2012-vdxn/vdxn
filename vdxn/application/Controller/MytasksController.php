@@ -15,8 +15,8 @@ class MytasksController
       $username = $_SESSION['user']->username;
       $user_tasks = $Task->getAllUserTasks($username, 0, 10, NULL, NULL);
       $history_tasks = $Task->getAllHistoryUserTasks($username, 0, 10, NULL, NULL);
-      $num_user_tasks = count($user_tasks);
-      $num_history_tasks = count($history_tasks);
+      $num_user_tasks = count($Task->getAllUserTasks($username, NULL, NULL, NULL, NULL));
+      $num_history_tasks = count($Task->getAllHistoryUserTasks($username, NULL, NULL, NULL, NULL));
       // load views
       require APP . 'view/_templates/header.php';
       require APP . 'view/mytasks/created.php';

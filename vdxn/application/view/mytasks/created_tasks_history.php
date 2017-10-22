@@ -2,7 +2,7 @@
 <?php
 echo '<div class="table-wrapper">';
 include ('created_history_dropdown.php');
-  echo '<table id="created-history-table" border="1" class="sortable paginate dropdown" data-pagesize="10" data-offset="0" data-order_by="title"  data-dir="ASC">';
+  echo '<table id="created-history-table" border="1" class="sortable paginate dropdown" data-total='.$num_history_tasks.' data-pagesize="10" data-offset="0" data-order_by="title"  data-dir="ASC">';
   echo '<thead><tr><th data-col="title">Title</th>
         <th data-col="description">Description</th>
         <th data-col="created_at">Created At</th>
@@ -34,5 +34,9 @@ include ('created_history_dropdown.php');
   }
   echo '</tbody>';
   echo '</table>';
+  // the pagination
+  echo "<script>";
+  include('created_tasks_history_pagination.js');
+  echo"</script>";
   echo '</div>';
 ?>
