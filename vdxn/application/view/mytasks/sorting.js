@@ -11,12 +11,12 @@ function completed() {
     var order_by = $(this).data('col');
     all_arrows.click(function () {
       table.data("order_by", order_by);
-      all_arrows.removeClass('selected');
-      $(this).addClass('selected');
     });
 
     arrow_up.click(function() {
       table.data("dir", "ASC");
+      $("#created-history-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCompletedTasks',
@@ -29,6 +29,8 @@ function completed() {
     });
     arrow_down.click(function() {
       table.data("dir", "DESC");
+      $("#created-history-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCompletedTasks',
@@ -52,12 +54,12 @@ function currentCreated() {
     var order_by = $(this).data('col');
     all_arrows.click(function () {
       table.data("order_by", order_by);
-      all_arrows.removeClass('selected');
-      $(this).addClass('selected');
     });
 
     arrow_up.click(function() {
       table.data("dir", "ASC");
+      $("#created-tasks-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCreatedTasks',
@@ -70,6 +72,8 @@ function currentCreated() {
     });
     arrow_down.click(function() {
       table.data("dir", "DESC");
+      $("#created-tasks-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCreatedTasks',
@@ -92,12 +96,12 @@ function biddedCurr() {
     var order_by = $(this).data('col');
     all_arrows.click(function () {
       table.data("order_by", order_by);
-      all_arrows.removeClass('selected');
-      $(this).addClass('selected');
     });
 
     arrow_up.click(function() {
       table.data("dir", "ASC");
+      $("#bidded-tasks-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCurrentBiddedTasks',
@@ -110,6 +114,8 @@ function biddedCurr() {
     });
     arrow_down.click(function() {
       table.data("dir", "DESC");
+      $("#bidded-tasks-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchCurrentBiddedTasks',
@@ -133,12 +139,12 @@ function biddedHist() {
     var order_by = $(this).data('col');
     all_arrows.click(function () {
       table.data("order_by", order_by);
-      all_arrows.removeClass('selected');
-      $(this).addClass('selected');
     });
 
     arrow_up.click(function() {
       table.data("dir", "ASC");
+      $("#bidded-history-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchHistoryBiddedTasks',
@@ -151,7 +157,8 @@ function biddedHist() {
     });
     arrow_down.click(function() {
       table.data("dir", "DESC");
-
+      $("#bidded-history-table.sortable .sortable__arrow").removeClass('selected');
+      $(this).addClass('selected');
       $.ajax({
           type: "POST",
           url: '/table/fetchHistoryBiddedTasks',

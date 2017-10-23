@@ -60,13 +60,13 @@
   border-bottom: 6px solid #1abc9c;
 }
 
-.sortable__arrow--up {
+.sortable__arrow--up:not(.selected) {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid grey;
 }
 
-.sortable__arrow--down {
+.sortable__arrow--down:not(.selected) {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid grey;
