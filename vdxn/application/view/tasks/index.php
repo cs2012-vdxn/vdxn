@@ -141,7 +141,11 @@
                     txt += criteria[i].value + " ";
                 }
             }
-            console.log(txt);
+
+            $.ajax({
+                type: "POST",
+                url: 'tasks/filterByAttr'
+            });
         }
 
         $('input#name').on("keyup input", function(e) {

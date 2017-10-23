@@ -242,6 +242,10 @@ class TasksController {
     //==========================================
     // TASKS SEARCH FUNCTIONS
     //==========================================
+
+    /**
+     * search task by title, category and tags.
+     */
     public function searchByTitle() {
       $Task = new Task();
 
@@ -391,6 +395,15 @@ class TasksController {
         }
       }
     }
+
+    //==========================================
+    // TASK FILTER FUNCTIONS
+    //==========================================
+
+    public function filterByAttributes($str) {
+
+    }
+
 
     //==========================================
     // PRIVATE HELPER FUNCTIONS
