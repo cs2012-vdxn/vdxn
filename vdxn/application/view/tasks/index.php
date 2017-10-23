@@ -20,19 +20,19 @@
                 <div class="form-check">
                     <label style="font-size: large ;font-family: bold">Sort by: </label>
                     <label class="form-check-label" style="font-size: large" id="sdasc-label">
-                    <input type="checkbox" class="form-check-input" id="sdasc" value="start_at ASC">
+                    <input type="checkbox" class="form-check-input" id="sdasc" value="Task.start_at ASC">
                         Starting Date ASC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="sddsc-label">
-                        <input type="checkbox" class="form-check-input" id="sddsc" value="start_at DESC">
+                        <input type="checkbox" class="form-check-input" id="sddsc" value="Task.start_at DESC">
                         Start Date DESC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="edasc-label">
-                        <input type="checkbox" class="form-check-input" id="edasc" value="end_at ASC">
+                        <input type="checkbox" class="form-check-input" id="edasc" value="Task.end_at ASC">
                         End Date ASC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="eddsc-label">
-                        <input type="checkbox" class="form-check-input" id="eddsc" value="end_at DESC">
+                        <input type="checkbox" class="form-check-input" id="eddsc" value="Task.end_at DESC">
                         End Date DESC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="tdasc-label">
@@ -140,7 +140,7 @@
                     if (txt != "") {
                         txt += ", ";
                     }
-                    txt += 'Task.'+criteria[i].value;
+                    txt += criteria[i].value;
                 }
             }
 

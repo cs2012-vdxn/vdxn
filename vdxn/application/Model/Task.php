@@ -179,8 +179,17 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    /**
+     * Sort all tasks by given attributes.
+     *
+     * @param $attribute_str
+     * @return mixed
+     */
+
     public function sortAllTasks($attribute_str) {
-        $sql = "SELECT * FROM Task ORDER BY $attribute_str";
+        $sql = "SELECT Task.title, Task.description, Task.created_at, Task.updated_at, Task.start_at, Task.end_at,
+        Task.min_bid, Task.max_bid, Task.creator_username, Task.assignee_username, Task.completed_at, 
+        Task.remarks, TIMESTAMPDIFF(SECOND, Task.end_at, Task.start_at) AS duration FROM Task ORDER BY $attribute_str";
         echo $sql;
         $query = $this -> db -> prepare($sql);
         $query -> execute();
