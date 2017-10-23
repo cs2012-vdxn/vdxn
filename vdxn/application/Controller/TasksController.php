@@ -260,8 +260,8 @@ class TasksController {
           <td>Description</td>
           <td>Create time</td>
           <td>Updated time</td>
-          <td>Expiry</td>
           <td>Event Date</td>
+          <td>Expiry</td>
           <td>Min Bid</td>
           <td>Max Bid</td>
           <td>Creator</td>
@@ -400,8 +400,144 @@ class TasksController {
     // TASK FILTER FUNCTIONS
     //==========================================
 
-    public function filterByAttributes($str) {
+    public function filterByAttributes() {
+        $Task = new Task();
+        $str = $_POST['query'];
+        // REMOVED because we can connect to the DB from methods in the Task Model
+        // $search_string = $test_db->real_escape_string($search_string);
 
+        $html = '
+        <tr>
+          <td>Title</td>
+          <td>Description</td>
+          <td>Create time</td>
+          <td>Updated time</td>
+          <td>Event Date</td>
+          <td>Expiry</td>
+          <td>Min Bid</td>
+          <td>Max Bid</td>
+          <td>Creator</td>
+          <td>Creator Rating</td>
+          <td>Assignee</td>
+          <td>Assignee Rating</td>
+          <td>Completed At</td>
+          <td>Deleted At</td>
+          <td>Category</td>
+          <td>Tags</td>
+          <td>Remarks</td>
+        </tr>';
+
+        // Check if length is more than 1 character
+        if (strlen($str) >= 1 && $str != " ") {
+
+            // Do the search
+            $result_array = $Task->sortAllTasks($str);
+
+            // Check for results
+            if (isset($result_array)) {
+                foreach ($result_array as $result) {
+                    // Output strings and highlight the matches
+                    $category = $Task -> getCategoryOfTask($result->title, $result->creator_username);
+                    $tags = $Task -> getTagsOfTask($result->title, $result->creator_username);
+                    $d_title = $result -> title;
+                    $d_description = $result->description;
+                    $d_createTime = $result->created_at;
+                    $d_updateTime = $result->updated_at;
+                    $d_expiry = isset($result->end_at) ? $result->end_at : null;
+                    $d_eventDate = isset($result->start_at) ? $result->start_at : null;
+                    $d_minBid = $result->min_bid;
+                    $d_maxBid = $result->max_bid;
+                    $d_creator = $result->creator_username;
+                    $d_assignee = $result -> assignee_username;
+                    // Replace the items into above HTML
+                    $o = str_replace('Title', $d_title, $html);
+                    $o = str_replace('Description', $d_description, $o);
+                    $o = str_replace('Create time', $d_createTime, $o);
+                    $o = str_replace('Updated time', $d_updateTime, $o);
+                    $o = str_replace('Expiry', $d_expiry, $o);
+                    $o = str_replace('Event Date', $d_eventDate, $o);
+                    $o = str_replace('Min Bid', $d_minBid, $o);
+                    $o = str_replace('Max Bid', $d_maxBid, $o);
+                    $o = str_replace('Creator', $d_creator, $o);
+                    $o = str_replace('Creator Rating', '', $o);
+                    $o = str_replace('Assignee', $d_assignee, $o);
+                    $o = str_replace('Completed At', '', $o);
+                    $o = str_replace('Deleted At', '', $o);
+                    $o = str_replace('Category', $category, $o);
+                    $o = str_replace('Tags', $tags, $o);
+                    $o = str_replace('Remarks', '', $o);
+                    // Output it
+                    echo($o);
+                }
+            } else {
+                // Replace for no results
+                $o = str_replace('Title', '<span class="label label-danger">No Tasks Found</span>', $html);
+                $o = str_replace('Description', '', $o);
+                $o = str_replace('Create time', '', $o);
+                $o = str_replace('Updated time', '', $o);
+                $o = str_replace('Expiry', '', $o);
+                $o = str_replace('Event Date', '', $o);
+                $o = str_replace('Min Bid', '', $o);
+                $o = str_replace('Max Bid', '', $o);
+                $o = str_replace('Creator', '', $o);
+                $o = str_replace('Creator Rating', '', $o);
+                $o = str_replace('Assignee', '', $o);
+                $o = str_replace('Completed At', '', $o);
+                $o = str_replace('Deleted At', '', $o);
+                $o = str_replace('Category', '', $o);
+                $o = str_replace('Tags', '', $o);
+                $o = str_replace('Remarks', '', $o);
+                // Output
+                echo($o);
+            }
+        } else {
+            $query = 'SELECT * FROM Task';
+
+            // Do the search
+            $result_array = $Task->getAllTasks();
+
+            // REMOVED because we can find all tasks by using methods from the Task Model
+            // $result = $test_db->query($query);
+            // while ($results = $result->fetch_array()) {
+            //     $result_array[] = $results;
+            // }
+
+            // Check for results
+            foreach ($result_array as $result) {
+                // Output strings and highlight the matches
+                $category = $Task -> getCategoryOfTask($result->title, $result->creator_username);
+                $tags = $Task -> getTagsOfTask($result->title, $result->creator_username);
+                $d_title =  $result->title;
+                $d_description = $result->description;
+                $d_createTime = $result->created_at;
+                $d_updateTime = $result->updated_at;
+                $d_expiry = isset($result->end_at) ? $result->end_at : null;
+                $d_eventDate = isset($result->start_at) ? $result->start_at : null;
+                $d_minBid = $result->min_bid;
+                $d_maxBid = $result->max_bid;
+                $d_creator = $result->creator_username;
+                $d_assignee = $result -> assignee_username;
+                // Replace the items into above HTML
+                $o = str_replace('Title', $d_title, $html);
+                $o = str_replace('Description', $d_description, $o);
+                $o = str_replace('Create time', $d_createTime, $o);
+                $o = str_replace('Updated time', $d_updateTime, $o);
+                $o = str_replace('Expiry', $d_expiry, $o);
+                $o = str_replace('Event Date', $d_eventDate, $o);
+                $o = str_replace('Min Bid', $d_minBid, $o);
+                $o = str_replace('Max Bid', $d_maxBid, $o);
+                $o = str_replace('Creator', $d_creator, $o);
+                $o = str_replace('Creator Rating', '', $o);
+                $o = str_replace('Assignee', $d_assignee, $o);
+                $o = str_replace('Completed At', '', $o);
+                $o = str_replace('Deleted At', '', $o);
+                $o = str_replace('Category', $category, $o);
+                $o = str_replace('Tags', $tags, $o);
+                $o = str_replace('Remarks', '', $o);
+                // Output it
+                echo($o);
+            }
+        }
     }
 
 

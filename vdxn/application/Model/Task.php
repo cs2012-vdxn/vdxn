@@ -179,6 +179,14 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    public function sortAllTasks($attribute_str) {
+        $sql = "SELECT * FROM Task ORDER BY $attribute_str";
+        echo $sql;
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`

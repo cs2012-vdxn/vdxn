@@ -20,27 +20,27 @@
                 <div class="form-check">
                     <label style="font-size: large ;font-family: bold">Sort by: </label>
                     <label class="form-check-label" style="font-size: large" id="sdasc-label">
-                    <input type="checkbox" class="form-check-input" id="sdasc" value="1">
+                    <input type="checkbox" class="form-check-input" id="sdasc" value="start_at ASC">
                         Starting Date ASC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="sddsc-label">
-                        <input type="checkbox" class="form-check-input" id="sddsc" value="2">
+                        <input type="checkbox" class="form-check-input" id="sddsc" value="start_at DESC">
                         Start Date DESC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="edasc-label">
-                        <input type="checkbox" class="form-check-input" id="edasc" value="3">
+                        <input type="checkbox" class="form-check-input" id="edasc" value="end_at ASC">
                         End Date ASC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="eddsc-label">
-                        <input type="checkbox" class="form-check-input" id="eddsc" value="4">
+                        <input type="checkbox" class="form-check-input" id="eddsc" value="end_at DESC">
                         End Date DESC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="tdasc-label">
-                        <input type="checkbox" class="form-check-input" id="tdasc" value="5">
+                        <input type="checkbox" class="form-check-input" id="tdasc" value="duration ASC">
                         Task Duration ASC
                     </label>
                     <label class="form-check-label" style="font-size: large" id="tddsc-label">
-                        <input type="checkbox" class="form-check-input" id="tddsc" value="6">
+                        <input type="checkbox" class="form-check-input" id="tddsc" value="duration DESC">
                         Task Duration DESC
                     </label>
                 </div>
@@ -125,7 +125,6 @@
                     cache: false,
                     success: function(html){
                         $("table#resultTable tbody").html(html);
-                        console.log(html);
                     }
                 });
 
@@ -138,13 +137,22 @@
             var txt ="";
             for(i = 0; i < criteria.length; i++) {
                 if (criteria[i].checked) {
-                    txt += criteria[i].value + " ";
+                    if (txt != "") {
+                        txt += ", ";
+                    }
+                    txt += 'Task.'+criteria[i].value;
                 }
             }
 
             $.ajax({
                 type: "POST",
-                url: 'tasks/filterByAttr'
+                url: 'tasks/filterByAttributes',
+                data: {query: txt},
+                cache: false,
+                success: function(html) {
+                    $("table#resultTable tbody").html(html);
+                    console.log(html);
+                }
             });
         }
 
