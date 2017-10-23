@@ -17,6 +17,33 @@
                         </button>
                     </span>
                 </div>
+                <div class="form-check">
+                    <label style="font-size: large ;font-family: bold">Sort by: </label>
+                    <label class="form-check-label" style="font-size: large" id="sdasc-label">
+                    <input type="checkbox" class="form-check-input" id="sdasc" value="1">
+                        Starting Date ASC
+                    </label>
+                    <label class="form-check-label" style="font-size: large" id="sddsc-label">
+                        <input type="checkbox" class="form-check-input" id="sddsc" value="2">
+                        Start Date DESC
+                    </label>
+                    <label class="form-check-label" style="font-size: large" id="edasc-label">
+                        <input type="checkbox" class="form-check-input" id="edasc" value="3">
+                        End Date ASC
+                    </label>
+                    <label class="form-check-label" style="font-size: large" id="eddsc-label">
+                        <input type="checkbox" class="form-check-input" id="eddsc" value="4">
+                        End Date DESC
+                    </label>
+                    <label class="form-check-label" style="font-size: large" id="tdasc-label">
+                        <input type="checkbox" class="form-check-input" id="tdasc" value="5">
+                        Task Duration ASC
+                    </label>
+                    <label class="form-check-label" style="font-size: large" id="tddsc-label">
+                        <input type="checkbox" class="form-check-input" id="tddsc" value="6">
+                        Task Duration DESC
+                    </label>
+                </div>
             </form>
         </div>
     </div>
@@ -105,6 +132,18 @@
 
         }
 
+        function toggleSortBox() {
+            var criteria = document.forms[0];
+            var i;
+            var txt ="";
+            for(i = 0; i < criteria.length; i++) {
+                if (criteria[i].checked) {
+                    txt += criteria[i].value + " ";
+                }
+            }
+            console.log(txt);
+        }
+
         $('input#name').on("keyup input", function(e) {
 
             // Set Search String
@@ -113,7 +152,67 @@
             // Do Search
                 search();
                 $(".tablesearch").fadeIn(300);
-                console.log('key is' + search_string);
+        });
+
+        $('#sdasc').on('change', function() {
+            if($('#sdasc').prop('checked')) {
+                $('#sddsc').attr('disabled', 'disabled');
+                $('#sddsc-label').css('color', 'darkgray');
+            } else {
+                $('#sddsc').removeAttr('disabled');
+                $('#sddsc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
+        });
+        $('#sddsc').on('change', function() {
+            if($('#sddsc').prop('checked')) {
+                $('#sdasc').attr('disabled', 'disabled');
+                $('#sdasc-label').css('color', 'darkgray');
+            } else {
+                $('#sdasc').removeAttr('disabled');
+                $('#sdasc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
+        });
+        $('#edasc').on('change', function() {
+            if($('#edasc').prop('checked')) {
+                $('#eddsc').attr('disabled', 'disabled');
+                $('#eddsc-label').css('color', 'darkgray');
+            } else {
+                $('#eddsc').removeAttr('disabled');
+                $('#eddsc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
+        });
+        $('#eddsc').on('change', function() {
+            if($('#eddsc').prop('checked')) {
+                $('#edasc').attr('disabled', 'disabled');
+                $('#edasc-label').css('color', 'darkgray');
+            } else {
+                $('#edasc').removeAttr('disabled');
+                $('#edasc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
+        });
+        $('#tdasc').on('change', function() {
+            if($('#tdasc').prop('checked')) {
+                $('#tddsc').attr('disabled', 'disabled');
+                $('#tddsc-label').css('color', 'darkgray');
+            } else {
+                $('#tddsc').removeAttr('disabled');
+                $('#tddsc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
+        });
+        $('#tddsc').on('change', function() {
+            if($('#tddsc').prop('checked')) {
+                $('#tdasc').attr('disabled', 'disabled');
+                $('#tdasc-label').css('color', 'darkgray');
+            } else {
+                $('#tdasc').removeAttr('disabled');
+                $('#tdasc-label').css('color', '#37474F');
+            }
+            toggleSortBox();
         });
 
     });
