@@ -53,6 +53,13 @@
   height: 0;
   margin: 5px;
 }
+
+.sortable__arrow--up.selected {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #1abc9c;
+}
+
 .sortable__arrow--up {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
@@ -63,6 +70,12 @@
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid grey;
+}
+
+.sortable__arrow--down.selected {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1abc9c;
 }
 
 /**

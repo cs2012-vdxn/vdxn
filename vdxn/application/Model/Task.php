@@ -154,10 +154,11 @@ class Task extends Model
       }
       if(isset($limit)) {
         $sql .= " LIMIT $limit";
+        if(isset($offset)) {
+          $sql .= " OFFSET $offset";
+        }
       }
-      if(isset($offset)) {
-        $sql .= " OFFSET $offset";
-      }
+
       return $sql;
     }
 
