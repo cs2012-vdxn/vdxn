@@ -9,13 +9,10 @@
             // WANT TO MODIFY THIS TO LOAD POPUP
             // CONTENT VIA AJAX
             $('body').on('click','.closePopup', function() {
-                // CHANGE BACKGROUND TO GREEN
-                // FOLLOWED BY A FADEOUT TO GIVE
-                // A DELAY TO SHOW CHANGE IN COLOUR
+                text= $('#unique').val();
+                $('#p-filter-panel').text(text);
+                search();
                 $('.action input').css({backgroundColor: 'darkgray'}).fadeOut(300, function() {
-                    // REMOVE ALL ELEMENTS WITH THE
-                    // popupElement STYLE - INCLUDES OVERLAY
-                    // AND POUP
                     $('.popupElement').remove()
                 });
             });
@@ -42,13 +39,17 @@
                 // ITS WIDTH AND HEIGHT SO WE CAN CENTRE IT
                 var popup = $('<div/>').attr('id','popupWindow').addClass('popup').addClass('popupElement').css({left: '-999px'});
                 // CREATE THE HTML FOR THE POPUP
-                var html = '<div class="action"><input type="button" value="Add filters" class="closePopup"/></div>';
+                var html = '<div class="action">' +
+                    '<input type="text" id="unique" name="name" placeholder="Search"/><h6>child</h6>' +
+                    '<button class="closePopup btn">Add Filters</button>' +
+                    '</div>';
                 popup.html(html);
                 // APPEND THE POPUP TO THE BODY
                 $('body').append(popup);
                 // AND CENTER IT
                 centerPopup();
             });
+
         });
         // FUNCTION TO CENTER THE POPUP
         function centerPopup()
@@ -62,6 +63,23 @@
             // SET LEFT AND TOP STYLES TO CALCULATED VALUES
             popup.css({left: left + 'px', top: top + 'px'});
         }
+
+        function search() {
+            var query_value = $('#unique').val();
+
+            $.ajax({
+                type: "POST",
+                url: 'tasks/searchByTitle',
+                data: { query: query_value },
+                cache: false,
+                success: function(html){
+                    $("table#resultTable tbody").html(html);
+                }
+            });
+
+
+        }
+
     </script>
     <style type="text/css">
         .overlay {
@@ -90,15 +108,10 @@
         .popup div.action {
             text-align: right;
         }
-        .popup div.action input {
-            background: #37474F;
-            border: #37474F;
-            color: whitesmoke;
-            border-radius: 10%;
-        }
     </style>
 </head>
 <body>
+<p id="p-filter-panel"></p>
 <button>Click to add more filters</button>
 </body>
 </html>
