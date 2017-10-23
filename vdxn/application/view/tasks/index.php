@@ -44,6 +44,10 @@
                         Task Duration DESC
                     </label>
                 </div>
+                <div>
+                    <label style="font-size: large ;font-family: bold">Filter by: </label>
+                    <?php require APP. 'view/tasks/task_filter/filter_panel.php'?>
+                </div>
             </form>
         </div>
     </div>
