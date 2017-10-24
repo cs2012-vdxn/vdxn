@@ -16,6 +16,7 @@ class Account extends Model
       return true;
     }
   }
+
   function getUser($username, $password) {
     $sql = "SELECT username, password_hash, contact, email, user_type FROM User WHERE
       `username`='$username'";
@@ -30,6 +31,7 @@ class Account extends Model
       return null;
     }
   }
+
   function changePassword($username, $password_old, $password_new) {
 
     if(!$this->getUser($username, $password_old)) return false;
@@ -41,6 +43,7 @@ class Account extends Model
     $query = $this->db->prepare($sql);
     return $query->execute();
   }
+
   function create($username, $email, $firstName, $lastName, $contactNumber, $password) {
     $time = date("Y-m-d H:i:s");
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -70,4 +73,39 @@ class Account extends Model
     $query = $this->db->prepare($sql);
     return $query->execute();
   }
+
+  //==========================================
+  // GETTING USER PROFILE ATTRIBUTES
+  //==========================================
+  /**
+   * Retrieves a user's public profile, i.e. no password hash retrieved
+   *
+   * @param  String $username    Username to retrieve profile for
+   * @return Object    Public profile of specified username
+   */
+  function getUserPublicProfile($username) {
+    $sql = "SELECT username, first_name, last_name, contact, email, user_type
+      FROM User WHERE `username`='$username'";
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return $query->fetch();
+  }
+
+  /**
+   * Computes and retrieves a user's overall rating.
+   * Sums up and averages the ratings from all of the tasks this user did.
+   * The SQL query also ensures that decimal values are rounded to the nearest
+   * 2 decimal places.
+   *
+   * @param  String $username    Username to retrieve profile for
+   * @return Float     Rating of this user, rounded to the nearest 2 decimal places
+   */
+  function getUserRating($username) {
+    $sql = "SELECT ROUND(SUM(assignee_rating) / COUNT(assignee_rating), 2) AS rating
+      FROM Task WHERE assignee_username = '" . $username . "'";
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return floatval($query->fetch()->{'rating'});
+  }
+
 }
