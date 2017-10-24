@@ -190,7 +190,6 @@ class Task extends Model
         $sql = "SELECT Task.title, Task.description, Task.created_at, Task.updated_at, Task.start_at, Task.end_at,
         Task.min_bid, Task.max_bid, Task.creator_username, Task.assignee_username, Task.completed_at, 
         Task.remarks, TIMESTAMPDIFF(SECOND, Task.end_at, Task.start_at) AS duration FROM Task ORDER BY $attribute_str";
-        echo $sql;
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         return $query -> fetchAll();
@@ -202,7 +201,6 @@ class Task extends Model
         t.remarks, TIMESTAMPDIFF(SECOND, t.end_at, t.start_at) AS duration FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username) 
               LEFT JOIN Category_task c ON t.title = c.task_title AND t.creator_username = c.task_creator_username
               WHERE $str";
-        echo $sql;
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         return $query -> fetchAll();

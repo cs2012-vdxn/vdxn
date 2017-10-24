@@ -146,12 +146,11 @@
             }
             if(tag != '') {
                 if(query_value != '') {
-                    query_value += ' AND g.tag_name='+tag;
+                    query_value += ' AND g.tag_name='+'\''+tag+'\'';
                 } else {
-                    query_value += 'g.tag_name=' + tag;
+                    query_value += 'g.tag_name=' + '\''+tag+'\'';
                 }
             }
-            console.log(query_value);
             $.ajax({
                 type: "POST",
                 url: 'tasks/filterTasks',
