@@ -196,6 +196,18 @@ class Task extends Model
         return $query -> fetchAll();
     }
 
+    public function filterAllTasks($str) {
+        $sql = "SELECT t.title, t.description, t.created_at, t.updated_at, t.start_at, t.end_at,
+        t.min_bid, t.max_bid, t.creator_username, t.assignee_username, t.completed_at, 
+        t.remarks, TIMESTAMPDIFF(SECOND, t.end_at, t.start_at) AS duration FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username) 
+              LEFT JOIN Category_task c ON t.title = c.task_title AND t.creator_username = c.task_creator_username
+              WHERE $str";
+        echo $sql;
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+
     public function createTask($task_params)
     {
       $sql = "INSERT INTO `mini`.`Task`
