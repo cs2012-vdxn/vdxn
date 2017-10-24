@@ -130,23 +130,31 @@
         }
 
         function search(category, creator, duration, tag) {
-            var query_value = "";
+            query_value = "";
             if(category != '') {
-                query_value += 'c.category_name='+category;
+                query_value += 'c.category_name='+'\''+category+'\'';
             }
             if(creator != '') {
-                query_value += 't.creator_rating '+creator;
+                if(query_value != '') {
+                    query_value += ' AND t.creator_rating ' + creator;
+                } else {
+                    query_value += 't.creator_rating ' + creator;
+                }
             }
             if(duration != '') {
 
             }
             if(tag != '') {
-                query_value += 'g.tag_name='+tag;
+                if(query_value != '') {
+                    query_value += ' AND g.tag_name='+tag;
+                } else {
+                    query_value += 'g.tag_name=' + tag;
+                }
             }
-
+            console.log(query_value);
             $.ajax({
                 type: "POST",
-                url: 'tasks/searchByTitle',
+                url: 'tasks/filterTasks',
                 data: { query: query_value },
                 cache: false,
                 success: function(html){
