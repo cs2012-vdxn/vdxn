@@ -142,7 +142,7 @@
                 }
             }
             if(duration != '') {
-
+                //TODO
             }
             if(tag != '') {
                 if(query_value != '') {
