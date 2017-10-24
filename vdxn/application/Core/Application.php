@@ -19,6 +19,9 @@ class Application
      */
     public function __construct()
     {
+        // Set timezone
+        date_default_timezone_set("Asia/Singapore");
+
         // create array with URL parts in $url
         $this->splitUrl();
 
@@ -39,7 +42,7 @@ class Application
             // check for method: does such a method exist in the controller ?
             if (method_exists($this->url_controller, $this->url_action) &&
                 is_callable(array($this->url_controller, $this->url_action))) {
-                
+
                 if (!empty($this->url_params)) {
                     // Call the method and pass arguments to it
                     call_user_func_array(array($this->url_controller, $this->url_action), $this->url_params);

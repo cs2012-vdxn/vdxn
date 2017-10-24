@@ -171,7 +171,7 @@ class Task extends Model
 
     public function findAllTasksContaining($search_string)
     {
-      $sql = 'SELECT * FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username) 
+      $sql = 'SELECT * FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username)
               LEFT JOIN Category_task c ON t.title = c.task_title AND t.creator_username = c.task_creator_username
               WHERE t.title LIKE "%' . $search_string . '%"  OR g.tag_name LIKE "%' . $search_string . '%" OR c.category_name LIKE "%' . $search_string . '%"';
       $query = $this->db->prepare($sql);
@@ -188,7 +188,7 @@ class Task extends Model
 
     public function sortAllTasks($attribute_str) {
         $sql = "SELECT Task.title, Task.description, Task.created_at, Task.updated_at, Task.start_at, Task.end_at,
-        Task.min_bid, Task.max_bid, Task.creator_username, Task.assignee_username, Task.completed_at, 
+        Task.min_bid, Task.max_bid, Task.creator_username, Task.assignee_username, Task.completed_at,
         Task.remarks, TIMESTAMPDIFF(SECOND, Task.end_at, Task.start_at) AS duration FROM Task ORDER BY $attribute_str";
         $query = $this -> db -> prepare($sql);
         $query -> execute();
@@ -197,8 +197,8 @@ class Task extends Model
 
     public function filterAllTasks($str) {
         $sql = "SELECT t.title, t.description, t.created_at, t.updated_at, t.start_at, t.end_at,
-        t.min_bid, t.max_bid, t.creator_username, t.assignee_username, t.completed_at, 
-        t.remarks, TIMESTAMPDIFF(SECOND, t.end_at, t.start_at) AS duration FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username) 
+        t.min_bid, t.max_bid, t.creator_username, t.assignee_username, t.completed_at,
+        t.remarks, TIMESTAMPDIFF(SECOND, t.end_at, t.start_at) AS duration FROM (Task t LEFT JOIN Tag_task g ON t.title = g.task_title AND t.creator_username = g.task_creator_username)
               LEFT JOIN Category_task c ON t.title = c.task_title AND t.creator_username = c.task_creator_username
               WHERE $str";
         $query = $this -> db -> prepare($sql);
@@ -208,6 +208,16 @@ class Task extends Model
 
     public function createTask($task_params)
     {
+      $time = date("Y-m-d H:i:s");
+
+      // If no proper start_at_date is given, force a NULL value to force the
+      // integrity constraints to come into effect
+      $start_at_date = strlen($task_params['taskdate']) == 0 ? 'NULL' : $task_params['taskdate'];
+
+      // Since bids are not required, and have a default value, set them here
+      $min_bid = strlen($task_params['min_bid']) == 0 ? 1 : $task_params['min_bid'];
+      $max_bid = strlen($task_params['max_bid']) == 0 ? 100 : $task_params['max_bid'];
+
       $sql = "INSERT INTO `mini`.`Task`
       (
       `title`,
@@ -226,11 +236,11 @@ class Task extends Model
       VALUES (
       '".$task_params['title']."',
       '".$task_params['description']."',
-      '2017-09-24 03:09:10',
-      '2017-09-24 03:09:10',
-      '2017-09-27 04:10:14',
-      '5',
-      '100',
+      '$time',
+      NULL,
+      $start_at_date,
+      '$min_bid',
+      '$max_bid',
       '".$_SESSION['user']->username."',
       NULL,
       NULL,
@@ -347,12 +357,15 @@ class Task extends Model
       return $query->execute();
     }
 
+    // QUESTION TODO: Make edit task not able to change min & max bids?
     public function editTask($title, $creator_username, $params)
     {
+      $time = date("Y-m-d H:i:s");
+
       // TODO: check if user is authenticated and allowed to edit task
       $sql = "UPDATE `Task` SET `title` = '".$params['title']."',
         `description` = '".$params['description']."',
-        `start_at` = '2017-09-25 00:00:00',
+        `updated_at` = '".$time."',
         `min_bid` = '".$params['min_bid']."',
         `max_bid` = '".$params['max_bid']."'
         WHERE `Task`.title='$title' AND Task.creator_username='$creator_username'";
@@ -440,8 +453,9 @@ class Task extends Model
      */
     public function markTaskAsComplete($task_title, $task_creator_username)
     {
+      $time = date("Y-m-d H:i:s");
       $sql = "UPDATE Task ".
-        "SET completed_at='2017-10-10 14:53:12'".
+        "SET completed_at='".$time."'".
         " WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
@@ -456,8 +470,7 @@ class Task extends Model
      */
     public function assignBidderToTask($task_title, $task_creator_username, $bidder_username)
     {
-      $sql = "UPDATE Task ".
-        "SET assignee_username='".$bidder_username.
+      $sql = "UPDATE Task SET assignee_username='".$bidder_username.
         "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
@@ -473,8 +486,7 @@ class Task extends Model
      */
     public function rateTaskDoer($task_title, $task_creator_username, $assignee_rating)
     {
-      $sql = "UPDATE Task ".
-        "SET assignee_rating='".$assignee_rating.
+      $sql = "UPDATE Task SET assignee_rating='".$assignee_rating.
         "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
@@ -490,8 +502,7 @@ class Task extends Model
      */
     public function rateTaskCreator($task_title, $task_creator_username, $creator_rating)
     {
-      $sql = "UPDATE Task ".
-        "SET creator_rating='".$creator_rating.
+      $sql = "UPDATE Task SET creator_rating='".$creator_rating.
         "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
@@ -600,6 +611,7 @@ class Task extends Model
      */
     public function createTaskBid($task_title, $task_creator_username, $amount, $details)
     {
+      $time = date("Y-m-d H:i:s");
       $sql = "INSERT INTO Bid (
         `task_title`,
         `task_creator_username`,
@@ -615,9 +627,9 @@ class Task extends Model
         '".$_SESSION['user']->username."',
         '".$details."',
         $amount,
-        '2017-09-24 03:09:10',
-        '2017-09-24 03:09:10',
-        '2017-09-24 03:09:10')";
+        '$time',
+        NULL,
+        NULL)";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
@@ -633,9 +645,9 @@ class Task extends Model
      */
     public function editTaskBid($task_title, $task_creator_username, $bidder_username, $amount, $details)
     {
-      $sql = "UPDATE Bid ".
-        "SET amount=".$amount.", details='".$details."' ".
-        "WHERE task_title='".$task_title."' AND task_creator_username='".
+      $time = date("Y-m-d H:i:s");
+      $sql = "UPDATE Bid SET amount=".$amount.", details='".$details."', updated_at='".$time."'".
+        " WHERE task_title='".$task_title."' AND task_creator_username='".
         $task_creator_username."' AND bidder_username='".$bidder_username."';";
       $query = $this->db->prepare($sql);
       return $query->execute();
