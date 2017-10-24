@@ -19,7 +19,7 @@
   </tr>
   <tr>
     <td>Rating:</td>
-    <td><?php echo $assignee->assignee_rating ?> / 5.0</td>
+    <td><?php echo $assignee->rating ?> / 5.0</td>
   </tr>
 </table>
 

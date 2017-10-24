@@ -5,6 +5,7 @@ namespace Mini\Controller;
 session_start();
 
 use Mini\Model\Task;
+use Mini\Model\Account;
 
 class TasksController {
     public function index() {
@@ -22,6 +23,7 @@ class TasksController {
     //==========================================
     public function task() {
       $Task = new Task();
+      $User = new Account();
 
       $username = $_SESSION['user']->{'username'};
       $title = isset($_GET['title']) ? $_GET['title'] : "";
@@ -34,10 +36,13 @@ class TasksController {
       $category = $Task -> getCategoryOfTask($title, $creator_username);
       $tags = $Task -> getTagsOfTask($title, $creator_username);
 
+      // Get the public profile of this task's assignee & overall rating
+      $assignee = $User->getUserPublicProfile($task->{'assignee_username'});
+      $assignee->rating = $User->getUserRating($assignee->{'username'});
+
       // Get the current state of this task
       // e.g. Whether a doer was assigned, whether this task is completed and whether the
       //      creator / doer was rated already
-      $assignee = $Task->getTaskAssigneeUserProfile($title, $creator_username);
       $completed_at = $Task->getTaskCompletedDate($title, $creator_username)->{'completed_at'};
       $creator_rating = $Task->getTaskCreatorRating($title, $creator_username)->{'creator_rating'};
       $assignee_rating = $Task->getTaskDoerRating($title, $creator_username)->{'assignee_rating'};
@@ -158,7 +163,7 @@ class TasksController {
       $task_title = isset($_GET['title']) ? $_GET['title'] : "";
       $task_creator_username = isset($_GET['creator_username']) ? $_GET['creator_username'] : "";
       $creator_rating = isset($_POST['task_creator_rating']) ? floatval($_POST['task_creator_rating']) : "";
-      
+
       // Rate this task creator
       $Task->rateTaskCreator($task_title, $task_creator_username, $creator_rating);
 
