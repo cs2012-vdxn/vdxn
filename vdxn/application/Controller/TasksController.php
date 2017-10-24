@@ -36,9 +36,12 @@ class TasksController {
       $category = $Task -> getCategoryOfTask($title, $creator_username);
       $tags = $Task -> getTagsOfTask($title, $creator_username);
 
-      // Get the public profile of this task's assignee & overall rating
+      // Get the public profile of this task's doer & overall rating if
+      // a doer has already been assigned
       $assignee = $User->getUserPublicProfile($task->{'assignee_username'});
-      $assignee->rating = $User->getUserRating($assignee->{'username'});
+      if ($assignee) {
+        $assignee->rating = $User->getUserRating($assignee->{'username'});
+      }
 
       // Get the current state of this task
       // e.g. Whether a doer was assigned, whether this task is completed and whether the
