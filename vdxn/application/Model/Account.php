@@ -5,6 +5,9 @@ use Mini\Core\Model;
 
 class Account extends Model
 {
+  private $DEFAULT_FROM_DATE = '0000-00-00 00:00:00:000';
+  private $DEFAULT_TO_DATE = '2999-00-00 00:00:00:000';
+
   public function authenticate($username, $password) {
     $userRecord = $this->getUser($username, $password);
 
@@ -106,6 +109,56 @@ class Account extends Model
     $query = $this->db->prepare($sql);
     $query->execute();
     return floatval($query->fetch()->{'rating'});
+  }
+
+
+
+
+  //==========================================
+  // ADMIN SYSTEM STATS FUNCTIONS
+  //==========================================
+  /**
+   * Gets the no. of users who signed up between a specified datetime range.
+   * Does not count admins.
+   *
+   * @param  String $from_date   Start Date in the format of YYYY-MM-DD hh:mm:ss:000
+   * @param  String $to_date     End Date in the format of YYYY-MM-DD hh:mm:ss:000
+   * @return Object    Number of users who signed up
+   */
+  public function getNumUsersSignedUp($from_date = NULL, $to_date = NULL) {
+    $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+    $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
+
+    $sql = "SELECT COUNT(*) AS num_users
+      FROM User
+      WHERE user_type <> 'Admin'
+      AND created_at BETWEEN '".$from_date."' AND '".$to_date."'";
+
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return $query->fetch();
+  }
+
+  /**
+   * Gets an array of the users who never bidded before
+   *
+   * @return Array    User objects who never bidded before, each object with values
+   *                  username, first_name, last_name, email, contact
+   */
+  public function getUsersNeverBidded() {
+    $sql = "SELECT u.username, u.first_name, u.last_name, u.email, u.contact
+      FROM User u
+      WHERE NOT EXISTS (
+          SELECT b.bidder_username
+          FROM Bid b
+          WHERE u.username = b.bidder_username
+          GROUP BY b.bidder_username
+          HAVING COUNT(*) >= 1
+      );";
+
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
   }
 
 }

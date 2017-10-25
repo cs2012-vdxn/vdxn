@@ -6,6 +6,9 @@ use Mini\Core\Model;
 
 class Task extends Model
 {
+    private $DEFAULT_FROM_DATE = '0000-00-00 00:00:00:000';
+    private $DEFAULT_TO_DATE = '2999-00-00 00:00:00:000';
+
     /**
      * Get all tasks from database
      */
@@ -720,6 +723,109 @@ class Task extends Model
         } else {
             return $result->category;
         }
+    }
+
+
+
+
+    //==========================================
+    // ADMIN SYSTEM STATS FUNCTIONS
+    //==========================================
+    /**
+     * Gets the no. of completed & uncompleted tasks
+     *
+     * @return Object    Number of completed tasks as one value & number of
+     *                   uncompleted tasks as another value.
+     */
+    public function getNumCompletedUncompletedTasks() {
+      $sql = "SELECT COUNT(completed_at) AS num_tasks_completed,
+        (COUNT(*) - COUNT(completed_at)) AS num_tasks_uncompleted
+        FROM Task";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets the no. of completed tasks between a specified datetime range.
+     *
+     * @param  String $from_date   Start Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @param  String $to_date     End Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @return Object    Number of completed tasks
+     */
+    public function getNumCompletedTasksBetween($from_date = NULL, $to_date = NULL) {
+      $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+      $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
+
+      $sql = "SELECT COUNT(completed_at) AS num_tasks_completed
+        FROM Task
+        WHERE completed_at BETWEEN '".$from_date."' AND '".$to_date."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets the no. of bids created between a specified datetime range.
+     *
+     * @param  String $from_date   Start Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @param  String $to_date     End Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @return Object    Number of bids created
+     */
+    public function getNumBidsBetween($from_date = NULL, $to_date = NULL) {
+      $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+      $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
+
+      $sql = "SELECT COUNT(*) AS num_bids
+        FROM Bid
+        WHERE created_at BETWEEN '".$from_date."' AND '".$to_date."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets the task(s) with the largest number of bids (most popular tasks)
+     * Note: Can have more than 1 task that's "most popular"
+     *
+     * @return Array    Array of tasks with values title, description &
+     *                  creator_username
+     */
+    public function getMostPopularTasks() {
+      $sql = "SELECT t.title AS title, t.description AS description,
+        t.creator_username AS username, COUNT(*) AS num_bids
+        FROM Task t, Bid b
+        WHERE t.title = b.task_title AND t.creator_username = b.task_creator_username
+        GROUP BY t.title, t.creator_username
+        HAVING COUNT(*) >= ALL (
+            SELECT COUNT(*)
+            FROM Task t1, Bid b1
+            WHERE t1.title = b1.task_title AND t1.creator_username = b1.task_creator_username
+            GROUP BY t1.title, t1.creator_username
+        )";
+
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
+    /**
+     * Get the number of users who bidded for at least 1 task
+     *
+     * @return Object    Number of users who did so
+     */
+    public function getNumWhoBiddedAtLeastOnce() {
+      $sql = "SELECT COUNT(*) AS num_users FROM (
+        SELECT b.bidder_username, COUNT(*) AS num_bids
+        FROM Bid b
+        GROUP BY b.bidder_username
+        HAVING COUNT(*) >= 1
+        ORDER BY COUNT(*) DESC
+      ) AS NumBidsPerUserTable;";
+
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
     }
 
 }
