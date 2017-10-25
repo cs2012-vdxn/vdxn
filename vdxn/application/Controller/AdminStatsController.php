@@ -17,6 +17,7 @@ use Mini\Model\Account;
 class AdminStatsController {
   public function index() {
     $Task = new Task();
+    $User = new Account();
 
     if(!isset($_SESSION['user'])) {
       header('location: ' . URL . 'login');
@@ -39,9 +40,24 @@ class AdminStatsController {
     $num_bids_between = $Task->getNumBidsBetween(
       '2010-08-28 00:00:00:000', '2017-09-28 00:00:00:000')->{'num_bids'};
 
+    // Retrieve an array of task(s) with the largest number of bids (most popular tasks)
+    $arr_most_pop_tasks = $Task->getMostPopularTasks();
+
+    // Retrieve the number of users who ever signed up (doesn't count admins)
+    $num_users_created = $User->getNumUsersSignedUp()->{'num_users'};
+
+    // Retrieve the number of users who bidded at lesat once
+    $num_users_bidded_at_least_once = $Task->getNumWhoBiddedAtLeastOnce()->{'num_users'};
+
+    // Retrieve an array of all users who never bidded at all
+    $arr_users_never_bidded = $User->getUsersNeverBidded();
+
     // load views
     require APP . 'view/_templates/header.php';
-    require APP . 'view/admin_stats/system_stats.php';
+    echo '<div class="container" style="padding-bottom: 100px;">';
+    require APP . 'view/admin_stats/system_stats_user_section.php';
+    require APP . 'view/admin_stats/system_stats_tasks_section.php';
+    echo '</div>';
     require APP . 'view/_templates/footer.php';
   }
 }
