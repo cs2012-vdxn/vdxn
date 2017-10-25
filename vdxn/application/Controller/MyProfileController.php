@@ -14,24 +14,38 @@ session_start();
 use Mini\Model\Login;
 use Mini\Model\Account;
 
-class MyProfileController
-{
+class MyProfileController {
     public function index() {
-      $User = new Account();
-
-      if(!isset($_SESSION['user'])) {
-        header('location: ' . URL . 'login');
-      }
-
+      $user = $this->getPublicUserProfile();
       $pictureLink = '/public/img/default_avatar.png';
-      $username = $_SESSION['user']->{'username'};
-      $email = $_SESSION['user']->{'email'};
-      $contact = $_SESSION['user']->{'contact'};
-      $rating = $User->getUserRating($username);
 
       // load views
       require APP . 'view/_templates/header.php';
-      require APP . 'view/myprofile/profile.php';
+      if ($user) {
+        require APP . 'view/myprofile/profile.php';
+      } else {
+        require APP. 'view/myprofile/profile_not_found.php';
+      }
       require APP . 'view/_templates/footer.php';
+    }
+
+    /**
+     * Retrieves the public profile of a User object specified by the GET
+     * parameter in the URL
+     *
+     * @return Object    User object along with this user's overall rating
+     */
+    private function getPublicUserProfile() {
+      $User = new Account();
+
+      if (isset($_GET['username'])) {
+        $user = $User->getUserPublicProfile($_GET['username']);
+        if ($user) {
+          // When we can find a user in the system
+          $user->{'rating'} = $User->getUserRating($_GET['username']);
+          return $user;
+        }
+      }
+      return NULL;
     }
 }
