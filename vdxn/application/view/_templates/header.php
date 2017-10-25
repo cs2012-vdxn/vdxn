@@ -14,6 +14,12 @@
     <!-- JS -->
     <!-- We depend on jQuery for interactions with our app, so declare up top here -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo URL; ?>js/jquery.min.js"></script>
+    <script src="<?php echo URL; ?>js/jquery.backtotop.js"></script>
+    <script src="<?php echo URL; ?>js/jquery.mobilemenu.js"></script>
+    <!-- IE9 Placeholder Support -->
+    <script src="<?php echo URL; ?>js/jquery.placeholder.min.js"></script>
+    <!-- / IE9 Placeholder Support -->
 </head>
 <body>
 
