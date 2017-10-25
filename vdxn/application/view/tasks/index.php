@@ -134,6 +134,24 @@
              });
 
          }
+
+         var tag = localStorage.getItem('tag');
+        if (tag != undefined) {
+            $('input#name').val(tag);
+            query_value = 'g.tag_name='+'\''+tag+'\'';
+            $.ajax({
+                type: "POST",
+                url: 'tasks/filterTasks',
+                data: {query: query_value},
+                cache: false,
+                success: function(html) {
+                    $("table#resultTable tbody").html(html);
+                    localStorage.removeItem('tag');
+                }
+            });
+
+        }
+
         function search() {
             var query_value = $('input#name').val();
 

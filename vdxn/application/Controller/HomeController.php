@@ -35,7 +35,7 @@ class HomeController
     public function searchTags() {
         $Task = new Task();
         $search_string = $_POST['query'];
-        $html = '<li><a href="index.html">Tag<br /></a></li>';
+        $html = '<li><a href="index.html">Tag</a></li>';
 
         if (strlen($search_string) >= 1 && $search_string !== ' ') {
             $result_array = $Task->findAllTagsContaining($search_string);
@@ -46,15 +46,15 @@ class HomeController
                     echo($o);
                 }
             } else {
-                $o = '<li><a href="#" style="color: red">No Results Found<br /></a></li>';
+                $o = '<li><a href="#" style="color: red">No Results Found</a></li>';
                 echo($o);
             }
         } else {
             $o = '
-                  <li><a href="index.html">Babysitting<br /></a></li>
-                  <li><a href="index.html">Homework<br /></a></li>
-                  <li><a href="index.html">House Cleaning<br /></a></li>
-                  <li><a href="index.html">Car washing<br /></a></li>
+                  <li><a href="index.html">Babysitting</a></li>
+                  <li><a href="index.html">Homework</a></li>
+                  <li><a href="index.html">House Cleaning</a></li>
+                  <li><a href="index.html">Car washing</a></li>
                   ';
             echo($o);
         }

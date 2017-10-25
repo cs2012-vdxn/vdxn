@@ -21,7 +21,7 @@
                     <ul class="results" id="dropdowndisplay">
                         <?php
                         foreach($tags as $tag) {
-                            echo '<li><a href="index.html">'.$tag.'<br /></a></li>';
+                            echo '<li><a href="">'.$tag.'</a></li>';
                         }
                         ?>
                     </ul>
@@ -173,10 +173,23 @@
         });
     }
 
+    function getEventTarget(e) {
+        e = e || window.event;
+        return e.target || e.srcElement;
+    }
+
     $(document).ready(function(){
 
         $('#dropdown-tagresult').on("keyup input", function(e) {
             searchRelevantTags();
+        });
+
+        $('#dropdowndisplay').on("click", function(e) {
+            e.preventDefault();
+            var target = getEventTarget(e);
+            var tag = target.innerHTML;
+            localStorage.setItem('tag', tag);
+            location.href = 'http://192.168.33.66/tasks';
         });
     });
 
@@ -227,10 +240,12 @@
         box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
     }
 
-    .search input:focus + .results { display: block }
+    .search input:focus + .results { display: block;visibility: visible;font-size: small;}
 
     .search .results {
-        display: none;
+       /*display: none;*/
+        visibility: hidden;
+        font-size: 0;
         position: absolute;
         top: 35px;
         left: 0;
@@ -243,12 +258,6 @@
         border-color: #cbcfe2 #c8cee7 #c4c7d7;
         border-radius: 3px;
         background-color: #fdfdfd;
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #eceef4));
-        background-image: -webkit-linear-gradient(top, #fdfdfd, #eceef4);
-        background-image: -moz-linear-gradient(top, #fdfdfd, #eceef4);
-        background-image: -ms-linear-gradient(top, #fdfdfd, #eceef4);
-        background-image: -o-linear-gradient(top, #fdfdfd, #eceef4);
-        background-image: linear-gradient(top, #fdfdfd, #eceef4);
         -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -256,12 +265,12 @@
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .search .results li { display: block }
+    .search .results li { display: block;visibility: visible;}
 
     .search .results li:first-child { margin-top: -1px }
 
     .search .results li:first-child:before, .search .results li:first-child:after {
-        display: block;
+        display: block;visibility: visible;
         content: '';
         width: 0;
         height: 0;
@@ -271,22 +280,12 @@
         border: 5px outset transparent;
     }
 
-    .search .results li:first-child:before {
-        border-bottom: 5px solid #c4c7d7;
-        top: -11px;
-    }
-
-    .search .results li:first-child:after {
-        border-bottom: 5px solid #fdfdfd;
-        top: -10px;
-    }
-
-    .search .results li:first-child:hover:before, .search .results li:first-child:hover:after { display: none }
+    .search .results li:first-child:hover:before, .search .results li:first-child:hover:after { /*display: none;*/visibility: hidden }
 
     .search .results li:last-child { margin-bottom: -1px }
 
     .search .results a {
-        display: block;
+        display: block;visibility: visible;
         position: relative;
         margin: 0 -1px;
         padding: 6px 40px 6px 10px;
@@ -300,6 +299,7 @@
     .search .results a span { font-weight: 200 }
 
     .search .results a:before {
+        visibility: hidden;
         content: '';
         width: 18px;
         height: 18px;
@@ -307,21 +307,13 @@
         top: 50%;
         right: 10px;
         margin-top: -9px;
-        background: url("http://cssdeck.com/uploads/media/items/7/7BNkBjd.png") 0 0 no-repeat;
     }
 
     .search .results a:hover {
+        visibility: visible;
         text-decoration: none;
         color: #fff;
-        text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
-        border-color: #2380dd #2179d5 #1a60aa;
         background-color: #338cdf;
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));
-        background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);
-        background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);
-        background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);
-        background-image: -o-linear-gradient(top, #59aaf4, #338cdf);
-        background-image: linear-gradient(top, #59aaf4, #338cdf);
         -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         -ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
