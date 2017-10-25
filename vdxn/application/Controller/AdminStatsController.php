@@ -39,6 +39,11 @@ class AdminStatsController {
     $num_bids_between = $Task->getNumBidsBetween(
       '2010-08-28 00:00:00:000', '2017-09-28 00:00:00:000')->{'num_bids'};
 
+    // Retrieve an array of task(s) with the largest number of bids (most popular tasks)
+    $arr_most_pop_tasks = $Task->getMostPopularTasks();
+
+
+
     // load views
     require APP . 'view/_templates/header.php';
     require APP . 'view/admin_stats/system_stats.php';

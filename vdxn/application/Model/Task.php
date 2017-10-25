@@ -777,4 +777,29 @@ class Task extends Model
       return $query->fetch();
     }
 
+    /**
+     * Gets the task(s) with the largest number of bids (most popular tasks)
+     * Note: Can have more than 1 task that's "most popular"
+     *
+     * @return Array    Array of tasks with values title, description &
+     *                  creator_username
+     */
+    public function getMostPopularTasks() {
+      $sql = "SELECT t.title AS title, t.description AS description,
+        t.creator_username AS username, COUNT(*) AS num_bids
+        FROM Task t, Bid b
+        WHERE t.title = b.task_title AND t.creator_username = b.task_creator_username
+        GROUP BY t.title, t.creator_username
+        HAVING COUNT(*) >= ALL (
+            SELECT COUNT(*)
+            FROM Task t1, Bid b1
+            WHERE t1.title = b1.task_title AND t1.creator_username = b1.task_creator_username
+            GROUP BY t1.title, t1.creator_username
+        )";
+
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetchAll();
+    }
+
 }
