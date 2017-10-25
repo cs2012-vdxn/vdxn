@@ -5,6 +5,9 @@ use Mini\Core\Model;
 
 class Account extends Model
 {
+  private $DEFAULT_FROM_DATE = '0000-00-00 00:00:00:000';
+  private $DEFAULT_TO_DATE = '2999-00-00 00:00:00:000';
+
   public function authenticate($username, $password) {
     $userRecord = $this->getUser($username, $password);
 

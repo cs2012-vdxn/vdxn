@@ -17,6 +17,7 @@ use Mini\Model\Account;
 class AdminStatsController {
   public function index() {
     $Task = new Task();
+    $User = new Account();
 
     if(!isset($_SESSION['user'])) {
       header('location: ' . URL . 'login');
@@ -42,7 +43,11 @@ class AdminStatsController {
     // Retrieve an array of task(s) with the largest number of bids (most popular tasks)
     $arr_most_pop_tasks = $Task->getMostPopularTasks();
 
+    // Retrieve the number of users who ever signed up (doesn't count admins)
+    $num_users_created = $User->getNumUsersSignedUp()->{'num_users'};
 
+    // Retrieve the number of users who bidded at lesat once
+    $num_users_bidded_at_least_once = $Task->getNumWhoBiddedAtLeastOnce()->{'num_users'};
 
     // load views
     require APP . 'view/_templates/header.php';

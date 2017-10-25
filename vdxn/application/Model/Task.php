@@ -802,4 +802,23 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    /**
+     * Get the number of users who bidded for at least 1 task
+     *
+     * @return Object    Number of users who did so
+     */
+    public function getNumWhoBiddedAtLeastOnce() {
+      $sql = "SELECT COUNT(*) AS num_users FROM (
+        SELECT b.bidder_username, COUNT(*) AS num_bids
+        FROM Bid b
+        GROUP BY b.bidder_username
+        HAVING COUNT(*) >= 1
+        ORDER BY COUNT(*) DESC
+      ) AS NumBidsPerUserTable;";
+
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
 }
