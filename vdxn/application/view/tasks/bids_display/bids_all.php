@@ -1,24 +1,15 @@
 <h4>All Bidders</h4>
 <p>
-  All bids that belong to the task are listed here.
-  Depending on the get parameters, retrieve results sorted differently.
+  Every bidder's bid info for this task is listed here.
 </p>
 <br/>
-<div id="controls">
-  Sort by :
-  Bid Amount
-  |
-  Name
-  |
-Rating
-</div>
 <?php
   echo '<table class="table table-bordered table-hover table-condensed">';
   echo '<thead><tr>
-          <th>Bidder</th>
+          <th>Username</th>
           <th>Amount</th>
           <th>Comments</th>
-          <th>Created at</th>';
+          <th>Created on</th>';
   if ($isTaskOwner && !$assignee) {
     echo '<th></th>';
   }
@@ -30,7 +21,7 @@ Rating
       '&creator_username='.$task->{'creator_username'}.
       '&assignee_username='.$bid->bidder_username.'"';
     echo '<tr>';
-    echo '<td>' . $bid->bidder_username . '</td>';
+    echo '<td><a href="/myprofile?username=' . $bid->bidder_username . '">'.$bid->bidder_username.'</a></td>';
     echo '<td>' . $bid->amount . '</td>';
     echo '<td>' . $bid->details . '</td>';
     echo '<td>' . $bid->created_at . '</td>';
