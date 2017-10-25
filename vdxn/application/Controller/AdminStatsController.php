@@ -11,13 +11,21 @@
 
 namespace Mini\Controller;
 session_start();
-use Mini\Model\Login;
+use Mini\Model\Task;
+use Mini\Model\Account;
 
 class AdminStatsController {
   public function index() {
+    $Task = new Task();
+
     if(!isset($_SESSION['user'])) {
       header('location: ' . URL . 'login');
     }
+
+    // Retrieve the number of completed/uncompleted tasks
+    $num_tasks_com_uncom = $Task->getNumCompletedUncompletedTasks();
+    $num_tasks_completed = $num_tasks_com_uncom->{'num_tasks_completed'};
+    $num_tasks_uncompleted = $num_tasks_com_uncom->{'num_tasks_uncompleted'};
 
     // load views
     require APP . 'view/_templates/header.php';

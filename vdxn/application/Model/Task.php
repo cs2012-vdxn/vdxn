@@ -715,4 +715,26 @@ class Task extends Model
         }
     }
 
+
+
+
+    //==========================================
+    // ADMIN SYSTEM STATS FUNCTIONS
+    //==========================================
+    /**
+     * Gets the no. of completed & uncompleted tasks
+     *
+     * @param  String $task_title               Title of the task
+     * @param  String $task_creator_username    Username of the task creator
+     * @return Object    User profile of the assignee/doer for this task
+     */
+    public function getNumCompletedUncompletedTasks() {
+      $sql = "SELECT COUNT(completed_at) AS num_tasks_completed,
+        (COUNT(*) - COUNT(completed_at)) AS num_tasks_uncompleted
+        FROM Task";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
 }
