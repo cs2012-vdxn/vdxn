@@ -84,7 +84,7 @@ class Account extends Model
    * @return Object    Public profile of specified username
    */
   function getUserPublicProfile($username) {
-    $sql = "SELECT username, first_name, last_name, contact, email, user_type
+    $sql = "SELECT username, first_name, last_name, contact, email, user_type, created_at
       FROM User WHERE `username`='$username'";
     $query = $this->db->prepare($sql);
     $query->execute();

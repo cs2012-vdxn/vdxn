@@ -23,7 +23,7 @@
 </p>
 <p style="">
   <small>
-    <b>Created at:</b> <?php echo $task->{'created_at'}; ?>
-    <b style="padding-left: 2em;">Updated at:</b> <?php echo $task->{'updated_at'}; ?>
+    <b>Created:</b> <?php echo $task->{'created_at'}; ?>
+    <b style="padding-left: 2em;">Updated:</b> <?php echo $task->{'updated_at'}; ?>
   </small>
 </p>

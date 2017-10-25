@@ -38,7 +38,7 @@
         </li>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/myprofile'>My Profile</a></li>";
+            echo "<li><a href='/myprofile?username=".$_SESSION['user']->{'username'}."'>My Profile</a></li>";
           }
         ?>
         <li>
