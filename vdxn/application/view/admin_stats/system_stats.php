@@ -30,11 +30,12 @@
         Total no. of tasks: <b><?php echo $num_tasks_completed + $num_tasks_uncompleted; ?></b>
       </p>
     </div>
-    <div class="col-md-4">
-      [Some stats]
-    </div>
-    <div class="col-md-4">
-      [Some stats]
+    <div class="col-md-8">
+      <p>
+        Between these dates:
+        <br/>
+        No. of completed tasks: <b><?php echo $num_tasks_completed_between; ?></b>
+      </p>
     </div>
   </div>
 </div>

@@ -6,6 +6,9 @@ use Mini\Core\Model;
 
 class Task extends Model
 {
+    private $DEFAULT_FROM_DATE = '0000-00-00 00:00:00:000';
+    private $DEFAULT_TO_DATE = '2999-00-00 00:00:00:000';
+
     /**
      * Get all tasks from database
      */
@@ -724,14 +727,32 @@ class Task extends Model
     /**
      * Gets the no. of completed & uncompleted tasks
      *
-     * @param  String $task_title               Title of the task
-     * @param  String $task_creator_username    Username of the task creator
-     * @return Object    User profile of the assignee/doer for this task
+     * @return Object    Number of completed tasks as one value & number of
+     *                   uncompleted tasks as another value.
      */
     public function getNumCompletedUncompletedTasks() {
       $sql = "SELECT COUNT(completed_at) AS num_tasks_completed,
         (COUNT(*) - COUNT(completed_at)) AS num_tasks_uncompleted
         FROM Task";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
+    /**
+     * Gets the no. of completed tasks between a specified datetime range.
+     *
+     * @param  String $from_date   Start Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @param  String $to_date     End Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @return Object    Number of completed tasks
+     */
+    public function getNumCompletedTasksBetween($from_date = NULL, $to_date = NULL) {
+      $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+      $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
+
+      $sql = "SELECT COUNT(completed_at) AS num_tasks_completed
+        FROM Task
+        WHERE completed_at BETWEEN '".$from_date."' AND '".$to_date."'";
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();

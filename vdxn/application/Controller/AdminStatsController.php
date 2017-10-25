@@ -27,7 +27,11 @@ class AdminStatsController {
     $num_tasks_completed = $num_tasks_com_uncom->{'num_tasks_completed'};
     $num_tasks_uncompleted = $num_tasks_com_uncom->{'num_tasks_uncompleted'};
 
-    
+    // Retrieve the number of completed/uncompleted tasks between a set of dates
+    $num_tasks_completed_between = $Task->getNumCompletedTasksBetween()->{'num_tasks_completed'};
+    // Test with this datetime range...You should see 56 tasks displayed
+    // $num_tasks_completed_between = $Task->getNumCompletedTasksBetween('2010-08-28 00:00:00:000', '2010-09-28 00:00:00:000')->{'num_tasks_completed'};
+
 
     // load views
     require APP . 'view/_templates/header.php';
