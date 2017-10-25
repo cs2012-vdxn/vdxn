@@ -38,7 +38,7 @@
         </li>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/myprofile?username=".$_SESSION['user']->{'username'}."'>My Profile</a></li>";
+            echo "<li><a href='/MyProfile?username=".$_SESSION['user']->{'username'}."'>My Profile</a></li>";
           }
         ?>
         <li>
@@ -52,7 +52,7 @@
         <?php
           if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->{'user_type'} == "Admin") {
-              echo "<li><a href='/adminstats'>System Stats</a></li>";
+              echo "<li><a href='/AdminStats'>System Stats</a></li>";
             }
           }
         ?>
