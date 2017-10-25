@@ -51,6 +51,7 @@ class AdminStatsController {
 
     // Retrieve an array of all users who never bidded at all
     $arr_users_never_bidded = $User->getUsersNeverBidded();
+    $arr_users_never_bidded_count = count($arr_users_never_bidded);
 
     // load views
     require APP . 'view/_templates/header.php';
