@@ -30,8 +30,14 @@ class AdminStatsController {
     // Retrieve the number of completed/uncompleted tasks between a set of dates
     $num_tasks_completed_between = $Task->getNumCompletedTasksBetween()->{'num_tasks_completed'};
     // Test with this datetime range...You should see 56 tasks displayed
-    // $num_tasks_completed_between = $Task->getNumCompletedTasksBetween('2010-08-28 00:00:00:000', '2010-09-28 00:00:00:000')->{'num_tasks_completed'};
+    // $num_tasks_completed_between = $Task->getNumCompletedTasksBetween(
+    //    '2010-08-28 00:00:00:000', '2010-09-28 00:00:00:000')->{'num_tasks_completed'};
 
+    // Retrieve the number of bids between a set of dates
+    $num_bids_total = $Task->getNumBidsBetween()->{'num_bids'};
+    // Test with this datetime range...You should see 8 bids displayed
+    $num_bids_between = $Task->getNumBidsBetween(
+      '2010-08-28 00:00:00:000', '2017-09-28 00:00:00:000')->{'num_bids'};
 
     // load views
     require APP . 'view/_templates/header.php';

@@ -758,4 +758,23 @@ class Task extends Model
       return $query->fetch();
     }
 
+    /**
+     * Gets the no. of bids created between a specified datetime range.
+     *
+     * @param  String $from_date   Start Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @param  String $to_date     End Date in the format of YYYY-MM-DD hh:mm:ss:000
+     * @return Object    Number of bids created
+     */
+    public function getNumBidsBetween($from_date = NULL, $to_date = NULL) {
+      $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+      $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
+
+      $sql = "SELECT COUNT(*) AS num_bids
+        FROM Bid
+        WHERE created_at BETWEEN '".$from_date."' AND '".$to_date."'";
+      $query = $this->db->prepare($sql);
+      $query->execute();
+      return $query->fetch();
+    }
+
 }
