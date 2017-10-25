@@ -27,6 +27,8 @@ class AdminStatsController {
     $num_tasks_completed = $num_tasks_com_uncom->{'num_tasks_completed'};
     $num_tasks_uncompleted = $num_tasks_com_uncom->{'num_tasks_uncompleted'};
 
+    
+
     // load views
     require APP . 'view/_templates/header.php';
     require APP . 'view/admin_stats/system_stats.php';
