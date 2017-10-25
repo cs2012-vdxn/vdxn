@@ -118,7 +118,22 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+         var data = localStorage.getItem('category');
+         if (data != undefined) {
+             $('input#name').val(data);
+             query_value = 'c.category_name='+'\''+data+'\'';
+             $.ajax({
+                 type: "POST",
+                 url: 'tasks/filterTasks',
+                 data: {query: query_value},
+                 cache: false,
+                 success: function(html) {
+                     $("table#resultTable tbody").html(html);
+                     localStorage.removeItem('category');
+                 }
+             });
 
+         }
         function search() {
             var query_value = $('input#name').val();
 
