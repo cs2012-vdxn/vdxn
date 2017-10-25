@@ -217,7 +217,7 @@
         border-width: 1px;
         border-style: solid;
         border-color: #a8acbc #babdcc #c0c3d2;
-        border-radius: 13px;
+        border-radius: 3px;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
@@ -232,12 +232,12 @@
 
     .search input:focus {
         outline: none;
-        border-color: #66b1ee;
-        -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-        -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-        -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-        -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
-        box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+        border-color: #d3d3d3;
+        -webkit-box-shadow: 0 0 2px rgba(211, 211, 211, 0.9);
+        -moz-box-shadow: 0 0 2px rgba(211, 211, 211, 0.9);
+        -ms-box-shadow: 0 0 2px rgba(211, 211, 211, 0.9);
+        -o-box-shadow: 0 0 2px rgba(211, 211, 211, 0.9);
+        box-shadow: 0 0 2px rgba(211, 211, 211, 0.9);
     }
 
     .search input:focus + .results { display: block;visibility: visible;font-size: small;}
@@ -293,7 +293,7 @@
         font-weight: 500;
         text-shadow: 0 1px #fff;
         border: 1px solid transparent;
-        border-radius: 3px;
+        border-radius: 0px;
     }
 
     .search .results a span { font-weight: 200 }
@@ -309,11 +309,11 @@
         margin-top: -9px;
     }
 
-    .search .results a:hover {
+    .search input:focus +.results a:hover {
         visibility: visible;
         text-decoration: none;
         color: #fff;
-        background-color: #338cdf;
+        background-color: #d3d3d3;
         -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
         -ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
