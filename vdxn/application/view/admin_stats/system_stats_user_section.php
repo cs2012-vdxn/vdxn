@@ -31,3 +31,38 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Users who never bidded 😣
+      </div>
+      <div class="panel-body">
+        <p><b>
+          Admins, please contact these users to see how you can help them
+          to stay engaged in bidding!
+        </b></p>
+
+        <?php
+        echo '<table class="table table-bordered table-hover table-condensed">';
+        echo '<thead><tr>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact no.</th>
+              </tr></thead>';
+        foreach($arr_users_never_bidded as $user_no_bid) {
+          echo '<tr>';
+          echo '<td><a href="/myprofile?username='.$user_no_bid->username.'">'.$user_no_bid->username.'</a></td>';
+          echo '<td>'.$user_no_bid->first_name.' '.$user_no_bid->last_name.'</td>';
+          echo '<td>'.$user_no_bid->email.'</td>';
+          echo '<td>'.$user_no_bid->contact.'</td>';
+          echo '</tr>';
+        }
+        echo '</table>';
+        ?>
+      </div>
+    </div>
+  </div>
+</div>

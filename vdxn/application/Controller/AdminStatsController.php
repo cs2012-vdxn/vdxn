@@ -49,6 +49,9 @@ class AdminStatsController {
     // Retrieve the number of users who bidded at lesat once
     $num_users_bidded_at_least_once = $Task->getNumWhoBiddedAtLeastOnce()->{'num_users'};
 
+    // Retrieve an array of all users who never bidded at all
+    $arr_users_never_bidded = $User->getUsersNeverBidded();
+
     // load views
     require APP . 'view/_templates/header.php';
     echo '<div class="container" style="padding-bottom: 100px;">';

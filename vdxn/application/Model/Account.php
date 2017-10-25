@@ -133,9 +133,32 @@ class Account extends Model
       FROM User
       WHERE user_type <> 'Admin'
       AND created_at BETWEEN '".$from_date."' AND '".$to_date."'";
+
     $query = $this->db->prepare($sql);
     $query->execute();
     return $query->fetch();
+  }
+
+  /**
+   * Gets an array of the users who never bidded before
+   *
+   * @return Array    User objects who never bidded before, each object with values
+   *                  username, first_name, last_name, email, contact
+   */
+  public function getUsersNeverBidded() {
+    $sql = "SELECT u.username, u.first_name, u.last_name, u.email, u.contact
+      FROM User u
+      WHERE NOT EXISTS (
+          SELECT b.bidder_username
+          FROM Bid b
+          WHERE u.username = b.bidder_username
+          GROUP BY b.bidder_username
+          HAVING COUNT(*) >= 1
+      );";
+
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return $query->fetchAll();
   }
 
 }
