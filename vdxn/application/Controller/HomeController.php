@@ -39,14 +39,14 @@ class HomeController
 
         if (strlen($search_string) >= 1 && $search_string !== ' ') {
             $result_array = $Task->findAllTagsContaining($search_string);
-            if (isset($result_array)) {
+            if ($result_array) {
                 foreach ($result_array as $result) {
                     $tags = $result -> name;
                     $o = str_replace('Tag', $tags, $html);
                     echo($o);
                 }
             } else {
-                $o = str_replace('Tag', '<span class="label label-danger">No Tasks Found</span>', $html);
+                $o = '<li><a href="#" style="color: red">No Results Found<br /></a></li>';
                 echo($o);
             }
         } else {
