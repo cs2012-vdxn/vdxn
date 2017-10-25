@@ -1,6 +1,6 @@
 <?php
   if ($hasUserBid) {
-    $curr_bid_text = "Current Bid: " . $bid->{'amount'};
+    $curr_bid_text = "Your Bid: " . $bid->{'amount'};
     $color_bid_text = "palette palette-nephritis";
   } else {
     $curr_bid_text = "You haven't bidded yet!";
