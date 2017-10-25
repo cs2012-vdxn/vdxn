@@ -179,6 +179,13 @@ class Task extends Model
       return $query->fetchAll();
     }
 
+    public function findAllTagsContaining($search_string) {
+        $sql = 'SELECT * FROM Tag t WHERE t.name LIKE "%' . $search_string . '%"';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
+    }
+
     /**
      * Sort all tasks by given attributes.
      *

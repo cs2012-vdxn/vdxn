@@ -16,15 +16,14 @@
             <p>A platform to meet your short term employers and employees.</p>
             <form class="search form-horizontal" name="search" role="form" method="POST">
                 <div class="input-group col-xm">
-                    <input type="text" name="name" class="form-control" placeholder="What can we help you with?"
+                    <input type="text" name="name" id="dropdown-tagresult" class="form-control" placeholder="What can we help you with?"
                            autocomplete="off" style="background-color: rgba(255,255,255,0.4)"/>
-                    <ul class="results">
-                        <li><a href="index.html">Search Result #3<br /><span>Description...</span></a></li>
-                        <li>Babysitting</li>
-                        <li>Help Moving</li>
-                        <li>Delivery</li>
-                        <li>Mounting</li>
-                        <li>Repair</li>
+                    <ul class="results" id="dropdowndisplay">
+                        <?php
+                        foreach($tags as $tag) {
+                            echo '<li><a href="index.html">'.$tag.'<br /></a></li>';
+                        }
+                        ?>
                     </ul>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default btnSearch">
@@ -33,7 +32,6 @@
                     </span>
                 </div>
             </form>
-            <!--footer><a class="btn" href="#">Pellentesque</a></footer-->
         </article>
         <!-- ################################################################################################ -->
     </div>
@@ -161,6 +159,26 @@
         localStorage.setItem('category', category);
         location.href = 'http://192.168.33.66/tasks';
     }
+
+    function searchRelevantTags() {
+        var query_value = $('#dropdown-tagresult').val();
+        $.ajax({
+            type: "POST",
+            url: 'home/searchTags',
+            data: { query: query_value },
+            cache: false,
+            success: function(html){
+                $("#dropdowndisplay").html(html);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+
+        $('#dropdown-tagresult').on("keyup input", function(e) {
+            searchRelevantTags();
+        });
+    });
 
 </script>
 

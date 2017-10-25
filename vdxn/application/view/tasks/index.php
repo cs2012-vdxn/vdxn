@@ -146,8 +146,6 @@
                         $("table#resultTable tbody").html(html);
                     }
                 });
-
-
         }
 
         function toggleSortBox() {
