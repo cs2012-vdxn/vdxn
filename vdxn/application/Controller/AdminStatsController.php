@@ -13,6 +13,9 @@ namespace Mini\Controller;
 session_start();
 use Mini\Model\Task;
 use Mini\Model\Account;
+define("DEFAULT_FROM_DATE", "01-01-2015");
+date_default_timezone_set('UTC');
+define("DEFAULT_TO_DATE", date("d-m-Y"));
 
 class AdminStatsController {
   public function index() {
@@ -22,6 +25,30 @@ class AdminStatsController {
     if(!isset($_SESSION['user'])) {
       header('location: ' . URL . 'login');
     }
+
+    $validTimeRange = false;
+    // The two values that affect the queries on the page
+
+    if(isset($_GET['fromDate']) && isset($_GET['toDate'])) {
+      $fromDate_arr  = explode('-', $_GET['fromDate']);
+      $toDate_arr  = explode('-', $_GET['toDate']);
+      if (checkdate($fromDate_arr[1], $fromDate_arr[0], $fromDate_arr[2]) &&
+        checkdate($toDate_arr[1], $toDate_arr[0], $toDate_arr[2])) {
+
+        $validTimeRange = true;
+        $currentFromDate = $_GET['fromDate'];
+        $currentToDate = $_GET['toDate'];
+      }
+    }
+
+    if (!$validTimeRange) {
+      $currentFromDate = DEFAULT_FROM_DATE;
+      $currentToDate = DEFAULT_TO_DATE;
+    }
+
+    $currentFromDateTimeStamp = strtotime(date_format(date_create($currentFromDate), 'd-m-Y'));
+    $currentToDateTimeStamp = strtotime(date_format(date_create($currentToDate), 'd-m-Y'));
+
 
     // Retrieve the number of completed/uncompleted tasks
     $num_tasks_com_uncom = $Task->getNumCompletedUncompletedTasks();
@@ -38,7 +65,7 @@ class AdminStatsController {
     $num_bids_total = $Task->getNumBidsBetween()->{'num_bids'};
     // Test with this datetime range...You should see 8 bids displayed
     $num_bids_between = $Task->getNumBidsBetween(
-      '2010-08-28 00:00:00:000', '2017-09-28 00:00:00:000')->{'num_bids'};
+      $currentFromDateTimeStamp, $currentToDateTimeStamp)->{'num_bids'};
 
     // Retrieve an array of task(s) with the largest number of bids (most popular tasks)
     $arr_most_pop_tasks = $Task->getMostPopularTasks();
@@ -51,13 +78,21 @@ class AdminStatsController {
 
     // Retrieve an array of all users who never bidded at all
     $arr_users_never_bidded = $User->getUsersNeverBidded();
+    $arr_users_never_bidded_count = count($arr_users_never_bidded);
 
     // load views
     require APP . 'view/_templates/header.php';
     echo '<div class="container" style="padding-bottom: 100px;">';
+    require APP . 'view/admin_stats/system_stats_date_picker.php';
     require APP . 'view/admin_stats/system_stats_user_section.php';
     require APP . 'view/admin_stats/system_stats_tasks_section.php';
     echo '</div>';
     require APP . 'view/_templates/footer.php';
+  }
+
+  function validateDate($date, $format = 'Y-m-d H:i:s')
+  {
+      $d = DateTime::createFromFormat($format, $date);
+      return $d && $d->format($format) == $date;
   }
 }

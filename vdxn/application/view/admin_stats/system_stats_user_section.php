@@ -36,7 +36,7 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Users who never bidded 😣
+        Users who never bidded (<?php echo $arr_users_never_bidded_count; ?>)
       </div>
       <div class="panel-body">
         <p><b>
