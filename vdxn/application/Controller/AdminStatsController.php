@@ -13,8 +13,9 @@ namespace Mini\Controller;
 session_start();
 use Mini\Model\Task;
 use Mini\Model\Account;
-define("DEFAULT_FROM_DATE", "01-01-2015");
+
 date_default_timezone_set('UTC');
+define("DEFAULT_FROM_DATE", "01-01-2015");
 define("DEFAULT_TO_DATE", date("d-m-Y"));
 
 class AdminStatsController {
@@ -50,22 +51,37 @@ class AdminStatsController {
     $currentToDateTimeStamp = strtotime(date_format(date_create($currentToDate), 'd-m-Y'));
 
 
+    // Retrieve the number of completed/uncompleted tasks in range
+    $num_tasks_com_uncom = $Task->getNumCompletedUncompletedTasks($currentFromDateTimeStamp, $currentToDateTimeStamp);
+    $num_tasks_completed_in_range = $num_tasks_com_uncom->{'num_tasks_completed'};
+    $num_tasks_uncompleted_in_range = $num_tasks_com_uncom->{'num_tasks_uncompleted'};
+
     // Retrieve the number of completed/uncompleted tasks
-    $num_tasks_com_uncom = $Task->getNumCompletedUncompletedTasks();
-    $num_tasks_completed = $num_tasks_com_uncom->{'num_tasks_completed'};
-    $num_tasks_uncompleted = $num_tasks_com_uncom->{'num_tasks_uncompleted'};
+    $num_tasks_com_uncom_all_time = $Task->getNumCompletedUncompletedTasks();
+    $num_tasks_completed_in_all_time = $num_tasks_com_uncom_all_time->{'num_tasks_completed'};
+    $num_tasks_uncompleted_in_all_time = $num_tasks_com_uncom_all_time->{'num_tasks_uncompleted'};
 
     // Retrieve the number of completed/uncompleted tasks between a set of dates
-    $num_tasks_completed_between = $Task->getNumCompletedTasksBetween()->{'num_tasks_completed'};
+    $num_tasks_completed_between_in_range = $Task->getNumCompletedTasksBetween($currentFromDateTimeStamp, $currentToDateTimeStamp)->{'num_tasks_completed'};
+
     // Test with this datetime range...You should see 56 tasks displayed
     // $num_tasks_completed_between = $Task->getNumCompletedTasksBetween(
     //    '2010-08-28 00:00:00:000', '2010-09-28 00:00:00:000')->{'num_tasks_completed'};
 
     // Retrieve the number of bids between a set of dates
-    $num_bids_total = $Task->getNumBidsBetween()->{'num_bids'};
-    // Test with this datetime range...You should see 8 bids displayed
-    $num_bids_between = $Task->getNumBidsBetween(
+    $num_bids_total_in_range = $Task->getNumBidsBetween(
       $currentFromDateTimeStamp, $currentToDateTimeStamp)->{'num_bids'};
+    $num_bids_between_in_range = $Task->getNumBidsBetween(
+      $currentFromDateTimeStamp, $currentToDateTimeStamp)->{'num_bids'};
+    $avg_bids_per_task_in_range = $num_bids_total_in_range/
+      ($num_tasks_completed_in_range + $num_tasks_uncompleted_in_range);
+    $avg_bids_per_task_in_range = number_format((float)$avg_bids_per_task_in_range, 2, '.', '');
+
+    $num_bids_total_in_all_time = $Task->getNumBidsBetween()->{'num_bids'};
+    $num_bids_between_in_all_time = $Task->getNumBidsBetween()->{'num_bids'};
+    $avg_bids_per_task_in_all_time = $num_bids_total_in_all_time/
+      ($num_tasks_completed_in_all_time + $num_tasks_uncompleted_in_all_time);
+    $avg_bids_per_task_in_all_time = number_format((float)$avg_bids_per_task_in_all_time, 2, '.', '');
 
     // Retrieve an array of task(s) with the largest number of bids (most popular tasks)
     $arr_most_pop_tasks = $Task->getMostPopularTasks();
