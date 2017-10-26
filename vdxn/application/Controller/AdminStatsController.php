@@ -29,14 +29,16 @@ class AdminStatsController {
     $validTimeRange = false;
     // The two values that affect the queries on the page
 
-    $fromDate_arr  = explode('-', $_GET['fromDate']);
-    $toDate_arr  = explode('-', $_GET['toDate']);
-    if (checkdate($fromDate_arr[1], $fromDate_arr[0], $fromDate_arr[2]) &&
-      checkdate($toDate_arr[1], $toDate_arr[0], $toDate_arr[2])) {
+    if(isset($_GET['fromDate']) && isset($_GET['toDate'])) {
+      $fromDate_arr  = explode('-', $_GET['fromDate']);
+      $toDate_arr  = explode('-', $_GET['toDate']);
+      if (checkdate($fromDate_arr[1], $fromDate_arr[0], $fromDate_arr[2]) &&
+        checkdate($toDate_arr[1], $toDate_arr[0], $toDate_arr[2])) {
 
-      $validTimeRange = true;
-      $currentFromDate = $_GET['fromDate'];
-      $currentToDate = $_GET['toDate'];
+        $validTimeRange = true;
+        $currentFromDate = $_GET['fromDate'];
+        $currentToDate = $_GET['toDate'];
+      }
     }
 
     if (!$validTimeRange) {
