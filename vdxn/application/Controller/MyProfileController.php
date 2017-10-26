@@ -17,8 +17,8 @@ use Mini\Model\Account;
 class MyProfileController {
     public function index() {
       $user = $this->getPublicUserProfile();
-      $pictureLink = '/public/img/default_avatar.png';
-
+      $pictureLink = URL . 'img/default_avatar.png';
+    
       // load views
       require APP . 'view/_templates/header.php';
       if ($user) {
