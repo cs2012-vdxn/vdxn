@@ -96,6 +96,38 @@ class AdminStatsController {
     $arr_users_never_bidded = $User->getUsersNeverBidded();
     $arr_users_never_bidded_count = count($arr_users_never_bidded);
 
+    //Retrieve number of completed tasks, bidded tasks, created tasks by month
+    $arr_num_tasks_created_by_month = $Task -> getCountOfCreatedTasksByMonth();
+    $arr_num_tasks_bidded_by_month = $Task -> getCountOfBiddedTasksByMonth();
+    $arr_num_tasks_completed_by_month = $Task -> getCountOfCompletedTasksByMonth();
+    $arr_month_names = array('Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+    //manually construct the 2D array to be represented in bar chart
+      $num_tasks_vs_bids_vs_completed_by_month = array_fill(0, 13 ,array_fill(0, 3, 0));
+      $num_tasks_vs_bids_vs_completed_by_month[0] = array('Month 2017', 'Tasks Created', 'Bids Created','Tasks Completed');
+      for($i = 1; $i <= 12; $i ++) {
+          for($j = 0; $j <4; $j ++) {
+              switch($j) {
+                  case 0:
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = $arr_month_names[$i-1];
+                      break;
+                  case 1:
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_created_by_month[$i]->{'num_tasks_created'})? $arr_num_tasks_created_by_month[$i]->{'num_tasks_created'} :
+                          0;
+                      break;
+                  case 2:
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'})? $arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'} :
+                          0;
+                      break;
+                  case 3:
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_completed_by_month[$i]->{'num_tasks_completed'})? $arr_num_tasks_completed_by_month[$i]->{'num_tasks_completed'} :
+                          0;
+                      break;
+              }
+          }
+      }
+      $num_tasks_vs_bids_vs_completed_by_month = json_encode($num_tasks_vs_bids_vs_completed_by_month);
+      echo ($num_tasks_vs_bids_vs_completed_by_month);
+
     // load views
     require APP . 'view/_templates/header.php';
     echo '<div class="container" style="padding-bottom: 100px;">';

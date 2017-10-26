@@ -89,6 +89,11 @@ CREATE TABLE Tag_task (
 	PRIMARY KEY (tag_name, task_title, task_creator_username)
 );
 
+CREATE TABLE Months(
+  value varchar(3),
+  name varchar(100) PRIMARY KEY
+);
+
 -- 2 Users with user_type 'Admin', generated from freedatagenerator, declared
 -- here due to dependencies with other Bid/Task queries below
 -- The other INSERT queries can be found below
@@ -270,3 +275,16 @@ INSERT INTO Category (name, created_at) VALUES ('Help Moving', '2017-10-22');
 INSERT INTO Category (name, created_at) VALUES ('Delivery', '2017-10-22');
 INSERT INTO Category (name, created_at) VALUES ('BabySitting', '2017-10-22');
 INSERT INTO Category (name, created_at) VALUES ('Others', '2017-10-22');
+
+insert into Months values ('1','January');
+insert into Months values ('2','February');
+insert into Months values ('3','March');
+insert into Months values ('4','April');
+insert into Months values ('5','May');
+insert into Months values ('6','June');
+insert into Months values ('7','July');
+insert into Months values ('8','August');
+insert into Months values ('9','September');
+insert into Months values ('10','October');
+insert into Months values ('11','November');
+insert into Months values ('12','December');

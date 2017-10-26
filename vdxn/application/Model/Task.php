@@ -840,4 +840,62 @@ class Task extends Model
       return $query->fetch();
     }
 
+    public function getCountOfCreatedTasksByMonth() {
+        $sql = "DROP VIEW IF EXISTS count_tasks_created_by_month;";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        $sql = "CREATE VIEW count_tasks_created_by_month AS 
+                SELECT MONTH(t.created_at) AS month, COUNT(*) AS num_tasks_created 
+                FROM Task t 
+                GROUP BY MONTH(t.created_at) 
+                ORDER BY MONTH(t.created_at) ASC;";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        $sql = "SELECT m.value, c.num_tasks_created
+                FROM Months m LEFT JOIN count_tasks_created_by_month c 
+                ON m.value = c.month
+                GROUP BY m.value
+                ORDER BY CAST(m.value AS UNSIGNED) ASC;";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+    public function getCountOfBiddedTasksByMonth() {
+        $sql = "DROP VIEW IF EXISTS count_bids_created_by_month;
+                CREATE VIEW count_bids_created_by_month AS 
+                SELECT MONTH(b.created_at) AS month, COUNT(*) AS num_bids_created 
+                FROM Bid b 
+                GROUP BY MONTH(b.created_at) 
+                ORDER BY MONTH(b.created_at) ASC; ";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        $sql =  "SELECT m.value, b.num_bids_created
+                FROM Months m LEFT JOIN count_bids_created_by_month b 
+                ON m.value = b.month
+                GROUP BY m.value
+                ORDER BY CAST(m.value AS UNSIGNED) ASC;";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+    public function getCountOfCompletedTasksByMonth() {
+        $sql = "DROP VIEW IF EXISTS count_tasks_completed_by_month;
+                CREATE VIEW count_tasks_completed_by_month AS 
+                SELECT MONTH(t.created_at) AS month, COUNT(*) AS num_tasks_completed 
+                FROM Task t
+                WHERE t.completed_at <> NULL 
+                GROUP BY MONTH(t.completed_at)  
+                ORDER BY MONTH(t.completed_at) ASC;";
+           $query = $this -> db -> prepare($sql);
+        $query -> execute();
+          $sql = "  SELECT m.value, t.num_tasks_completed
+                FROM Months m LEFT JOIN count_tasks_completed_by_month t 
+                ON m.value = t.month
+                GROUP BY m.value
+                ORDER BY CAST(m.value AS UNSIGNED) ASC;";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+
 }
