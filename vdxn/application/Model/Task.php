@@ -707,6 +707,13 @@ class Task extends Model
         }
     }
 
+    public function getTagsArrayOfTask($task_title, $creator_name) {
+        $sql = "SELECT t.tag_name AS tags FROM Tag_task t WHERE t.task_title = '$task_title' AND t.task_creator_username = '$creator_name'";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
+
     /**
      * Get the Category label of a task from Category_task table.
      *
@@ -725,7 +732,12 @@ class Task extends Model
         }
     }
 
-
+    public function getTasksWithSameCreator($task_name, $creator_name) {
+        $sql = "SELECT * FROM Task t WHERE t.title <> '$task_name' AND t.creator_username = '$creator_name'";
+        $query = $this -> db -> prepare($sql);
+        $query -> execute();
+        return $query -> fetchAll();
+    }
 
 
     //==========================================

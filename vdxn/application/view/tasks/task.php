@@ -123,4 +123,5 @@
       include('task_states/task_completed.php');
     }
   ?>
+    <?php include('similartasks.php'); ?>
 </div>
