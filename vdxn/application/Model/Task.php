@@ -708,7 +708,7 @@ class Task extends Model
     }
 
     public function getTagsArrayOfTask($task_title, $creator_name) {
-        $sql = "SELECT t.tag_name AS tags FROM Tag_task t WHERE t.task_title = '$task_title' AND t.task_creator_username = '$creator_name'";
+        $sql = "SELECT t.tag_name FROM Tag_task t WHERE t.task_title = '$task_title' AND t.task_creator_username = '$creator_name'";
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         return $query -> fetchAll();

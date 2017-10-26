@@ -20,20 +20,22 @@ This session shows only the top 4 choices.
                     $category = $Task -> getCategoryOfTask($task->{'title'}, $task->{'creator_username'});
                     $tags = $Task -> getTagsArrayOfTask($task->{'title'}, $task->{'creator_username'});
                     if ($category != '') {
-                        $Tasks_sameCate = $Task->filterAllTasks('c.category_name=' . '\'' . $category . '\'');
+                        $Tasks_sameCate = $Task->filterAllTasks('c.category_name=' . '\'' . $category . '\''.'AND t.title <>'.
+                            '\'' . $task->{'title'} . '\''.'AND t.creator_username <>'.'\'' . $task->{'creator_username'} . '\'');
                     } else {
                         $Tasks_sameCate = array();
                     }
                     $tags_query = "";
                     foreach($tags as $tag) {
                         if($tags_query != '') {
-                            $tags_query .= " OR g.tag_name = ".'\''.$tag.'\'';
+                            $tags_query .= " OR g.tag_name = ".'\''.$tag->{'tag_name'}.'\'';
                         } else {
-                            $tags_query .= "g.tag_name = " . '\'' . $tag . '\'';
+                            $tags_query .= "g.tag_name = " . '\'' . $tag->{'tag_name'} . '\'';
                         }
                     }
                     if($tags_query != '') {
-                        $Tasks_sameTag = $Task->filterAllTasks($tags_query);
+                        $Tasks_sameTag = $Task->filterAllTasks($tags_query.'AND t.title <>'.
+                            '\'' . $task->{'title'} . '\''.'AND t.creator_username <>'.'\'' . $task->{'creator_username'} . '\'');
                     } else {
                         $Tasks_sameTag = array();
                     }
