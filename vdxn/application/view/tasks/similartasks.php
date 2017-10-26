@@ -43,63 +43,119 @@ This session shows only the top 4 choices.
                     for($i=0;$i<sizeof($tasks_array);$i++) {
                         if($i % 3 == 0 && $iteration == 0) {
                             if($i !=sizeof($tasks_array)-1) {
-                                echo '<div class="item  active">
-                                <div class="row">
-                                <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "<div class='item  active'>
+                                <div class='row'>
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                        $tasks_array[$i]->title . "&creator_username=" .
+                        $tasks_array[$i]->creator_username .
+                        "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div>';
                             } else { // last item
-                                echo '<div class="item  active">
-                                <div class="row">
-                                <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "<div class='item  active'>
+                                <div class='row'>
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                        $tasks_array[$i]->title . "&creator_username=" .
+                        $tasks_array[$i]->creator_username .
+                        "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div></div></div>';
                             }
                         } else if ($i % 3 == 1) {
                             if($i !=sizeof($tasks_array)-1) {
-                                echo '
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                        $tasks_array[$i]->title . "&creator_username=" .
+                        $tasks_array[$i]->creator_username .
+                        "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div>';
                             } else {
-                                echo '
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                                    $tasks_array[$i]->title . "&creator_username=" .
+                                    $tasks_array[$i]->creator_username .
+                                    "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div></div></div>';
                             }
                         } else if ($i % 3 == 2) {
                             if ($i !=sizeof($tasks_array)-1) {
-                                echo '
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                                    $tasks_array[$i]->title . "&creator_username=" .
+                                    $tasks_array[$i]->creator_username .
+                                    "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div></div></div>';
                                 $iteration++;
                             } else {
-                                echo '
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                                    $tasks_array[$i]->title . "&creator_username=" .
+                                    $tasks_array[$i]->creator_username .
+                                    "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div></div></div></div></div>';
                             }
                         } else {
                             if ($i !=sizeof($tasks_array)-1) {
-                                echo '<div class="item">
-                            <div class="row">
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "<div class='item'>
+                                <div class='row'>
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                                    $tasks_array[$i]->title . "&creator_username=" .
+                                    $tasks_array[$i]->creator_username .
+                                    "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div>';
                             } else {
-                                echo '<div class="item">
-                            <div class="row">
-                            <div class="col-md-4">
-                                <a class="thumbnail" href="#"><div class="card-block">';
-                                echo $tasks_array[$i]->{'title'};
+                                echo "<div class='item'>
+                                <div class='row'>
+                                <div class='col-md-4'>
+                                <a class='thumbnail' href='/tasks/task?title=" .
+                                    $tasks_array[$i]->title . "&creator_username=" .
+                                    $tasks_array[$i]->creator_username .
+                                    "'><div class='card-block'>";
+                                echo substr($tasks_array[$i]->{'title'},0,18);
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'description'},0,15).'...';
+                                echo '<br/>';
+                                echo substr($tasks_array[$i]->{'created_at'},0,10);
                                 echo '</div></a></div></div></div>';
                             }
                         }
@@ -166,7 +222,8 @@ This session shows only the top 4 choices.
     .media-carousel .card-block
     {
         width: 250px;
-        height: 100px
+        height: 100px;
+        color: #08412E;
     }
     /* End carousel */
 </style>
