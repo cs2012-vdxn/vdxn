@@ -126,7 +126,6 @@ class AdminStatsController {
           }
       }
       $num_tasks_vs_bids_vs_completed_by_month = json_encode($num_tasks_vs_bids_vs_completed_by_month);
-      echo ($num_tasks_vs_bids_vs_completed_by_month);
 
     // load views
     require APP . 'view/_templates/header.php';
