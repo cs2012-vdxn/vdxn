@@ -13,12 +13,16 @@ namespace Mini\Controller;
 session_start();
 use Mini\Model\Login;
 use Mini\Model\Account;
+use Mini\Model\ProfilePicture;
 
 class MyProfileController {
     public function index() {
       $user = $this->getPublicUserProfile();
       $pictureLink = URL . 'img/default_avatar.png';
-    
+
+      $profilePicture = new ProfilePicture();
+      $pictureLink = $profilePicture->getPictureLink($_SESSION['user']->{'username'});
+
       // load views
       require APP . 'view/_templates/header.php';
       if ($user) {
