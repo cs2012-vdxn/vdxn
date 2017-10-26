@@ -881,9 +881,8 @@ class Task extends Model
     public function getCountOfCompletedTasksByMonth() {
         $sql = "DROP VIEW IF EXISTS count_tasks_completed_by_month;
                 CREATE VIEW count_tasks_completed_by_month AS 
-                SELECT MONTH(t.created_at) AS month, COUNT(*) AS num_tasks_completed 
+                SELECT MONTH(t.completed_at) AS month, COUNT(*) AS num_tasks_completed 
                 FROM Task t
-                WHERE t.completed_at <> NULL 
                 GROUP BY MONTH(t.completed_at)  
                 ORDER BY MONTH(t.completed_at) ASC;";
            $query = $this -> db -> prepare($sql);

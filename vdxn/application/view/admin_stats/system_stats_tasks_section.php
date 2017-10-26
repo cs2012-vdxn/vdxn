@@ -46,7 +46,7 @@
           <div class="col-md-12">
 
           <div id="columnchart_material" style="width: 100%; height: 500px;"></div>
-              
+
           </div>
       </div>
     </div>
