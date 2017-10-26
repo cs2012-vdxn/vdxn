@@ -33,6 +33,25 @@ class MyProfileController {
       require APP . 'view/_templates/footer.php';
     }
 
+    public function edit() {
+
+      if(isset($_POST['email']) && isset($_POST['phone'])) {
+        var_dump($_POST);
+        //return;
+      }
+
+      // load views
+      require APP . 'view/_templates/header.php';
+      if (isset($_SESSION['user'])) {
+        require APP . 'view/myprofile/edit.php';
+      } else {
+        require APP. 'view/myprofile/profile_not_found.php';
+      }
+      require APP . 'view/_templates/footer.php';
+    }
+
+
+
     /**
      * Retrieves the public profile of a User object specified by the GET
      * parameter in the URL

@@ -1,15 +1,15 @@
 <div class="container">
   <div class="col-md-3">
-    <img src="<?php echo $pictureLink ?>" height=150 width=150 style="margin-bottom: 1em;"/>
+    <img src="<?php echo $pictureLink ?>" height=150 width=150 style="margin-bottom: 1em;"/><br>
   </div>
   <div class="col-md-9">
-    <h4>
+    <p><h4>
       <?php echo $user->{'first_name'} . ' ' .
                  $user->{'last_name'} . ' (' .
                  $user->{'username'} . ')'
       ?>
     </h4>
-
+    </p>
     <br/><small><b>PROFILE</b></small><br/>
     <table class="table user-contact-information-table">
       <tr>
@@ -37,5 +37,7 @@
         <td><?php echo $user->{'rating'} ?> / 5.0</td>
       </tr>
     </table>
+
+    <a href="/MyProfile/edit" class="button">Edit</a>
   </div>
 </div>
