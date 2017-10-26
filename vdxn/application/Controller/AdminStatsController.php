@@ -56,6 +56,7 @@ class AdminStatsController {
     // load views
     require APP . 'view/_templates/header.php';
     echo '<div class="container" style="padding-bottom: 100px;">';
+    require APP . 'view/admin_stats/system_stats_date_picker.php';
     require APP . 'view/admin_stats/system_stats_user_section.php';
     require APP . 'view/admin_stats/system_stats_tasks_section.php';
     echo '</div>';

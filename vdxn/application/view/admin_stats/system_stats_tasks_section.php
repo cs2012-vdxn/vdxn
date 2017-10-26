@@ -14,10 +14,10 @@
           <b><?php echo $num_tasks_completed + $num_tasks_uncompleted; ?></b>
         </p>
         <p>Total Bids: <b><?php echo $num_bids_total; ?></b></p>
-        <p>Average Bids Per Task: <?php
+        <p>Average Bids Per Task: <b><?php
           $avg = $num_bids_total/($num_tasks_completed + $num_tasks_uncompleted);
           echo number_format((float)$avg, 2, '.', '');
-         ?>
+         ?></b>
         </p>
         <p></p>
 
