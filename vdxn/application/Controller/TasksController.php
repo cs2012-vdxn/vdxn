@@ -53,6 +53,7 @@ class TasksController {
       // echo '<p>' . var_dump($task) . '</p>';
       // echo '<p>' . var_dump($bids) . '</p>';
 
+      $isAdmin = $_SESSION['user']->{'user_type'} == 'Admin';
       $hasUserBid = $this->has_user_bid_on_task($task->title, $username);
       $isTaskOwner = $this->is_task_owner($task, $username);
       $isTaskAssignee = $this->is_task_assignee($task, $username);

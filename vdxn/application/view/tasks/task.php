@@ -21,13 +21,13 @@
   <?php
     /* For Task Owners to perform Edit & Delete operations on this task */
     /* They can only do so if they haven't chosen an assignee already */
-    if ($isTaskOwner) {
+    if ($isTaskOwner || $isAdmin) {
       if (!$assignee) {
         // Defining Edit & Delete task POST method's redirect URLs
         $link_to_edit_task_page =
-          '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$username;
+          '/tasks/edittask?title='.$task->{'title'}.'&creator_username='.$creator_username;
         $link_to_del_task_page =
-          '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$username;
+          '/tasks/deletetask?title='.$task->{'title'}.'&creator_username='.$creator_username;
 
         echo '<p>';
         echo '<a href="'.$link_to_edit_task_page.'"
