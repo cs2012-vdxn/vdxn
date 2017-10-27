@@ -2,7 +2,7 @@
 <h3><?php echo $task->{'title'}; ?></h3>
 <p>
   <b>Creator: <?php echo $task->{'creator_username'};?></b>
-  <b style="padding-left: 2em;">Due:</b> <?php echo $task->{'created_at'}; ?>
+  <b style="padding-left: 2em;">Due:</b> <?php echo $task->{'end_at'}; ?>
 </p>
 <p><?php echo $task->{'description'}; ?></p>
 <p>Category: <?php

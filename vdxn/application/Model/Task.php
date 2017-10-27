@@ -361,24 +361,23 @@ class Task extends Model
 
     public function deleteTask($title, $creator_username)
     {
-      // TODO: check if user is authenticated and allowed to delete task
       $sql = "DELETE FROM Task WHERE Task.title='$title' AND Task.creator_username='$creator_username';";
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
 
-    // QUESTION TODO: Make edit task not able to change min & max bids?
-    public function editTask($title, $creator_username, $params)
+    public function editTask($task_title, $task_creator_username, $params)
     {
       $time = date("Y-m-d H:i:s");
 
-      // TODO: check if user is authenticated and allowed to edit task
-      $sql = "UPDATE `Task` SET `title` = '".$params['title']."',
-        `description` = '".$params['description']."',
-        `updated_at` = '".$time."',
-        `min_bid` = '".$params['min_bid']."',
-        `max_bid` = '".$params['max_bid']."'
-        WHERE `Task`.title='$title' AND Task.creator_username='$creator_username'";
+      $sql = "UPDATE Task SET ".
+        "title='".$params['title'].
+        "', description='".$params['title'].
+        "', updated_at='".$time.
+        "', min_bid='".$params['min_bid'].
+        "', max_bid='".$params['max_bid'].
+        "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";
+
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
@@ -844,15 +843,15 @@ class Task extends Model
         $sql = "DROP VIEW IF EXISTS count_tasks_created_by_month;";
         $query = $this -> db -> prepare($sql);
         $query -> execute();
-        $sql = "CREATE VIEW count_tasks_created_by_month AS 
-                SELECT MONTH(t.created_at) AS month, COUNT(*) AS num_tasks_created 
-                FROM Task t 
-                GROUP BY MONTH(t.created_at) 
+        $sql = "CREATE VIEW count_tasks_created_by_month AS
+                SELECT MONTH(t.created_at) AS month, COUNT(*) AS num_tasks_created
+                FROM Task t
+                GROUP BY MONTH(t.created_at)
                 ORDER BY MONTH(t.created_at) ASC;";
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         $sql = "SELECT m.value, c.num_tasks_created
-                FROM Months m LEFT JOIN count_tasks_created_by_month c 
+                FROM Months m LEFT JOIN count_tasks_created_by_month c
                 ON m.value = c.month
                 GROUP BY m.value
                 ORDER BY CAST(m.value AS UNSIGNED) ASC;";
@@ -862,15 +861,15 @@ class Task extends Model
     }
     public function getCountOfBiddedTasksByMonth() {
         $sql = "DROP VIEW IF EXISTS count_bids_created_by_month;
-                CREATE VIEW count_bids_created_by_month AS 
-                SELECT MONTH(b.created_at) AS month, COUNT(*) AS num_bids_created 
-                FROM Bid b 
-                GROUP BY MONTH(b.created_at) 
+                CREATE VIEW count_bids_created_by_month AS
+                SELECT MONTH(b.created_at) AS month, COUNT(*) AS num_bids_created
+                FROM Bid b
+                GROUP BY MONTH(b.created_at)
                 ORDER BY MONTH(b.created_at) ASC; ";
         $query = $this -> db -> prepare($sql);
         $query -> execute();
         $sql =  "SELECT m.value, b.num_bids_created
-                FROM Months m LEFT JOIN count_bids_created_by_month b 
+                FROM Months m LEFT JOIN count_bids_created_by_month b
                 ON m.value = b.month
                 GROUP BY m.value
                 ORDER BY CAST(m.value AS UNSIGNED) ASC;";
@@ -880,15 +879,15 @@ class Task extends Model
     }
     public function getCountOfCompletedTasksByMonth() {
         $sql = "DROP VIEW IF EXISTS count_tasks_completed_by_month;
-                CREATE VIEW count_tasks_completed_by_month AS 
-                SELECT MONTH(t.completed_at) AS month, COUNT(*) AS num_tasks_completed 
+                CREATE VIEW count_tasks_completed_by_month AS
+                SELECT MONTH(t.completed_at) AS month, COUNT(*) AS num_tasks_completed
                 FROM Task t
-                GROUP BY MONTH(t.completed_at)  
+                GROUP BY MONTH(t.completed_at)
                 ORDER BY MONTH(t.completed_at) ASC;";
            $query = $this -> db -> prepare($sql);
         $query -> execute();
           $sql = "  SELECT m.value, t.num_tasks_completed
-                FROM Months m LEFT JOIN count_tasks_completed_by_month t 
+                FROM Months m LEFT JOIN count_tasks_completed_by_month t
                 ON m.value = t.month
                 GROUP BY m.value
                 ORDER BY CAST(m.value AS UNSIGNED) ASC;";
