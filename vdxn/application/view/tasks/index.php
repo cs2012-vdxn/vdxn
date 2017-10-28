@@ -71,9 +71,8 @@
                   <th>Assignee</th>
                   <th>Assignee Rating</th>
                   <th>Completed at</th>
-                  <th>Deleted at</th>
-                    <th>Category</th>
-                    <th>Tags</th>
+                  <th>Category</th>
+                  <th>Tags</th>
                   <th>Remarks</th>
                 </tr>
               </thead>
@@ -96,7 +95,6 @@
                   echo '<td>' . $task->assignee_username . '</td>';
                   echo '<td>' . $task->assignee_rating . '</td>';
                   echo '<td>' . $task->completed_at . '</td>';
-                  echo '<td>' . $task->deleted_at . '</td>';
                   echo '<td>' . $category . '</td>';
                   echo '<td>' . $tags . '</td>';
                   echo '<td>' . $task->remarks . '</td>';

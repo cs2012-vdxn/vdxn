@@ -239,7 +239,6 @@ class Task extends Model
       `max_bid`,
       `creator_username`,
       `assignee_username`,
-      `deleted_at`,
       `completed_at`,
       `creator_rating`,
       `assignee_rating`)
@@ -252,7 +251,6 @@ class Task extends Model
       '$min_bid',
       '$max_bid',
       '".$_SESSION['user']->username."',
-      NULL,
       NULL,
       NULL,
       NULL,
@@ -278,14 +276,12 @@ class Task extends Model
          `task_title`,
          `task_creator_username`,
          `created_at`,
-         `updated_at`,
-         `deleted_at`)
+         `updated_at`)
          VALUES (
          '".$task_category."',
          '".$task_title."',
          '".$creator_name."',
          '".$created_at."',
-         NULL,
          NULL
          )";
          $query = $this -> db -> prepare($sql);
@@ -318,12 +314,10 @@ class Task extends Model
         $sql = "INSERT INTO `mini`.`Tag`
          (`name`,
          `created_at`,
-         `updated_at`,
-         `deleted_at`)
+         `updated_at`)
          VALUES (
          '".$tag_name."',
          '".$created_at."',
-         NULL,
          NULL
          )";
         $query = $this -> db -> prepare($sql);
@@ -345,14 +339,12 @@ class Task extends Model
          `task_creator_username`,
          `task_title`,
          `created_at`,
-         `updated_at`,
-         `deleted_at`)
+         `updated_at`)
          VALUES (
          '".$tag_name."',
          '".$creator_name."',
          '".$task_title."',
          '".$created_at."',
-         NULL,
          NULL
          )";
         $query = $this -> db -> prepare($sql);
@@ -540,8 +532,7 @@ class Task extends Model
       `amount`,
       `details`,
       `created_at`,
-      `updated_at`,
-      `deleted_at`
+      `updated_at`
       FROM Bid
       WHERE task_title='$task_title'
       AND task_creator_username='$task_creator_username'";
@@ -570,8 +561,7 @@ class Task extends Model
       `amount`,
       `details`,
       `created_at`,
-      `updated_at`,
-      `deleted_at`
+      `updated_at`
       FROM Bid
       WHERE task_title='$task_title'
       AND task_creator_username='$task_creator_username'
@@ -599,8 +589,7 @@ class Task extends Model
       `amount`,
       `details`,
       `created_at`,
-      `updated_at`,
-      `deleted_at`
+      `updated_at`
       FROM Bid
       WHERE task_title='$task_title'
       AND bidder_username='$bidder_username'";
@@ -628,8 +617,7 @@ class Task extends Model
         `details`,
         `amount`,
         `created_at`,
-        `updated_at`,
-        `deleted_at`)
+        `updated_at`)
       VALUES (
         '".$task_title."',
         '".$task_creator_username."',
@@ -637,7 +625,6 @@ class Task extends Model
         '".$details."',
         $amount,
         '$time',
-        NULL,
         NULL)";
       $query = $this->db->prepare($sql);
       return $query->execute();
