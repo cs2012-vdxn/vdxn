@@ -7,7 +7,6 @@ CREATE TABLE User (
 	email varchar(100),
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
-	deleted_at DATETIME,
 	user_type ENUM('Admin', 'User'),
 	PRIMARY KEY (username)
 );
