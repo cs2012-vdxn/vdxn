@@ -59,7 +59,6 @@ class Account extends Model
       `email`,
       `created_at`,
       `updated_at`,
-      `deleted_at`,
       `user_type`)
       VALUES (
         '$username',
@@ -69,7 +68,6 @@ class Account extends Model
         '$contactNumber',
         '$email',
         '$time',
-        '',
         '',
         'User'
     );";

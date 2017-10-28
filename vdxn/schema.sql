@@ -23,11 +23,12 @@ CREATE TABLE Task (
 	max_bid numeric,
 	creator_username varchar(100) NOT NULL,
 	assignee_username varchar(100),
-	deleted_at DATETIME,
 	creator_rating numeric,
 	assignee_rating numeric,
 	completed_at DATETIME,
 	remarks varchar(1000),
+	CONSTRAINT min_bid CHECK(min_bid < max_bid),
+	CONSTRAINT end_at CHECK(start_at < end_at),
 	PRIMARY KEY (creator_username, title),
 	FOREIGN KEY (creator_username) REFERENCES User(username) ON DELETE CASCADE,
 	FOREIGN KEY (assignee_username) REFERENCES User(username) ON DELETE CASCADE
