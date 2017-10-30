@@ -26,3 +26,9 @@
       <input type="submit" Value="Go"/>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.navbar-nav > li').removeClass('active');
+        $('.navbar-nav > li.header-stats').addClass('active');
+      });
+</script>

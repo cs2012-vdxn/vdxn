@@ -12,3 +12,9 @@
       <?php include ("bidded_tasks_history.php") ?>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.navbar-nav > li').removeClass('active');
+        $('.navbar-nav > li.header-mytasks').addClass('active');
+      });
+</script>

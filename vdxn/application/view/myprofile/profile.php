@@ -39,3 +39,9 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.navbar-nav > li').removeClass('active');
+        $('.navbar-nav > li.header-profile').addClass('active');
+      });
+</script>

@@ -7,8 +7,6 @@ function paginate() {
   tableWrapper.find('.pagination-button').remove();
   var total = parseInt($('#bidded-tasks-table').data('total'));
   var numPage = Math.ceil(parseFloat(total/pagesize));
-  console.log(pagesize);
-  console.log(total);
   if(total > pagesize) {
     var pagn = '<div id="bidded-tasks-table-pagination" class="table-pagination">';
     for (var i = 1; i <= numPage; i++) {

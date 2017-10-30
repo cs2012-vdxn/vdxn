@@ -116,6 +116,9 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.navbar-nav > li').removeClass('active');
+        $('.navbar-nav > li.header-tasks').addClass('active');
+
          var data = localStorage.getItem('category');
          if (data != undefined) {
              $('input#name').val(data);

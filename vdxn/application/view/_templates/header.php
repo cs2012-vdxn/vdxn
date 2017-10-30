@@ -33,32 +33,32 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
       <ul class="nav navbar-nav">
-        <li class="active">
+        <li class="active header-home">
           <a href="/">Home</a>
         </li>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/MyProfile?username=".$_SESSION['user']->{'username'}."'>My Profile</a></li>";
+            echo "<li class='header-profile'><a href='/MyProfile?username=".$_SESSION['user']->{'username'}."'>My Profile</a></li>";
           }
         ?>
-        <li>
+        <li class="header-tasks">
           <a href="/tasks">Tasks</a>
         </li>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/mytasks'>MyTasks</a></li>";
+            echo "<li class='header-mytasks'><a href='/mytasks'>MyTasks</a></li>";
           }
         ?>
         <?php
           if (isset($_SESSION['user'])) {
             if ($_SESSION['user']->{'user_type'} == "Admin") {
-              echo "<li><a href='/AdminStats'>System Stats</a></li>";
+              echo "<li class='header-stats'><a href='/AdminStats'>System Stats</a></li>";
             }
           }
         ?>
         <?php
           if (isset($_SESSION['user'])) {
-            echo "<li><a href='/settings'>Settings</a></li>";
+            echo "<li class='header-settings'><a href='/settings'>Settings</a></li>";
           }
         ?>
         <li>
@@ -73,7 +73,7 @@
         <li>
           <?php
             if (isset($_SESSION['user'])) {
-              echo "<a href='/profile'>Welcome, ".$_SESSION['user']->{'username'}."</a>";
+              echo "<a href='/MyProfile?username=".$_SESSION['user']->{'username'}."'>Welcome, ".$_SESSION['user']->{'username'}."</a>";
             }
           ?>
         </li>
