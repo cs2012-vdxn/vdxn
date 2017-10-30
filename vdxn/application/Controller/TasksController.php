@@ -278,7 +278,6 @@ class TasksController {
           <td>Assignee</td>
           <td>Assignee Rating</td>
           <td>Completed At</td>
-          <td>Deleted At</td>
           <td>Category</td>
           <td>Tags</td>
           <td>Remarks</td>
@@ -327,7 +326,6 @@ class TasksController {
               $o = str_replace('Creator Rating', '', $o);
               $o = str_replace('Assignee', $d_assignee, $o);
               $o = str_replace('Completed At', '', $o);
-              $o = str_replace('Deleted At', '', $o);
               $o = str_replace('Category', $d_category, $o);
               $o = str_replace('Tags', $d_tags, $o);
               $o = str_replace('Remarks', '', $o);
@@ -348,7 +346,6 @@ class TasksController {
             $o = str_replace('Creator Rating', '', $o);
             $o = str_replace('Assignee', '', $o);
             $o = str_replace('Completed At', '', $o);
-            $o = str_replace('Deleted At', '', $o);
             $o = str_replace('Category', '', $o);
             $o = str_replace('Tags', '', $o);
             $o = str_replace('Remarks', '', $o);
@@ -395,7 +392,6 @@ class TasksController {
             $o = str_replace('Creator Rating', '', $o);
             $o = str_replace('Assignee', $d_assignee, $o);
             $o = str_replace('Completed At', '', $o);
-            $o = str_replace('Deleted At', '', $o);
             $o = str_replace('Category', $category, $o);
             $o = str_replace('Tags', $tags, $o);
             $o = str_replace('Remarks', '', $o);
@@ -430,7 +426,6 @@ class TasksController {
           <td>Assignee</td>
           <td>Assignee Rating</td>
           <td>Completed At</td>
-          <td>Deleted At</td>
           <td>Category</td>
           <td>Tags</td>
           <td>Remarks</td>
@@ -471,7 +466,6 @@ class TasksController {
                     $o = str_replace('Creator Rating', '', $o);
                     $o = str_replace('Assignee', $d_assignee, $o);
                     $o = str_replace('Completed At', '', $o);
-                    $o = str_replace('Deleted At', '', $o);
                     $o = str_replace('Category', $category, $o);
                     $o = str_replace('Tags', $tags, $o);
                     $o = str_replace('Remarks', '', $o);
@@ -492,7 +486,6 @@ class TasksController {
                 $o = str_replace('Creator Rating', '', $o);
                 $o = str_replace('Assignee', '', $o);
                 $o = str_replace('Completed At', '', $o);
-                $o = str_replace('Deleted At', '', $o);
                 $o = str_replace('Category', '', $o);
                 $o = str_replace('Tags', '', $o);
                 $o = str_replace('Remarks', '', $o);
@@ -539,7 +532,6 @@ class TasksController {
                 $o = str_replace('Creator Rating', '', $o);
                 $o = str_replace('Assignee', $d_assignee, $o);
                 $o = str_replace('Completed At', '', $o);
-                $o = str_replace('Deleted At', '', $o);
                 $o = str_replace('Category', $category, $o);
                 $o = str_replace('Tags', $tags, $o);
                 $o = str_replace('Remarks', '', $o);
@@ -572,7 +564,6 @@ class TasksController {
           <td>Assignee</td>
           <td>Assignee Rating</td>
           <td>Completed At</td>
-          <td>Deleted At</td>
           <td>Category</td>
           <td>Tags</td>
           <td>Remarks</td>
@@ -613,7 +604,6 @@ class TasksController {
                     $o = str_replace('Creator Rating', '', $o);
                     $o = str_replace('Assignee', $d_assignee, $o);
                     $o = str_replace('Completed At', '', $o);
-                    $o = str_replace('Deleted At', '', $o);
                     $o = str_replace('Category', $category, $o);
                     $o = str_replace('Tags', $tags, $o);
                     $o = str_replace('Remarks', '', $o);
@@ -634,7 +624,6 @@ class TasksController {
                 $o = str_replace('Creator Rating', '', $o);
                 $o = str_replace('Assignee', '', $o);
                 $o = str_replace('Completed At', '', $o);
-                $o = str_replace('Deleted At', '', $o);
                 $o = str_replace('Category', '', $o);
                 $o = str_replace('Tags', '', $o);
                 $o = str_replace('Remarks', '', $o);
@@ -681,7 +670,6 @@ class TasksController {
                 $o = str_replace('Creator Rating', '', $o);
                 $o = str_replace('Assignee', $d_assignee, $o);
                 $o = str_replace('Completed At', '', $o);
-                $o = str_replace('Deleted At', '', $o);
                 $o = str_replace('Category', $category, $o);
                 $o = str_replace('Tags', $tags, $o);
                 $o = str_replace('Remarks', '', $o);

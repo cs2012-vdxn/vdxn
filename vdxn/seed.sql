@@ -46,7 +46,6 @@ CREATE TABLE Category (
 	name varchar(100),
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
-	deleted_at DATETIME,
 	PRIMARY KEY (name)
 );
 
@@ -56,7 +55,6 @@ CREATE TABLE Category_task (
 	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
-	deleted_at DATETIME,
 	PRIMARY KEY (category_name, task_title, task_creator_username)
 );
 
@@ -75,7 +73,6 @@ CREATE TABLE Tag (
 	name varchar(100),
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
-	deleted_at DATETIME,
 	PRIMARY KEY (name)
 );
 
@@ -85,7 +82,6 @@ CREATE TABLE Tag_task (
 	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
-	deleted_at DATETIME,
 	PRIMARY KEY (tag_name, task_title, task_creator_username)
 );
 
