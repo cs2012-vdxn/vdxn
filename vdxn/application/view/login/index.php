@@ -6,7 +6,7 @@
       <div class="form-group">
         <form action="<?php echo URL; ?>login/submitForm" method="POST">
           <div class="form-group">
-            <input type="text" name="username" class="form-control login-field" value="" placeholder="Enter your name" id="login-name" autocomplete="off" style="background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <input type="text" name="username" class="form-control login-field" value="" placeholder="Username" id="login-name" autocomplete="off" style="background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
             <label class="login-field-icon fui-user" for="login-name"></label>
           </div>
 
