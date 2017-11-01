@@ -15,10 +15,12 @@
               placeholder="Description"><?php echo $task->{'description'}?></textarea>
           </div>
 
+          <!-- Shouldn't be able to edit task start date
           <div class="form-group">
             <label style="font-size: 20px;"><b>Start At</b></label>
             <input type="text" name="start_at" value="<?php echo $task->{'start_at'}?>" class="form-control login-field" placeholder="Start at">
           </div>
+          -->
 
           <div class="form-group">
             <label style="font-size: 20px;"><b>Min Bid</b></label>
