@@ -12,16 +12,19 @@ include ('created_history_dropdown.php');
         <th data-col="creator_rating">Creator Rating<div class="sortable__arrows"><div class="sortable__arrow sortable__arrow--up"></div><div class="sortable__arrow sortable__arrow--down"></div></div></th>
         <th data-col="assignee_rating">Assignee Rating<div class="sortable__arrows"><div class="sortable__arrow sortable__arrow--up"></div><div class="sortable__arrow sortable__arrow--down"></div></div></th></tr></thead>';
   echo '<tbody>';
+
+  var_dump($history_tasks[0]->{"title"});
+
   foreach($history_tasks as $task) {
     echo '<tr>';
-    foreach($task as $item) {
-      echo "<td>$item</td>";
+    foreach($task as $task_attribute => $item) {
+      if ($task_attribute == 'title') {
+        echo "<td><a href='/tasks/task?title=".$task->title."&creator_username=".$_SESSION['user']->username."'>$item</a></td>";
+      } else {
+        echo "<td>$item</td>";
+      }
     }
 
-    echo "<td><a href='/tasks/task?title=" .
-          $task->title . "&creator_username=" .
-          $_SESSION['user']->username .
-          "'>Link</a></td>";
     echo "<td><a href='/tasks/edittask?title=" .
           $task->title . "&creator_username=" .
           $_SESSION['user']->username .
