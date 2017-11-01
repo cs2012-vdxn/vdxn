@@ -16,7 +16,13 @@
           </div>
 
           <div class="form-group">
+            <label><b>Start date in this format YYYY-MM-DD hh:mm:ss</b></label>
             <input type="text" name="taskdate" class="form-control login-field" placeholder="Start date">
+          </div>
+
+          <div class="form-group">
+            <label><b>End date in this format YYYY-MM-DD hh:mm:ss</b></label>
+            <input type="text" name="enddate" class="form-control login-field" placeholder="End date">
           </div>
 
           <div class="form-group">
