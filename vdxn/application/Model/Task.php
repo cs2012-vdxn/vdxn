@@ -223,6 +223,7 @@ class Task extends Model
       // If no proper start_at_date is given, force a NULL value to force the
       // integrity constraints to come into effect
       $start_at_date = strlen($task_params['taskdate']) == 0 ? 'NULL' : $task_params['taskdate'];
+      $end_at_date = strlen($task_params['enddate']) == 0 ? 'NULL' : $task_params['enddate'];
 
       // Since bids are not required, and have a default value, set them here
       $min_bid = strlen($task_params['min_bid']) == 0 ? 1 : $task_params['min_bid'];
@@ -235,6 +236,7 @@ class Task extends Model
       `created_at`,
       `updated_at`,
       `start_at`,
+      `end_at`,
       `min_bid`,
       `max_bid`,
       `creator_username`,
@@ -247,7 +249,8 @@ class Task extends Model
       '".$task_params['description']."',
       '$time',
       NULL,
-      $start_at_date,
+      '$start_at_date',
+      '$end_at_date',
       '$min_bid',
       '$max_bid',
       '".$_SESSION['user']->username."',
