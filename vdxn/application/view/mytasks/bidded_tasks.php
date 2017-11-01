@@ -12,25 +12,32 @@
         <th data-col="creator_rating">Creator Rating<div class="sortable__arrows"><div class="sortable__arrow sortable__arrow--up"></div><div class="sortable__arrow sortable__arrow--down"></div></div></th>
         <th data-col="assignee_rating">Assignee Rating<div class="sortable__arrows"><div class="sortable__arrow sortable__arrow--up"></div><div class="sortable__arrow sortable__arrow--down"></div></div></th></tr></thead>';
   echo '<tbody>';
+
   foreach($user_tasks as $task) {
-    echo '<tr class="data-row">';
-    foreach($task as $item) {
-      echo "<td>$item</td>";
+    echo '<tr>';
+    foreach($task as $task_attribute => $item) {
+      if ($task_attribute == 'title') {
+        echo "<td><a href='/tasks/task?title=".$task->title."&creator_username=".$task->creator_username."'>$item</a></td>";
+      } else {
+        echo "<td>$item</td>";
+      }
     }
-    echo "<td><a href='/tasks/task?title=" .
+
+    echo "<td style='border-top: white 5px solid; border-right: white 5px solid; border-bottom: white 5px solid;'>
+          <a class='btn btn-embossed btn-sm btn-primary' style='margin-left: 10px; margin-right: 5px;'
+          href='/tasks/edittask?title=" .
           $task->title . "&creator_username=" .
           $task->creator_username .
-          "'>Link</a></td>";
-          echo "<td><a href='/tasks/edittask?title=" .
-                $task->title . "&creator_username=" .
-                $task->creator_username .
-                "'>Edit</a></td>";
-          echo "<td><a href='/tasks/deletetask?title=" .
-                $task->title . "&creator_username=" .
-                $task->creator_username .
-                "'>Delete</a></td>";
+          "'><span class='fui-new'></span> Edit</a></td>";
+    echo "<td style='border: white 5px solid;'>
+          <a class='btn btn-embossed btn-sm btn-danger' style='margin-left: 5px; margin-right: 5px;'
+          href='/tasks/deletetask?title=" .
+          $task->title . "&creator_username=" .
+          $task->creator_username .
+          "'><span class='fui-trash'></span> Delete</a></td>";
     echo '</tr>';
   }
+  
   echo '</tbody>';
   echo '</table>';
   echo "<script type='text/javascript'>";
