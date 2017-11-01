@@ -5,9 +5,9 @@
 
     $TABLENAME = 'User';
     $PASSWORDFORALL = 'vanisgay';
-
+/*
     // Generate users
-/*for($q = 0; $q < 100; $q++) {
+for($q = 0; $q < 100; $q++) {
     $time = date_format($faker->dateTimeThisDecade($max="now"), "Y-m-d H:i:s");
     $password = password_hash($PASSWORDFORALL, PASSWORD_DEFAULT);
 
@@ -23,7 +23,7 @@
       `deleted_at`,
       `user_type`)
       VALUES (
-        '$faker->username',
+        '".htmlentities($faker->username)."',
         '$faker->firstName',
         '$faker->lastName',
         '$password',
@@ -33,14 +33,14 @@
         '',
         '',
         'User'
-    )";
+    );";
 
     echo $template;
 }
-*/
+ */
 // Generate tasks
 
-for($i = 0; $i < 100; $i++) {
+for($i = 0; $i < 1; $i++) {
   $time = date_format($faker->dateTimeThisDecade($max="now"), "Y-m-d H:i:s");
   $biasedminbid = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
   $biasedmaxbid = $faker->biasedNumberBetween($min = 41, $max = 120, $function = 'sqrt');
@@ -81,4 +81,5 @@ for($i = 0; $i < 100; $i++) {
 
       echo $template;
 }
+ 
 ?>
