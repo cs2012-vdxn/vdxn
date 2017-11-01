@@ -2,7 +2,7 @@
   <div class="col-lg-6 col-md-10" style="min-height: 100%; padding: 0px;">
     <h1>Create a New Task</h1>
     <p>
-      Fill in as much information as possible so that we can find the best doers to job done!
+      Fill in as much information as possible to get the best doers!
     </p>
     <div class="login-form">
       <div class="form-group">
