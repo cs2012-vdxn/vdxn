@@ -128,7 +128,7 @@ This session shows only the top 4 choices.
                                 echo substr($tasks_array[$i]->{'description'},0,15).'...';
                                 echo '<br/>';
                                 echo substr($tasks_array[$i]->{'created_at'},0,10);
-                                echo '</div></a></div></div></div></div></div>';
+                                echo '</div></a></div></div></div>';
                             }
                         } else {
                             if ($i !=sizeof($tasks_array)-1) {
