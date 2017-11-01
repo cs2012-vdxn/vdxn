@@ -42,6 +42,7 @@
       echo '    <div class="err_rating" style="display:none;">';
       echo '      <span style="color: #c91212; font-size: 0.9em;">* Please enter a rating from 0 - 5</span>';
       echo '    </div>';
+      echo '    <br /> ';
       echo '    <input type="submit" name="rate_task_doer" value="RATE"';
       echo '           class="btn btn-embossed btn-wide btn-primary" style="margin-top: 10px;"/>';
       echo '  </div>';
@@ -68,6 +69,7 @@
       echo '    <div class="err_rating" style="display:none;">';
       echo '      <span style="color: #c91212; font-size: 0.9em;">* Please enter a rating from 0 - 5</span>';
       echo '    </div>';
+      echo '    <br /> ';
       echo '    <input type="submit" name="rate_task_doer" value="RATE"';
       echo '           class="btn btn-embossed btn-wide btn-primary"/>';
       echo '  </div>';
