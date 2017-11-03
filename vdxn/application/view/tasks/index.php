@@ -61,19 +61,15 @@
                   <th>Title</th>
                   <th>Description</th>
                   <th>Created at</th>
-                  <th>Updated at</th>
                   <th>Start at</th>
                   <th>End at</th>
                   <th>Min Bid</th>
                   <th>Max Bid</th>
                   <th>Creator</th>
-                  <th>Creator Rating</th>
                   <th>Assignee</th>
-                  <th>Assignee Rating</th>
                   <th>Completed at</th>
                   <th>Category</th>
                   <th>Tags</th>
-                  <th>Remarks</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,28 +78,22 @@
                     $category = $Task -> getCategoryOfTask($task->title, $task->creator_username);
                     $tags = $Task -> getTagsOfTask($task->title, $task->creator_username);
                   echo '<tr>';
-                  echo '<td>' . $task->title . '</td>';
+                  echo "<td><a href='/tasks/task?title=" .
+                        $task->title . "&creator_username=" .
+                        $task->creator_username .
+                        "'> $task->title </a></td>";
                   echo '<td>' . $task->description . '</td>';
                   echo '<td>' . $task->created_at . '</td>';
-                  echo '<td>' . $task->updated_at . '</td>';
                   echo '<td>' . $task->start_at . '</td>';
                   echo '<td>' . $task->end_at . '</td>';
                   echo '<td>' . $task->min_bid . '</td>';
                   echo '<td>' . $task->max_bid . '</td>';
                   echo '<td>' . $task->creator_username . '</td>';
-                  echo '<td>' . $task->creator_rating . '</td>';
                   echo '<td>' . $task->assignee_username . '</td>';
-                  echo '<td>' . $task->assignee_rating . '</td>';
                   echo '<td>' . $task->completed_at . '</td>';
                   echo '<td>' . $category . '</td>';
                   echo '<td>' . $tags . '</td>';
-                  echo '<td>' . $task->remarks . '</td>';
 
-                  // Link to Task page
-                  echo "<td><a href='/tasks/task?title=" .
-                        $task->title . "&creator_username=" .
-                        $task->creator_username .
-                        "'>Link</a></td>";
                   echo '</tr>';
                 }
                 ?>
