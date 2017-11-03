@@ -120,23 +120,327 @@ for($q = 0; $q < 100; $q++) {
 
 // Generate tasks
 /*
-for($i = 0; $i < 50; $i++) {
+for($i = 100; $i < 150; $i++) {
   $time = date_format($faker->dateTimeThisDecade($max="now"), "Y-m-d H:i:s");
   $biasedminbid = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
   $biasedmaxbid = $faker->biasedNumberBetween($min = 41, $max = 120, $function = 'sqrt');
 
-  $creator_username = $usernames[rand(0, count($usernames))];
+  $creator_username = $usernames[rand(0, count($usernames) - 1)];
   $assignee_username = $creator_username;
 
   while($assignee_username == $creator_username) {
-      $assignee_username = $usernames[rand(0, count($usernames))];
+      $assignee_username = $usernames[rand(0, count($usernames) - 1)];
   }
 
+  $creator_rating = rand(3, 5);
+  $assignee_rating = rand(3, 5);
+  $completed_at = '2017-10-17 00:00:00';
+  $remarks = 'Good job!';
+
   $title = $faker->jobTitle." ".($i + 1);
-  $template = "INSERT INTO `Task` (`title`, `description`, `created_at`, `updated_at`, `start_at`, `end_at`, `min_bid`, `max_bid` , `creator_username`, `assignee_username`, `deleted_at`, `creator_rating`, `assignee_rating`, `completed_at`,`remarks`)VALUES ('$title', '$faker->paragraph', '$time', '$time', '2017-10-16 00:00:00', '2017-10-21 00:00:00', '$biasedminbid', '$biasedmaxbid', '$creator_username', '$assignee_username', NULL, NULL, NULL, NULL, NULL);";
+  $template = "INSERT INTO `Task` (`title`, `description`, `created_at`, `updated_at`, `start_at`, `end_at`, `min_bid`, `max_bid` , `creator_username`, `assignee_username`, `deleted_at`, `creator_rating`, `assignee_rating`, `completed_at`,`remarks`)VALUES ('$title', '$faker->paragraph', '$time', '$time', '2017-10-16 00:00:00', '2017-10-21 00:00:00', '$biasedminbid', '$biasedmaxbid', '$creator_username', NULL, NULL, '$creator_rating', '$assignee_rating', '$completed_at', '$remarks');";
   echo $template."\n";
 }
 */
+/*
+$task_titles = array('Library Assistant 101',
+'Aircraft Launch Specialist 102',
+'User Experience Researcher 103',
+'Airframe Mechanic 104',
+'Conveyor Operator 105',
+'Real Estate Appraiser 106',
+'Structural Metal Fabricator 107',
+'Gas Processing Plant Operator 108',
+'Chemical Equipment Tender 109',
+'Command Control Center Specialist 110',
+'Human Resource Director 111',
+'Economist 112',
+'Production Laborer 113',
+'Furniture Finisher 114',
+'Fashion Model 115',
+'Forming Machine Operator 116',
+'Human Resource Manager 117',
+'Commercial and Industrial Designer 118',
+'Brattice Builder 119',
+'Stationary Engineer 120',
+'Safety Engineer 121',
+'Audio and Video Equipment Technician 122',
+'Railroad Conductors 123',
+'Telecommunications Equipment Installer 124',
+'Model Maker 125',
+'Agricultural Manager 126',
+'Textile Machine Operator 127',
+'Law Clerk 128',
+'Precision Pattern and Die Caster 129',
+'Architectural Drafter OR Civil Drafter 130',
+'Carpet Installer 131',
+'Assembler 132',
+'Mechanical Equipment Sales Representative 133',
+'Fashion Model 134',
+'Dot Etcher 135',
+'Hand Sewer 136',
+'Recruiter 137',
+'Milling Machine Operator 138',
+'Computer Support Specialist 139',
+'Director Of Talent Acquisition 140',
+'Cooling and Freezing Equipment Operator 141',
+'General Farmworker 142',
+'Avionics Technician 143',
+'Supervisor Correctional Officer 144',
+'Weapons Specialists 145',
+'Barber 146',
+'Travel Guide 147',
+'Taxi Drivers and Chauffeur 148',
+'Dental Hygienist 149',
+'Probation Officers and Correctional Treatment Specialist 150'
+);
+
+//$task_bid_winners = array();
+
+$task_creator_username = array('shanel.wunsch',
+'lexus.marks',
+'carlie.klocko',
+'jennie18',
+'cemard',
+'lexus.marks',
+'ritchie.josefina',
+'treutel.hosea',
+'walter.carli',
+'farrell.berniece',
+'mclaughlin.major',
+'kamille.mann',
+'jsimonis',
+'yabshire',
+'schmitt.rachel',
+'gutmann.briana',
+'tgorczany',
+'florine.jaskolski',
+'florine.jaskolski',
+'chaya.borer',
+'gmckenzie',
+'marques.ziemann',
+'bryce.maggio',
+'metz.marcella',
+'victor03',
+'francisco81',
+'augustus.zieme',
+'emayer',
+'vince14',
+'kamille.mann',
+'clinton62',
+'joelle51',
+'zechariah.boyer',
+'marques.ziemann',
+'carlie.klocko',
+'florine.jaskolski',
+'metz.marcella',
+'zechariah.boyer',
+'kling.elizabeth',
+'shanel.wunsch',
+'treutel.hosea',
+'jsimonis',
+'emayer',
+'treutel.hosea',
+'murl24',
+'ritchie.josefina',
+'margarete12',
+'grady.zelda',
+'zelda76',
+'kozey.jennifer'
+);
+
+for($q = 0; $q < 50; $q++) {
+  $numBids = rand(3, 5);
+
+  $title = $task_titles[$q];
+  $creator_username = $task_creator_username[$q];
+
+  $usernameskey = rand(0, count($usernames) - 1);
+  $bidder_username = $usernames[$usernameskey];
+
+  $cache = array();
+  array_push($cache, $bidder_username);
+  array_push($cache, $creator_username);
+
+  $details = $faker->paragraph;
+  $amount = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
+  $created_at = '2017-10-17 00:00:00';
+  $updated_at = '2017-10-18 00:00:00';
+
+  $template = "INSERT INTO `Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$title', '$creator_username', '$bidder_username', '$details', '$amount', '$created_at', '$updated_at', NULL);";
+  echo $template."\n";
+
+  for($w = 0; $w < $numBids; $w++) {
+
+    while (in_array($bidder_username, $cache)) {
+      $usernameskey = rand(0, count($usernames) - 1);
+      $bidder_username = $usernames[$usernameskey];
+    }
+
+    array_push($cache, $bidder_username);
+
+    $details = $faker->paragraph;
+    $amount = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
+    $created_at = '2017-10-17 00:00:00';
+    $updated_at = '2017-10-18 00:00:00';
+    $template = "INSERT INTO `Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$title', '$creator_username', '$bidder_username', '$details', '$amount', '$created_at', '$updated_at', NULL);";
+    echo $template."\n";
+  }
+}
+
+*/
+
+$task_creator = array('pierre01',
+'mack22',
+'victor03',
+'luettgen.winfield',
+'victor03',
+'tdach',
+'shanel.wunsch',
+'emayer',
+'philip82',
+'francisco81',
+'augustus.zieme',
+'mikel05',
+'nader.jacinthe',
+'kamille.mann',
+'kamille.mann',
+'rowe.herminio',
+'savanna06',
+'pierre01',
+'cemard',
+'aniya.champlin',
+'farrell.berniece',
+'kiana52',
+'kilback.else',
+'kamille.mann',
+'mikel05',
+'tgorczany',
+'bryce.maggio',
+'kilback.else',
+'chaya.witting',
+'chaya.witting',
+'christiana25',
+'maggie.hilpert',
+'mack22',
+'kilback.else',
+'chaya.witting',
+'mikel05',
+'clinton62',
+'streich.dorothy',
+'mikel05',
+'godfrey.mitchell',
+'mack22',
+'arau',
+'mikel05',
+'augustus.zieme',
+'cemard',
+'proob',
+'brenden.mcdermott',
+'kozey.jennifer',
+'blanca43',
+'eldon.hoeger',
+'streich.dorothy',
+'okessler',
+'kling.elizabeth',
+'olson.gaetano',
+'marc19',
+'kamille.mann',
+'walter.carli',
+'grady.zelda',
+'olson.gaetano',
+'carlie.klocko',
+'treutel.hildegard',
+'nader.jacinthe',
+'schmitt.rachel',
+'marc19',
+'arau',
+'fisher.kraig',
+'schmitt.rachel',
+'francisco81',
+'rowe.herminio',
+'weston.langosh',
+'mack22',
+'kiana52',
+'ritchie.josefina',
+'arau',
+'femard',
+'metz.marcella',
+'tbailey',
+'jennie18',
+'chaya.witting',
+'tbailey',
+'savanna06',
+'fisher.kraig',
+'ylittel',
+'tgottlieb',
+'sedrick30',
+'francisco81',
+'wmarquardt',
+'coberbrunner',
+'zechariah.boyer',
+'tdach',
+'augustus.zieme',
+'tgottlieb',
+'clinton62',
+'eldon.hoeger',
+'junior.runte',
+'augustus.zieme',
+'jennie18',
+'margarete12',
+'raphael.toy',
+'kuhic.brando',
+'shanel.wunsch',
+'lexus.marks',
+'carlie.klocko',
+'jennie18',
+'cemard',
+'lexus.marks',
+'ritchie.josefina',
+'treutel.hosea',
+'walter.carli',
+'farrell.berniece',
+'mclaughlin.major',
+'kamille.mann',
+'jsimonis',
+'yabshire',
+'schmitt.rachel',
+'gutmann.briana',
+'tgorczany',
+'florine.jaskolski',
+'florine.jaskolski',
+'chaya.borer',
+'gmckenzie',
+'marques.ziemann',
+'bryce.maggio',
+'metz.marcella',
+'victor03',
+'francisco81',
+'augustus.zieme',
+'emayer',
+'vince14',
+'kamille.mann',
+'clinton62',
+'joelle51',
+'zechariah.boyer',
+'marques.ziemann',
+'carlie.klocko',
+'florine.jaskolski',
+'metz.marcella',
+'zechariah.boyer',
+'kling.elizabeth',
+'shanel.wunsch',
+'treutel.hosea',
+'jsimonis',
+'emayer',
+'treutel.hosea',
+'murl24',
+'ritchie.josefina',
+'margarete12',
+'grady.zelda',
+'zelda76',
+'kozey.jennifer',
+);
 
 $task_titles = array('Sawing Machine Operator 1',
 'Nuclear Monitoring Technician 2',
@@ -188,98 +492,211 @@ $task_titles = array('Sawing Machine Operator 1',
 'Plating Operator 48',
 'HR Specialist 49',
 'Carpenter Assembler and Repairer 50',
+'Bridge Tender OR Lock Tender 51',
+'Communications Teacher 52',
+'Recordkeeping Clerk 53',
+'Photographer 54',
+'Motor Vehicle Inspector 55',
+'Industrial Engineer 56',
+'Computer Science Teacher 57',
+'Court Clerk 58',
+'Interviewer 59',
+'Product Specialist 60',
+'Clinical Laboratory Technician 61',
+'Music Composer 62',
+'Night Shift 63',
+'Electrical and Electronic Inspector and Tester 64',
+'Motorboat Operator 65',
+'Tool and Die Maker 66',
+'Welfare Eligibility Clerk 67',
+'Log Grader and Scaler 68',
+'Forensic Science Technician 69',
+'Portable Power Tool Repairer 70',
+'Online Marketing Analyst 71',
+'Marriage and Family Therapist 72',
+'Night Shift 73',
+'Life Science Technician 74',
+'User Experience Researcher 75',
+'Visual Designer 76',
+'Cutting Machine Operator 77',
+'Producer 78',
+'Meter Mechanic 79',
+'Bindery Worker 80',
+'Marking Clerk 81',
+'Order Filler OR Stock Clerk 82',
+'Elementary School Teacher 83',
+'Manufactured Building Installer 84',
+'Health Educator 85',
+'Usher 86',
+'Biochemist or Biophysicist 87',
+'Fishing OR Forestry Supervisor 88',
+'Roofer 89',
+'Precision Devices Inspector 90',
+'Pharmaceutical Sales Representative 91',
+'RN 92',
+'Cook 93',
+'Fishing OR Forestry Supervisor 94',
+'Credit Checker 95',
+'Casting Machine Operator 96',
+'Lifeguard 97',
+'Media and Communication Worker 98',
+'Business Operations Specialist 99',
+'Telemarketer 100',
+'Library Assistant 101',
+'Aircraft Launch Specialist 102',
+'User Experience Researcher 103',
+'Airframe Mechanic 104',
+'Conveyor Operator 105',
+'Real Estate Appraiser 106',
+'Structural Metal Fabricator 107',
+'Gas Processing Plant Operator 108',
+'Chemical Equipment Tender 109',
+'Command Control Center Specialist 110',
+'Human Resource Director 111',
+'Economist 112',
+'Production Laborer 113',
+'Furniture Finisher 114',
+'Fashion Model 115',
+'Forming Machine Operator 116',
+'Human Resource Manager 117',
+'Commercial and Industrial Designer 118',
+'Brattice Builder 119',
+'Stationary Engineer 120',
+'Safety Engineer 121',
+'Audio and Video Equipment Technician 122',
+'Railroad Conductors 123',
+'Telecommunications Equipment Installer 124',
+'Model Maker 125',
+'Agricultural Manager 126',
+'Textile Machine Operator 127',
+'Law Clerk 128',
+'Precision Pattern and Die Caster 129',
+'Architectural Drafter OR Civil Drafter 130',
+'Carpet Installer 131',
+'Assembler 132',
+'Mechanical Equipment Sales Representative 133',
+'Fashion Model 134',
+'Dot Etcher 135',
+'Hand Sewer 136',
+'Recruiter 137',
+'Milling Machine Operator 138',
+'Computer Support Specialist 139',
+'Director Of Talent Acquisition 140',
+'Cooling and Freezing Equipment Operator 141',
+'General Farmworker 142',
+'Avionics Technician 143',
+'Supervisor Correctional Officer 144',
+'Weapons Specialists 145',
+'Barber 146',
+'Travel Guide 147',
+'Taxi Drivers and Chauffeur 148',
+'Dental Hygienist 149',
+'Probation Officers and Correctional Treatment Specialist 150');
+
+$tags = array(
+  'fuga',
+  'corporis',
+  'corrupti',
+  'nesciunt',
+  'et',
+  'dolores',
+  'nam',
+  'aut',
+  'saepe',
+  'eos',
+  'qui',
+  'dolorem',
+  'tenetur',
+  'odit',
+  'incidunt',
+  'est',
+  'voluptates',
+  'reprehenderit',
+  'nisi',
+  'enim',
+  'sit',
+  'ullam',
+  'architecto',
+  'quasi',
+  'placeat',
+  'laboriosam',
+  'nemo',
+  'inventore',
+  'ut',
+  'beatae',
+  'modi',
+  'ad',
+  'ea',
+  'excepturi',
+  'praesentium',
+  'ratione',
+  'veniam',
+  'ex',
+  'sunt',
+  'deleniti',
+  'dicta',
+  'dolore',
+  'repellat',
+  'voluptas',
+  'nostrum',
+  'voluptatibus',
+  'exercitationem',
+  'laudantium',
+  'tempore',
+  'dolorum'
 );
+/*
+for ($i = 0; $i < 150; $i++) {
 
-$task_bid_winners = array();
-
-$task_creator_username = ('pierre01',
-'mack22',
-'victor03',
-'luettgen.winfield',
-'victor03',
-'tdach',
-'shanel.wunsch',
-'emayer',
-'philip82',
-'francisco81',
-'augustus.zieme',
-'mikel05',
-'nader.jacinthe',
-'kamille.mann',
-'kamille.mann',
-'rowe.herminio',
-'savanna06',
-'pierre01',
-'cemard',
-'aniya.champlin',
-'farrell.berniece',
-'kiana52',
-'kilback.else',
-'kamille.mann',
-'mikel05',
-'tgorczany',
-'bryce.maggio',
-'kilback.else',
-'chaya.witting',
-'chaya.witting',
-'christiana25',
-'maggie.hilpert',
-'mack22',
-'kilback.else',
-'chaya.witting',
-'mikel05',
-'clinton62',
-'streich.dorothy',
-'mikel05',
-'godfrey.mitchell',
-'mack22',
-'arau',
-'mikel05',
-'augustus.zieme',
-'cemard',
-'proob',
-'brenden.mcdermott',
-'kozey.jennifer',
-'blanca43',
-'eldon.hoeger'
-);
-
-for($q = 0; $q < 50; $q++) {
-  $numBids = rand(3, 5);
-
-  $key = rand(0, count($task_titles));
-  $title = $task_titles[$key];
-  $creator_username = $task_creator_username[$key];
-
-  $bidder_username = $task_bid_winners[$key];
-  $details = $faker->paragraph;
-  $amount = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
-  $created_at = '2017-10-17 00:00:00';
-  $updated_at = '2017-10-18 00:00:00';
-  $template = "INSERT INTO `Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$title', '$creator_username', '$bidder_username', '$details', '$amount', '$created_at', '$updated_at', NULL);";
-  echo $template."\n";
+  $tasktitle = $task_titles[$i];
+  $creator = $task_creator[$i];
+  $tag = $tags[rand(0, 49)];
 
   $cache = array();
-  array_push($cache, $task_bid_winners[$key]);
 
-  for($w = 0; $w < $numBids; $w++) {
-
-    $random_username = $usernames[rand(0, count($usernames))];
-    while (in_array($random_username, $cache)) {
-      $random_username = $usernames[rand(0, count($usernames))];
-
-      array_push($cache, $random_username);
+  for($w = 0; $w < rand(1, 5); $w++){
+    $tag = $tags[rand(0, 49)];
+    while (in_array($tag, $cache)) {
+      $tag = $tags[rand(0, 49)];
     }
+    array_push($cache, $tag);
 
-    $bidder_username = $random_username;
-    $details = $faker->paragraph;
-    $amount = $faker->biasedNumberBetween($min = 1, $max = 40, $function = 'sqrt');
-    $created_at = '2017-10-17 00:00:00';
-    $updated_at = '2017-10-18 00:00:00';
-    $template = "INSERT INTO `Bid` (`task_title`, `task_creator_username`, `bidder_username`, `details`, `amount`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$title', '$creator_username', '$bidder_username', '$details', '$amount', '$created_at', '$updated_at', NULL);";
+    $template = "INSERT INTO `Tag_task` (`tag_name`, `task_creator_username`, `task_title`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$tag', '$creator', '$tasktitle', '', NULL, NULL);";
     echo $template."\n";
   }
-  echo "\n";
+}*/
+
+/*
+// Tag creation
+$cache = array();
+for($i = 0; $i < 50; $i++) {
+    $word = $faker->word;
+    while (in_array($word, $cache)) {
+        $word = $faker->word;
+    }
+    array_push($cache, $word);
+    $template = "INSERT INTO `Tag` (`name`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$word', '2017-11-02 00:00:00', '2017-11-02 00:00:00', NULL);"."\n";
+    echo $template;
+}*/
+
+$categories = array('Minor Repairs',
+'Mounting',
+'Assembly',
+'Help Moving',
+'Delivery',
+'BabySitting');
+
+// add to categories tasks
+for ($i = 0; $i < 150; $i++) {
+
+  $tasktitle = $task_titles[$i];
+  $creator = $task_creator[$i];
+
+  $category = $categories[rand(0, count($categories) - 1)];
+
+  $template = "INSERT INTO `Category_task` (`category_name`, `task_title`, `task_creator_username`, `created_at`, `updated_at`, `deleted_at`) VALUES ('$category', '$tasktitle', '$creator', '2017-11-02 00:00:00', NULL, NULL);";
+  echo $template."\n";
+
 }
 
 ?>
