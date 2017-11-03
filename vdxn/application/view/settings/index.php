@@ -12,3 +12,9 @@
         <input type="submit" value="Change Password"/>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.navbar-nav > li').removeClass('active');
+        $('.navbar-nav > li.header-settings').addClass('active');
+      });
+</script>

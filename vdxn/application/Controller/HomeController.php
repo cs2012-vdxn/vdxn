@@ -11,6 +11,9 @@
 
 namespace Mini\Controller;
 session_start();
+
+use Mini\Model\Task;
+
 class HomeController
 {
     /**
@@ -19,6 +22,7 @@ class HomeController
      */
     public function index()
     {
+        $tags = array('Babysitting', 'Homework', 'House Cleaning', 'Car Washing');
         // load views
         require APP . 'view/_templates/header.php';
         require APP . 'view/home/index.php';
@@ -26,28 +30,34 @@ class HomeController
     }
 
     /**
-     * PAGE: exampleone
-     * This method handles what happens when you move to http://yourproject/home/exampleone
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
+     * Search for relevant tags from Tag table.
      */
-    public function exampleOne()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_one.php';
-        require APP . 'view/_templates/footer.php';
+    public function searchTags() {
+        $Task = new Task();
+        $search_string = $_POST['query'];
+        $html = '<li><a href="index.html">Tag</a></li>';
+
+        if (strlen($search_string) >= 1 && $search_string !== ' ') {
+            $result_array = $Task->findAllTagsContaining($search_string);
+            if ($result_array) {
+                foreach ($result_array as $result) {
+                    $tags = $result -> name;
+                    $o = str_replace('Tag', $tags, $html);
+                    echo($o);
+                }
+            } else {
+                $o = '<li><a href="#" style="color: red">No Results Found</a></li>';
+                echo($o);
+            }
+        } else {
+            $o = '
+                  <li><a href="index.html">Babysitting</a></li>
+                  <li><a href="index.html">Homework</a></li>
+                  <li><a href="index.html">House Cleaning</a></li>
+                  <li><a href="index.html">Car washing</a></li>
+                  ';
+            echo($o);
+        }
     }
 
-    /**
-     * PAGE: exampletwo
-     * This method handles what happens when you move to http://yourproject/home/exampletwo
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
-     */
-    public function exampleTwo()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_two.php';
-        require APP . 'view/_templates/footer.php';
-    }
 }

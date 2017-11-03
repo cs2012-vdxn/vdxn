@@ -4,10 +4,15 @@
  * Sometimes, if you need to do some minor edits to an existing Flat-UI CSS or
  * your own CSS classes, you could include them all here.
  */
+
+ /**
+  * For the Profile page
+  */
 .user-contact-information-table {
   margin-top: 10px;
   margin-bottom: 1.5em !important;
 }
+
 
 .user-contact-information-table td {
   border: 1px solid white !important; /* Overwrites default table border */
@@ -15,6 +20,13 @@
   padding-right: 0px !important;
 }
 
+/**
+ * For the Tasks page
+ */
+
+/**
+ * For the MyTasks page
+ */
 .tasks__tabs-container {
     margin: 20px;
 }
@@ -28,6 +40,64 @@
   border: 1px solid #1abc9c;
   color: #1abc9c;
   font-weight: bold;
+}
+
+.table-pagination {
+  float: right;
+  margin: 10px;
+}
+.pagination-button {
+  padding: 4px;
+  border: 1px solid #1abc9c;
+  border-radius: 2px;
+}
+.pagination-button.selected {
+  background-color: #1abc9c;
+  color: white;
+}
+.sortable__arrows {
+  display: inline-block;
+  float: right;
+}
+
+.sortable__arrow {
+  width: 0;
+  height: 0;
+  margin: 5px;
+}
+
+.sortable__arrow--up.selected {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #1abc9c;
+}
+
+.sortable__arrow--up:not(.selected) {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid grey;
+}
+
+.sortable__arrow--down:not(.selected) {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid grey;
+}
+
+.sortable__arrow--down.selected {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1abc9c;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
 }
 
 /**
