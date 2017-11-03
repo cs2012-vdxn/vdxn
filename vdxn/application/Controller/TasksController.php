@@ -73,7 +73,6 @@ class TasksController {
     public function newtask() {
       require APP . 'view/_templates/header.php';
       if ($this->validate_task($_POST)) {
-          //TODO
           $clean_task_params = $_POST;
           $Task = new Task();
           $task = $Task->createTask($clean_task_params);
