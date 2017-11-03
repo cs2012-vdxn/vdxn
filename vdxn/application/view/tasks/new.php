@@ -1,3 +1,11 @@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+  $( function() {
+    $( "#startDateDp" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#endDateDp" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  } );
+</script>
 <div class="container">
   <div class="col-lg-6 col-md-10" style="min-height: 100%; padding: 0px;">
     <h1>Create a New Task</h1>
