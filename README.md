@@ -9,6 +9,15 @@ Site is available at 192.168.33.66
 Seed the database manually.
 
 # Instructions
+## File Structure for important files
+```
+.
+├── /application/Controller    # Contains main app logic that retrieves data from the Model
+├── /application/Model         # Contains .SQL files that implement our Model methods. You may find all of our SQL queries here
+├── /application/view          # UI template files and implementation
+├── /public                    # Contains public image assets, and necessary CSS and JS files
+└── seed.sql                   # Database seeds
+```
 
 ## Database Seeding
 
