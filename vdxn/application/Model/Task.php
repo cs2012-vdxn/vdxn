@@ -367,7 +367,7 @@ class Task extends Model
 
       $sql = "UPDATE Task SET ".
         "title='".$params['title'].
-        "', description='".$params['title'].
+        "', description='".$params['description'].
         "', updated_at='".$time.
         "', min_bid='".$params['min_bid'].
         "', max_bid='".$params['max_bid'].
