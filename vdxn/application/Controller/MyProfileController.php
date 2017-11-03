@@ -46,7 +46,8 @@ class MyProfileController {
         $user = $User->getUserPublicProfile($_GET['username']);
         if ($user) {
           // When we can find a user in the system
-          $user->{'rating'} = $User->getUserRating($_GET['username']);
+          $user->{'assignee_rating'} = $User->getUserRating($_GET['username']);
+          $user->{'creator_rating'} = $User->getUserCreatorRating($_GET['username']);
           return $user;
         }
       }

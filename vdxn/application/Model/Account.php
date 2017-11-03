@@ -93,7 +93,7 @@ class Account extends Model
   }
 
   /**
-   * Computes and retrieves a user's overall rating.
+   * Computes and retrieves a user's overall rating as a task doer.
    * Sums up and averages the ratings from all of the tasks this user did.
    * The SQL query also ensures that decimal values are rounded to the nearest
    * 2 decimal places.
@@ -104,6 +104,23 @@ class Account extends Model
   function getUserRating($username) {
     $sql = "SELECT ROUND(SUM(assignee_rating) / COUNT(assignee_rating), 2) AS rating
       FROM Task WHERE assignee_username = '" . $username . "'";
+    $query = $this->db->prepare($sql);
+    $query->execute();
+    return floatval($query->fetch()->{'rating'});
+  }
+
+  /**
+   * Computes and retrieves a user's overall rating as a task creator.
+   * Sums up and averages the ratings from all of the tasks this user did.
+   * The SQL query also ensures that decimal values are rounded to the nearest
+   * 2 decimal places.
+   *
+   * @param  String $username    Username to retrieve profile for
+   * @return Float     Rating of this user, rounded to the nearest 2 decimal places
+   */
+  function getUserCreatorRating($username) {
+    $sql = "SELECT ROUND(SUM(creator_rating) / COUNT(creator_rating), 2) AS rating
+      FROM Task WHERE creator_username = '" . $username . "'";
     $query = $this->db->prepare($sql);
     $query->execute();
     return floatval($query->fetch()->{'rating'});

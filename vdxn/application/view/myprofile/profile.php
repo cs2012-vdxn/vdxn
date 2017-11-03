@@ -20,6 +20,14 @@
         <td>Type:</td>
         <td><?php echo $user->{'user_type'} ?></td>
       </tr>
+      <tr>
+        <td>Creator Rating:</td>
+        <td><?php echo $user->{'creator_rating'} ?> / 5.0</td>
+      </tr>
+      <tr>
+        <td>Doer Rating:</td>
+        <td><?php echo $user->{'assignee_rating'} ?> / 5.0</td>
+      </tr>
     </table>
 
     <br/><small><b>CONTACT INFORMATION</b></small><br/>
@@ -31,10 +39,6 @@
       <tr>
         <td>Phone:</td>
         <td><?php echo $user->{'contact'} ?></td>
-      </tr>
-      <tr>
-        <td>Rating:</td>
-        <td><?php echo $user->{'rating'} ?> / 5.0</td>
       </tr>
     </table>
   </div>
