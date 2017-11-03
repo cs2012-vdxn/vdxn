@@ -89,6 +89,24 @@ CREATE TABLE Tag_task (
 	PRIMARY KEY (tag_name, task_title, task_creator_username)
 );
 
+CREATE TABLE Months(
+  value varchar(3),
+  name varchar(100) PRIMARY KEY
+);
+
+insert into Months values ('1','January');
+insert into Months values ('2','February');
+insert into Months values ('3','March');
+insert into Months values ('4','April');
+insert into Months values ('5','May');
+insert into Months values ('6','June');
+insert into Months values ('7','July');
+insert into Months values ('8','August');
+insert into Months values ('9','September');
+insert into Months values ('10','October');
+insert into Months values ('11','November');
+insert into Months values ('12','December');
+
 INSERT INTO User (username, first_name, last_name, password_hash, contact, email, created_at, updated_at, user_type) VALUES ('rylatkinson5547', 'Rylie', 'Atkinson', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '98038781', 'Ryl.ATKINSO1315@dispostable.com', '2010-02-12', null, 'User');
 INSERT INTO User (username, first_name, last_name, password_hash, contact, email, created_at, updated_at, user_type) VALUES ('keafranc1388', 'Keaton', 'Franco', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '95182761', 'Kea.FRA1698@reallymymail.com', '2010-02-04', null, 'User');
 INSERT INTO User (username, first_name, last_name, password_hash, contact, email, created_at, updated_at, user_type) VALUES ('jamajense5492', 'Jamar', 'Jensen', '$2y$10$/4oRrwEAJ1kKsszjFA4ITeQ6ZjRyL8oSx3scdwhTECf5YDVc6m/sy', '93949770', 'Jamar.JEN6088@mailinator.com', '2010-01-17', null, 'User');
