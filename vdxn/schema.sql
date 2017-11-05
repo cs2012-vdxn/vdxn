@@ -29,8 +29,8 @@ CREATE TABLE Task (
 	CONSTRAINT min_bid CHECK(min_bid < max_bid),
 	CONSTRAINT end_at CHECK(start_at < end_at),
 	PRIMARY KEY (creator_username, title),
-	FOREIGN KEY (creator_username) REFERENCES User(username) ON DELETE CASCADE,
-	FOREIGN KEY (assignee_username) REFERENCES User(username) ON DELETE CASCADE
+	FOREIGN KEY (creator_username) REFERENCES User(username) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (assignee_username) REFERENCES User(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Category (
@@ -43,16 +43,16 @@ CREATE TABLE Category (
 CREATE TABLE Category_task (
 	category_name varchar(100) REFERENCES Category(name) ON DELETE CASCADE ON UPDATE CASCADE,
 	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE,
-	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE,
+	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE ON UPDATE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	PRIMARY KEY (category_name, task_title, task_creator_username)
 );
 
 CREATE TABLE Bid (
-	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE,
-	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE,
-	bidder_username varchar(100) REFERENCES User(username) ON DELETE CASCADE,
+	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE ON UPDATE CASCADE,
+	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE ON UPDATE CASCADE,
+	bidder_username varchar(100) REFERENCES User(username) ON DELETE CASCADE ON UPDATE CASCADE,
 	details varchar(200),
 	amount numeric NOT NULL,
 	created_at DATETIME NOT NULL,
@@ -69,8 +69,8 @@ CREATE TABLE Tag (
 
 CREATE TABLE Tag_task (
 	tag_name varchar(100) REFERENCES Tag(name) ON DELETE CASCADE ON UPDATE CASCADE,
-	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE,
-	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE,
+	task_creator_username varchar(100) REFERENCES Task(creator_username) ON DELETE CASCADE ON UPDATE CASCADE,
+	task_title varchar(100) REFERENCES Task(title) ON DELETE CASCADE ON UPDATE CASCADE,
 	created_at DATETIME NOT NULL,
 	updated_at DATETIME,
 	PRIMARY KEY (tag_name, task_title, task_creator_username)
