@@ -370,6 +370,8 @@ class Task extends Model
         "title='".$params['title'].
         "', description='".$params['description'].
         "', updated_at='".$time.
+        "', start_at='".$params['taskdate'].
+        "', end_at='".$params['enddate'].
         "', min_bid='".$params['min_bid'].
         "', max_bid='".$params['max_bid'].
         "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";

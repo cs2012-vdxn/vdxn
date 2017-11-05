@@ -1,4 +1,11 @@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
+  $( function() {
+    $( "#startDateDp" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    $( "#endDateDp" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  } );
+
   // Input validation when editing a task
   function validateEditTask() {
     var title = $('#create_task_title').val();
@@ -34,7 +41,16 @@
       }
     }
 
-    return !REQUIRED_INPUTS_ARE_EMPTY && !BIDS_ARE_NAN && !MIN_BID_MORE_THAN_MAX_BID;
+    var START_DATE_MORE_THAN_END_DATE = false;
+    if (start_date > end_date) {
+      START_DATE_MORE_THAN_END_DATE = true;
+      $('.err_create_task_start_date_impossible').show();
+    }
+
+    return !REQUIRED_INPUTS_ARE_EMPTY &&
+           !BIDS_ARE_NAN &&
+           !MIN_BID_MORE_THAN_MAX_BID &&
+           !START_DATE_MORE_THAN_END_DATE;
   }
 </script>
 
@@ -62,12 +78,21 @@
               placeholder="Description"><?php echo $task->{'description'}?></textarea>
           </div>
 
-          <!-- Remove for now
           <div class="form-group">
-            <label style="font-size: 20px;"><b>Start At</b></label>
-            <input type="text" name="start_at" value="<?php echo $task->{'start_at'}?>" class="form-control login-field" placeholder="Start at">
+            <label><b>Start Date</b><b style="color: #c91212;"> (required)</b></label>
+            <input id="startDateDp" type="text" name="taskdate" class="form-control login-field" placeholder="Set start date" value="<?php echo $task->{'start_at'}?>">
+            <div class="err_create_task_required" style="display:none;">
+              <span style="color: #c91212; font-size: 0.9em;">* please enter a value</span>
+            </div>
+            <div class="err_create_task_start_date_impossible" style="display:none;">
+              <span style="color: #c91212; font-size: 0.9em;">* date is more than the end date!</span>
+            </div>
           </div>
-          -->
+
+          <div class="form-group">
+            <label><b>End Date</b></label>
+            <input id="endDateDp" type="text" name="enddate" class="form-control login-field" placeholder="Set end date" value="<?php echo $task->{'end_at'}?>">
+          </div>
 
           <div class="form-group">
             <label style="font-size: 20px;"><b>Min Bid</b></label>
