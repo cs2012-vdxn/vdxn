@@ -79,6 +79,7 @@ class Account extends Model
     return $query->execute();
   }
 
+
   //==========================================
   // GETTING USER PROFILE ATTRIBUTES
   //==========================================

@@ -42,7 +42,6 @@ class SignupController
 
         } else {
           $errors = array();
-
           $errors['createFail'] = true;
 
           $_SESSION['flash'] = $errors;
@@ -58,6 +57,7 @@ class SignupController
         if(empty($_POST['password'])) $errors['password'] = true;
         if(empty($_POST['password2'])) $errors['password2'] = true;
         $_SESSION['flash'] = $errors;
+
         header('location: ' . URL . 'signup');
       }
     }
