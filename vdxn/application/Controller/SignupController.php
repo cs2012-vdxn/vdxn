@@ -38,12 +38,14 @@ class SignupController
           $this->sanitize($_POST["contactNumber"]),
           $this->sanitize($_POST["password"]))) {
 
+          // Reset all errors
+          $errors = array();
+          $_SESSION['flash'] = $errors;
+
           header('location: ' . URL . 'login');
 
         } else {
           $errors = array();
-          $errors['createFail'] = true;
-
           $_SESSION['flash'] = $errors;
           header('location: ' . URL . 'signup');
         }
