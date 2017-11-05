@@ -47,7 +47,10 @@
       $('.err_create_task_start_date_impossible').show();
     }
 
-    return !REQUIRED_INPUTS_ARE_EMPTY && !BIDS_ARE_NAN && !MIN_BID_MORE_THAN_MAX_BID;
+    return !REQUIRED_INPUTS_ARE_EMPTY &&
+           !BIDS_ARE_NAN &&
+           !MIN_BID_MORE_THAN_MAX_BID &&
+           !START_DATE_MORE_THAN_END_DATE;
   }
 </script>
 <div class="container">
