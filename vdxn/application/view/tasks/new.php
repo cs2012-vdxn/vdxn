@@ -6,7 +6,7 @@
     $( "#endDateDp" ).datepicker({ dateFormat: 'yy-mm-dd' });
   } );
 
-  // Quick check for null values
+  // Input validation when creating a task
   function validateCreateTask(formName) {
     var title = $('#create_task_title').val();
     var desc = $('#create_task_desc').val();
@@ -24,7 +24,7 @@
     $('.err_create_task_start_date_impossible').hide();
 
     var REQUIRED_INPUTS_ARE_EMPTY = false;
-    if (title.length == 0 || desc.length == 0 || start_date.length == 0) {
+    if (title.length == 0 || start_date.length == 0) {
       REQUIRED_INPUTS_ARE_EMPTY = true;
       $('.err_create_task_required').show();
     }
@@ -71,11 +71,8 @@
           </div>
 
           <div class="form-group">
-            <label><b>Description</b><b style="color: #c91212;"> (required)</b></label>
+            <label><b>Description</b></label>
             <textarea id="create_task_desc" name="description" class="form-control login-field" placeholder="Enter Description"></textarea>
-            <div class="err_create_task_required" style="display:none;">
-              <span style="color: #c91212; font-size: 0.9em;">* please enter a value</span>
-            </div>
           </div>
 
           <div class="form-group">
