@@ -23,13 +23,14 @@ include ('created_tasks_dropdown.php');
         echo "<td>$item</td>";
       }
     }
-
-    echo "<td style='border-top: white 5px solid; border-right: white 5px solid; border-bottom: white 5px solid;'>
-          <a class='btn btn-embossed btn-sm btn-primary' style='margin-left: 10px; margin-right: 5px;'
-          href='/tasks/edittask?title=" .
-          $task->title . "&creator_username=" .
-          $_SESSION['user']->username .
-          "'><span class='fui-new'></span> Edit</a></td>";
+    if(!isset($task->assignee_username)) {
+      echo "<td style='border-top: white 5px solid; border-right: white 5px solid; border-bottom: white 5px solid;'>
+            <a class='btn btn-embossed btn-sm btn-primary' style='margin-left: 10px; margin-right: 5px;'
+            href='/tasks/edittask?title=" .
+            $task->title . "&creator_username=" .
+            $_SESSION['user']->username .
+            "'><span class='fui-new'></span> Edit</a></td>";
+    }
     echo "<td style='border: white 5px solid;'>
           <a class='btn btn-embossed btn-sm btn-danger' style='margin-left: 5px; margin-right: 5px;'
           href='/tasks/deletetask?title=" .

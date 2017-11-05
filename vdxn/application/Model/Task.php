@@ -100,18 +100,19 @@ class Task extends Model
     public function getAllCurrentBiddedTasksQuery($bdername, $offset = NULL, $limit = NULL, $order_by = NULL, $dir = 'ASC')
     {
       $sql = "SELECT title, description,
-      start_at, MIN(b2.amount) as curr_min_bid, MAX(b2.amount) as curr_max_bid, myBid /* my current bid */,
-      creator_username, creator_rating,
-      assignee_rating
-      FROM (
-      SELECT title, description,
-      start_at, b1.amount as myBid /* my current bid */,
+      start_at, s.curr_min_bid as minB,s.curr_max_bid as maxB, myBid,
       creator_username, creator_rating,
       assignee_rating FROM
-      Task
-      INNER JOIN Bid b1 ON Task.creator_username=b1.task_creator_username AND Task.title = b1.task_title
-      WHERE b1.bidder_username='$bdername' AND Task.assignee_username IS NULL) t
-      INNER JOIN Bid b2 ON b2.task_title = t.title AND b2.task_creator_username = t.creator_username";
+      (SELECT title, description, start_at, b1.amount AS myBid, creator_username, creator_rating, assignee_rating
+      FROM Task
+      INNER JOIN Bid b1 ON Task.creator_username = b1.task_creator_username
+      AND Task.title = b1.task_title
+      WHERE b1.bidder_username =  '$bdername'
+      AND Task.assignee_username IS NULL)t
+      INNER JOIN
+      (SELECT b2.task_title as b2_title, b2.task_creator_username as b2_creator, MAX(b2.amount) as curr_max_bid, MIN(b2.amount) as curr_min_bid
+      FROM Bid b2 GROUP BY b2.task_title)s
+      ON s.b2_title = t.title AND s.b2_creator = t.creator_username";
       if(isset($order_by)) {
         if(!isset($dir)) {
           $dir = 'ASC';
@@ -147,7 +148,7 @@ class Task extends Model
       INNER JOIN Bid myBid ON Task.creator_username=task_creator_username AND Task.title = myBid.task_title
       INNER JOIN User ON username=bidder_username
       WHERE bidder_username='$bdername' AND assignee_username IS NOT NULL) t
-      INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND t.title = winningBid.task_title
+      INNER JOIN Bid winningBid ON winningBid.bidder_username=t.assignee_username AND winningBid.task_creator_username = t.creator_username AND t.title = winningBid.task_title
       INNER JOIN User winner ON winner.username = t.assignee_username)";
       if(isset($order_by)) {
         if(!isset($dir)) {
@@ -369,6 +370,8 @@ class Task extends Model
         "title='".$params['title'].
         "', description='".$params['description'].
         "', updated_at='".$time.
+        "', start_at='".$params['taskdate'].
+        "', end_at='".$params['enddate'].
         "', min_bid='".$params['min_bid'].
         "', max_bid='".$params['max_bid'].
         "' WHERE title='".$task_title."' AND creator_username='".$task_creator_username."';";

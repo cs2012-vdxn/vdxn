@@ -23,21 +23,9 @@
       }
     }
 
-    echo "<td style='border-top: white 5px solid; border-right: white 5px solid; border-bottom: white 5px solid;'>
-          <a class='btn btn-embossed btn-sm btn-primary' style='margin-left: 10px; margin-right: 5px;'
-          href='/tasks/edittask?title=" .
-          $task->title . "&creator_username=" .
-          $task->creator_username .
-          "'><span class='fui-new'></span> Edit</a></td>";
-    echo "<td style='border: white 5px solid;'>
-          <a class='btn btn-embossed btn-sm btn-danger' style='margin-left: 5px; margin-right: 5px;'
-          href='/tasks/deletetask?title=" .
-          $task->title . "&creator_username=" .
-          $task->creator_username .
-          "'><span class='fui-trash'></span> Delete</a></td>";
     echo '</tr>';
   }
-  
+
   echo '</tbody>';
   echo '</table>';
   echo "<script type='text/javascript'>";

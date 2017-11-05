@@ -9,6 +9,7 @@
     <div class="login-form">
       <div class="form-group">
         <form action="<?php echo URL; ?>signup/submitForm" method="POST">
+            <?php if(isset($_SESSION['flash']['createFail'])) echo '<i class="error">Account Creation Failed. Possibly same account exists.</i>';?>
           <div class="form-group">
             <input type="text" name="username" class="form-control login-field" value="" placeholder="Username" id="login-name" autocomplete="off" style="background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
             <label class="login-field-icon fui-user" for="login-name"></label>

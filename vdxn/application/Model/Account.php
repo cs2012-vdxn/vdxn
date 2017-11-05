@@ -27,9 +27,13 @@ class Account extends Model
     $query->execute();
     $result = $query->fetch();
 
-    $verify = password_verify($password, $result->{'password_hash'});
-    if ($verify) {
-      return $result;
+    if ($result) {
+      $verify = password_verify($password, $result->{'password_hash'});
+      if ($verify) {
+        return $result;
+      } else {
+        return null;
+      }
     } else {
       return null;
     }
@@ -74,6 +78,7 @@ class Account extends Model
     $query = $this->db->prepare($sql);
     return $query->execute();
   }
+
 
   //==========================================
   // GETTING USER PROFILE ATTRIBUTES
