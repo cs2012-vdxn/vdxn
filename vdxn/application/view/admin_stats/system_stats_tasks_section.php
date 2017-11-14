@@ -19,7 +19,10 @@
               </p>
               <p>Total Bids: <b><?php echo $num_bids_total_in_range; ?></b></p>
               <p>Average Bids Per Task: <b><?php
-                $avg = $num_bids_total_in_range/($num_tasks_completed_in_range + $num_tasks_uncompleted_in_range);
+
+                $denom = ($num_tasks_completed_in_range + $num_tasks_uncompleted_in_range);
+                $avg = $denom == 0 ? 0 : $num_bids_total_in_range/$denom;
+
                 echo number_format((float)$avg, 2, '.', '');
                ?></b>
               </p>
@@ -179,4 +182,3 @@
         chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 </script>
-
