@@ -5,14 +5,9 @@
 <div class="row">
   <div class="col-md-6">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        User Sign-ups 👶
-      </div>
       <div class="panel-body">
         <p>
-          Between these dates:
-          <br/>
-          No. of sign-ups: <?php echo $num_users_created; ?>
+          No. of Accounts: <?php echo $num_users_created; ?>
         </p>
       </div>
     </div>
@@ -66,4 +61,3 @@
     </div>
   </div>
 </div>
-

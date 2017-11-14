@@ -263,13 +263,13 @@ class Task extends Model
       $tags_arr = explode(",", $tags_string);
       for($i = 0; $i < sizeof($tags_arr); $i++) {
           if($this -> existsTag($tags_arr[$i])) {
-              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
+              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], $time);
           } else {
-              $this -> createTag($tags_arr[$i], '2017-09-24 03:09:10');
-              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], '2017-09-24 03:09:10');
+              $this -> createTag($tags_arr[$i], $time);
+              $this->createTagTask($tags_arr[$i], $_SESSION['user']->username, $task_params['title'], $time);
           }
       }
-      $this -> createCategoryTask($_SESSION['user']->username,$task_params['title'], $task_params['category'],'2017-09-24 03:09:10');
+      $this -> createCategoryTask($_SESSION['user']->username,$task_params['title'], $task_params['category'],$time);
       $query = $this->db->prepare($sql);
       return $query->execute();
     }
@@ -741,10 +741,14 @@ class Task extends Model
      * @return Object    Number of completed tasks as one value & number of
      *                   uncompleted tasks as another value.
      */
-    public function getNumCompletedUncompletedTasks() {
+    public function getNumCompletedUncompletedTasks($from_date = NULL, $to_date = NULL) {
+      $from_date = $from_date ? $from_date : $this->DEFAULT_FROM_DATE;
+      $to_date = $to_date ? $to_date : $this->DEFAULT_TO_DATE;
       $sql = "SELECT COUNT(completed_at) AS num_tasks_completed,
         (COUNT(*) - COUNT(completed_at)) AS num_tasks_uncompleted
-        FROM Task";
+        FROM Task
+        WHERE created_at BETWEEN '".$from_date."' AND '".$to_date."'";
+
       $query = $this->db->prepare($sql);
       $query->execute();
       return $query->fetch();

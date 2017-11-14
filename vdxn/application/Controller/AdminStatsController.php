@@ -31,6 +31,7 @@ class AdminStatsController {
     // The two values that affect the queries on the page
 
     if(isset($_GET['fromDate']) && isset($_GET['toDate'])) {
+
       $fromDate_arr  = explode('-', $_GET['fromDate']);
       $toDate_arr  = explode('-', $_GET['toDate']);
       if (checkdate($fromDate_arr[1], $fromDate_arr[0], $fromDate_arr[2]) &&
@@ -47,9 +48,8 @@ class AdminStatsController {
       $currentToDate = DEFAULT_TO_DATE;
     }
 
-    $currentFromDateTimeStamp = strtotime(date_format(date_create($currentFromDate), 'd-m-Y'));
-    $currentToDateTimeStamp = strtotime(date_format(date_create($currentToDate), 'd-m-Y'));
-
+    $currentFromDateTimeStamp = (date_format(date_create($currentFromDate), 'Y-m-d'));
+    $currentToDateTimeStamp = (date_format(date_create($currentToDate), 'Y-m-d'));
 
     // Retrieve the number of completed/uncompleted tasks in range
     $num_tasks_com_uncom = $Task->getNumCompletedUncompletedTasks($currentFromDateTimeStamp, $currentToDateTimeStamp);
