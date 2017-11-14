@@ -111,11 +111,11 @@ class AdminStatsController {
                       $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = $arr_month_names[$i-1];
                       break;
                   case 1:
-                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_created_by_month[$i]->{'num_tasks_created'})? $arr_num_tasks_created_by_month[$i]->{'num_tasks_created'} :
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_created_by_month[$i]->{'num_tasks_created'})? (int)$arr_num_tasks_created_by_month[$i]->{'num_tasks_created'} :
                           0;
                       break;
                   case 2:
-                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'})? $arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'} :
+                      $num_tasks_vs_bids_vs_completed_by_month[$i][$j] = isset($arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'})? 1/14 * $arr_num_tasks_bidded_by_month[$i]->{'num_bids_created'} :
                           0;
                       break;
                   case 3:

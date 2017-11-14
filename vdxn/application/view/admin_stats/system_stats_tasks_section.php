@@ -167,10 +167,16 @@
             <?php echo $num_tasks_vs_bids_vs_completed_by_month;?>
         );
 
+        var options = {
+            chart: {
+                title: 'Number of Bids Created, Tasks Created and Tasks Completed by Month',
+                subtitle: 'From Jan 2017 to Dec 2017',
+            }
+        };
+
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-        chart.draw(data);
+        chart.draw(data, google.charts.Bar.convertOptions(options));
     }
 </script>
-
 
